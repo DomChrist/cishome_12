@@ -1,0 +1,44 @@
+
+<p-overlayPanel #op>
+    <ng-template pTemplate>
+
+        <div *ngIf="!collaboration">
+            <button
+                pButton
+                (click)="activate()"
+                label="SHARE"></button>
+        </div>
+        <div *ngIf="collaboration" >
+            <label style="font-weight: bold">LINK</label>
+            <div>
+                <input type="text" #inputlink id="inputlink" pInputText [ngModel]="link" (click)="this.inputlink.select()" >
+                <button
+                    pButton
+                    [style]="{height:'46px'}"
+                    icon="pi pi-copy"
+                    (click)="copy( link )">
+                </button>
+            </div>
+            <div style="margin-top: 10px;">
+                <label style="font-weight: bold">CODE</label>
+                <div >
+                    <input [ngModel]="code" pInputText>
+                    <button
+                        pButton
+                        [style]="{height:'46px'}"
+                        icon="pi pi-copy"
+                        (click)="copy( code )">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </ng-template>
+</p-overlayPanel>
+
+<button
+    pButton
+    (click)="op.toggle($event)"
+    label="Share"
+    class="p-button-info p-button-rounded"
+    icon="pi pi-desktop"></button>

@@ -1,0 +1,38 @@
+.meeting-name{
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.meeting-description{
+    font-size: 1.3em;
+    color: darkgray;
+}
+
+.product-list-detail{
+    float: left;
+}
+
+
+.product-list-item{
+    padding: 15px;
+}
+
+.product-list-action{
+    float: right;
+}
+
+.product-list-action::after{
+    display: block;
+    clear: both;
+    margin-bottom: 10px;
+}
+
+.click-item{
+    padding: 15px;
+}
+
+.open-button{
+    padding: 15px;
+    width: 100%;
+    height: 100px;
+}

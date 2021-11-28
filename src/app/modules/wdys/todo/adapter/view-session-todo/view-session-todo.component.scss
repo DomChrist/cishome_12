@@ -1,0 +1,21 @@
+label.overdue{
+    font-weight: bold;
+    color: #C63737;
+}
+
+div.overdue{
+    color: #C63737;
+}
+
+label.in-time{
+    color: darkgray;
+    font-weight: bold;
+}
+
+.fromjump{
+    background: #C63737;
+}
+
+.fromjump > *{
+    background: #FFF8E1;
+}

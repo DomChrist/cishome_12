@@ -1,0 +1,40 @@
+
+<div *ngIf="!notes">
+
+    <div style="margin-bottom: 15px;"><p-skeleton height="10rem" width="100%"></p-skeleton></div>
+    <div style="margin-bottom: 15px;"><p-skeleton height="10rem" width="100%"></p-skeleton></div>
+    <div style="margin-bottom: 15px;"><p-skeleton height="10rem" width="100%"></p-skeleton></div>
+
+</div>
+
+<div *ngIf="notes">
+
+    <div>
+
+    </div>
+
+    <div *ngFor="let n of notes" style="margin-top: 8px;">
+        <p-card>
+            <label style="text-overflow: ellipsis; width: 100px;" class="note">{{n.note.mediumValue}}</label>
+            <p-footer>
+                <div>
+                    <label>
+                        <i class="pi pi-calendar"></i>
+                        {{n.created | date:'dd.MM.yyyy'}}
+                    </label>
+                </div>
+                <div *ngIf="n.participant"  style="text-align: right; float: right">
+                    <p-avatarGroup>
+                        <p-avatar [pTooltip]="n.participant.fullName" [label]="n.participant?.initial" shape="circle"></p-avatar>
+                    </p-avatarGroup>
+                </div>
+                <div style="clear: both"></div>
+            </p-footer>
+        </p-card>
+    </div>
+
+    <p-dialog [(visible)]="show_create_meeting_note" responsive="true" resizable="true" [style]="{minWidth:'600px'}" modal="true"  >
+        <app-create-meeting-note [session]="session"></app-create-meeting-note>
+    </p-dialog>
+
+</div>

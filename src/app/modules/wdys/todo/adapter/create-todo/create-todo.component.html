@@ -1,0 +1,22 @@
+<div class="p-fluid p-grid">
+    <div class="p-field p-col-12">
+        <span class="p-float-label">
+            <input type="text" id="des" pInputText [(ngModel)]="cmd.description">
+            <label for="des">DESCRIPTION</label>
+        </span>
+    </div>
+
+    <div class="p-field p-col-11 p-md-4">
+        <span class="p-float-label">
+            <p-calendar id="cal" [(ngModel)]="cmd.dueDate" pattern="dd.MM.yyyy" appendTo="body" ></p-calendar>
+            <label for="cal">DUE DATE</label>
+        </span>
+    </div>
+
+    <div>
+        <button label="SAVE"
+            pButton
+            (click)="save()"></button>
+    </div>
+
+</div>

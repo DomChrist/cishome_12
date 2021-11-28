@@ -1,0 +1,24 @@
+<div *ngIf="tracker" style="position: fixed; bottom: 15px; right: 15px;">
+    <p-panel toggleable="true" (toggle)="toggler($event)" (onAfterToggle)="toggler($event)">
+        <ng-template pTemplate="header">
+            <div *ngIf="collapsed">
+                <label>{{tracker.diff()}}</label>
+            </div>
+            <div *ngIf="!collapsed">ACTIVE TIME TRACKER</div>
+        </ng-template>
+        <div style="padding: 10px; text-align: center" >
+            <button
+                pButton
+                [label]="tracker?.diff()"
+                class="p-button-danger p-button-rounded p-button-raised"
+                icon="pi pi-pause"></button>
+        </div>
+        <div style="text-align: right">
+            <button
+                pButton
+                class="p-button-link"
+                [routerLink]="['/app/wdys/meeting/view/',tracker.meeting,'session',tracker.id]"
+                label="JUMP TO"></button>
+        </div>
+    </p-panel>
+</div>

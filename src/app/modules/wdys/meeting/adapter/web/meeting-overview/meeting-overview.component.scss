@@ -1,0 +1,48 @@
+.custom-marker {
+    display: flex;
+    width: 2rem;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.title{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.title > *{
+    padding-left: 18px;
+    font-size: 2.1em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.calendar-time{
+
+}
+
+.calendar-time > i {
+    font-size: 3.2em;
+    color: #0D47A1;
+}
+
+.calendar-time > div {
+    margin-top: 5px;
+}
+
+.calendar-time > div > label {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #0D47A1;
+}
+
+.session-bg {
+    color: snow;
+    background: #007be5;
+    padding: 5px;
+    font-size: 2em;
+}

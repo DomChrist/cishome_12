@@ -1,0 +1,16 @@
+<button
+    pButton
+    icon="pi pi-shopping-cart"
+    (click)="showDialog()"
+    [label]="shopName"
+></button>
+
+<p-dialog [modal]="true" [(visible)]="dialogVisible" header="Store" [style]="{minWidth:'400px'}">
+
+    <div class="p-grid">
+        <div class="p-col-12">
+            <input pInputText style="width: 100%" [(ngModel)]="shopNameInput"  (keydown.enter)="save()" >
+        </div>
+    </div>
+
+</p-dialog>

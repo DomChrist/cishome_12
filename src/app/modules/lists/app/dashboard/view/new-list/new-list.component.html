@@ -1,0 +1,22 @@
+<div class="p-grid">
+  <div style="margin-top: 45px" class="p-col-12">
+    <span class="ui-float-label">
+        <input [(ngModel)]="name" style="width: 100%"
+               id="input-name" type="text" size="30" pInputText>
+    </span>
+  </div>
+
+  <div class="p-col-12">
+      <div class="p-grid">
+          <div *ngFor="let s of supportedListModules" class="p-col">
+              <button
+                  style="width: 100%; height: 100%"
+                  pButton
+                  (click)="sendNewCommand(s)"
+                  [label]="s | uppercase"></button>
+          </div>
+      </div>
+  </div>
+
+</div>
+

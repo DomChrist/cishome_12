@@ -1,0 +1,27 @@
+label.click {
+  color: #0D47A1;
+  font-size: .7em;
+  font-weight: bold;
+  text-transform: uppercase
+}
+
+button.action {
+    position: fixed;
+    right: 55px;
+    bottom: 55px;
+    font-size: 1.8em;
+}
+
+label.action{
+    border: 1px solid silver;
+    padding: 5px;
+    width: 42px;
+    height: 42px;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+label.action > span{
+    font-size: 1.2em;
+    padding: 5px;
+}

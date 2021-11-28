@@ -1,0 +1,73 @@
+<div class="p-grid" *ngIf="type==='sidebar'">
+  <div class="p-col-12 p-md-4 p-md-offset-4" >
+
+    <div style="margin-top: 45px;">
+    <span class="ui-float-label">
+        <input (keyup.enter)="send()" (keyup)="suggest()" [(ngModel)]="name" style="width: 100%" id="input-name" type="text" size="30" pInputText>
+        <label for="input-name">NEUES ITEM ANLEGEN</label>
+    </span>
+    </div>
+
+      <div>
+          <p-messages [enableService]="true" ></p-messages>
+      </div>
+
+  </div>
+
+    <div *ngIf="suggestList" class="p-col-12" style="padding-left: 10px;">
+        <div *ngFor="let s of suggestList">
+            <div class="p-col-12 p-md-2" (click)="take(s.name)">
+                <p-card>{{s.name}}</p-card>
+            </div>
+        </div>
+    </div>
+
+  <div style="position: absolute; bottom: 0px; left: 0px; width: 100%;">
+    <button
+      pButton
+      style="width: 100%"
+      label="ANLEGEN"
+      (click)="send()"
+      value="ANLEGEN"></button>
+  </div>
+
+</div>
+
+<div *ngIf="type==='inline'">
+
+    <p-messages [enableService]="true"></p-messages>
+
+    <div class="p-inputgroup">
+        <input [(ngModel)]="name" (keyup.enter)="send()" (keyup)="suggest()" type="text" pInputText placeholder="ITEM">
+        <button type="button" pButton pRipple icon="pi pi-plus" (click)="send()" styleClass="p-button-success"></button>
+    </div>
+
+    <div *ngIf="suggestList" class="" style="padding-left: 10px;">
+        <div *ngFor="let s of suggestList">
+            <div class="p-col-12 p-md-2" (click)="take(s.name)">
+                <p-card>{{s.name}}</p-card>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-grid" style="margin-top: 15px;">
+        <div class="p-col-6" *ngIf="suggestListEmpty" >
+            <button
+                icon="pi pi-tag"
+                label="ANGEBOTE"
+                style="width: 100%"
+                pButton></button>
+        </div>
+        <div class="p-col-6" *ngIf="suggestListEmpty" >
+            <button
+                icon="pi pi-camera"
+                label="PICTURE"
+                style="width: 100%"
+                pButton></button>
+        </div>
+    </div>
+
+
+</div>
+
+

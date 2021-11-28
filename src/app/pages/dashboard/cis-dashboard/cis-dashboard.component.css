@@ -1,0 +1,16 @@
+.link-widget{
+
+    display: inline-block;
+    width: 55px;
+    height: 55px;
+    font-size: 1.3em;
+    text-align: center;
+    box-shadow: 3px 2px 1px 1px silver;
+    background: #0D47A1;
+    cursor: pointer;
+}
+
+.link-widget > i{
+    padding-top: 30%;
+    color: snow;
+}

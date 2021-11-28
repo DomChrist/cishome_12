@@ -1,0 +1,56 @@
+<div *ngIf="!meetingAgenda && !loadFinished">
+
+    <div style="margin-bottom: 15px;"><p-skeleton height="10rem" width="100%"></p-skeleton></div>
+    <div style="margin-bottom: 15px;"><p-skeleton height="10rem" width="100%"></p-skeleton></div>
+    <div style="margin-bottom: 15px;"><p-skeleton height="10rem" width="100%"></p-skeleton></div>
+
+</div>
+
+
+
+<div style="margin: 5px;">
+
+</div>
+
+<div *ngIf="meetingAgenda || loadFinished">
+
+    <p-card>
+        <p-header>
+            <div style="text-align: right">
+                <button pButton
+                        class="p-button-secondary p-button-rounded"
+                        icon="pi pi-plus"
+                        (click)="showOpenNewAgendaCommand()"></button>
+            </div>
+        </p-header>
+        <div *ngIf="meetingAgenda">
+            <div *ngFor="let p of meetingAgenda.meetingPoints" style="margin-top: 15px;">
+                <p-checkbox [binary]="true" [(ngModel)]="!p.status.open"></p-checkbox>
+                <label style="font-size: 1.2em; margin-left: 5px;" >{{p.name}}</label>
+            </div>
+        </div>
+
+    </p-card>
+
+
+</div>
+
+
+<p-dialog [(visible)]="showNewAgendaDialog" [style]="{minWidth:'400px'}" >
+
+    <div *ngIf="newAgendaCmd">
+        <input type="text" style="width: 100%" pInputText [(ngModel)]="newAgendaCmd.name" >
+    </div>
+
+    <div style="text-align: right; margin-top: 15px;" >
+        <button pButton
+                label="CANCEL"
+                (click)="showNewAgendaDialog = false"
+                class="p-button-link"></button>
+        <button pButton
+                class="p-button-success"
+                label="SAVE"
+                (click)="saveNewAgenda()"></button>
+    </div>
+
+</p-dialog>

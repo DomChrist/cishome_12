@@ -1,0 +1,20 @@
+@use "src/assets/sass/layout/variables" as v;
+
+footer{
+    position: fixed;
+    bottom: 2px;
+    width: 100%;
+    left: 0px;
+    height: 55px;
+    background: v.$textColor;
+}
+
+.add-button {
+    position: fixed;
+    right: 30px;
+    bottom: 20px;
+    width: 75px;
+    height: 75px !important;
+    box-sizing: border-box;
+    border: 5px solid white;
+}

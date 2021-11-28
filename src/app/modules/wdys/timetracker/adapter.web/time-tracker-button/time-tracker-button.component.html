@@ -1,0 +1,18 @@
+<button
+    pButton
+    class="p-button-success p-button-rounded p-button-raised"
+    *ngIf="!running"
+    [label]="diff()"
+    (click)="play()"
+    icon="pi pi-play">
+</button>
+<button
+    pButton
+    (click)="pause()"
+    [label]="diff()"
+    class="p-button-danger p-button-rounded p-button-raised"
+    *ngIf="running"
+    icon="pi pi-pause">
+</button>
+<p-chip *ngIf="!running && combinedTime() > 0" (click)="reset()" icon="pi pi-replay" label="Reset"></p-chip>
+<ng-container *ngTemplateOutlet="booking"></ng-container>

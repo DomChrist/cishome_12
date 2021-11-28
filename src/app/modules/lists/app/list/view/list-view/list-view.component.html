@@ -1,0 +1,86 @@
+
+<app-shopping-list [reference]="reference"></app-shopping-list>
+
+
+<div style="margin-top: 35px;" *ngIf="false">
+
+
+  <div *ngIf="false">
+    <p-card>
+      <div style="float: right">
+        <label (click)="showNewItem = true" class="action" style="">
+          <span style="" class="fa fa-plus"></span>
+        </label>
+
+          <label (click)="finished()" class="action" style="">
+            <span style="" class="fa fa-shopping-cart"></span>
+          </label>
+
+          <label (click)="load()" style="" class="action">
+            <span style="" class="fa fa-sync"></span>
+          </label>
+      </div>
+      <div style="clear: both"></div>
+    </p-card>
+  </div>
+
+  <div style="text-align: center">
+    <h3>{{list?.list?.name}}</h3>
+  </div>
+
+  <div style="margin-top: 5px; margin-bottom: 10px; font-size: 0.9em">
+    <div  *ngIf="!showNewItemInline" style="text-align: right">
+      <label class="click" (click)="showNewItemInline = !showNewItemInline">HINZUFÜGEN</label>
+    </div>
+    <p-card *ngIf="showNewItemInline">
+      <div style="text-align: right">
+          <button pButton icon="fa fa-times" (click)="showNewItemInline = !showNewItemInline"></button>
+      </div>
+      <app-add-item [reference]="reference" type="inline"  (created)="created($event)" ></app-add-item>
+    </p-card>
+  </div>
+
+
+
+  <div *ngIf="false">
+    <div *ngFor="let item of list.list?.items" style="margin-bottom: 10px;">
+      <p-card>
+        <label style="border: 1px solid silver; padding: 5px; width: 45px; height: 45px; " (click)="bought(item)">
+          <span style="" class="fa fa-shopping-cart"></span>
+        </label>
+        <label style="margin-left: 5px;">
+          {{item.name}}
+        </label>
+      </p-card>
+      <div>
+        <div style="color: #0D47A1; font-size: .9em; font-weight: bold; text-transform: uppercase">
+          <label (click)="remove(item)" style="float: right; cursor: pointer;">entfernen</label>
+          <label (click)="bought(item)" style="float: right; cursor: pointer; margin-right: 15px;">
+            <span class="fa fa-cart-plus"></span>
+            gekauft
+          </label>
+          <div style="clear: both"></div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+
+</div>
+
+
+
+
+<p-sidebar
+  [fullScreen]="false"
+  position="bottom"
+  [style]="{height:'400px'}"
+  (onHide)="load()"
+  [(visible)]="showNewItem">
+
+  <app-add-item *ngIf="showNewItem" [reference]="reference" ></app-add-item>
+
+
+</p-sidebar>

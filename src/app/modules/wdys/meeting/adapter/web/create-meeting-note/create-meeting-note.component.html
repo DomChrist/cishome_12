@@ -1,0 +1,52 @@
+<div *ngIf="session">
+    <p-messages></p-messages>
+    <p-toast position="top"></p-toast>
+    <div>
+        <p-divider align="left" type="dashed">
+            <div class="p-d-inline-flex p-ai-center">
+                <i class="pi pi-users p-mr-2"></i>
+                <b>PARTICIPANTS</b>
+            </div>
+        </p-divider>
+
+        <div *ngIf="!participant">
+            <label *ngFor="let p of participants">
+                <p-avatar [label]="p.initial" [pTooltip]="p.fullName" (click)="select(p)" *ngIf="p.selected" styleClass="p-mr-2" size="large" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" shape="circle"></p-avatar>
+                <p-avatar [label]="p.initial" [pTooltip]="p.fullName" (click)="select(p)" *ngIf="!p.selected" styleClass="p-mr-2" size="large"  shape="circle"></p-avatar>
+            </label>
+        </div>
+        <div *ngIf="participant">
+            <p-avatar [label]="participant.initial" [pTooltip]="participant.fullName" (click)="participant = null" styleClass="p-mr-2" size="large" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" shape="circle"></p-avatar>
+            <label>&nbsp;{{participant.fullName}}</label>
+        </div>
+    </div>
+
+
+    <div *ngIf="note">
+
+        <p-divider align="left" type="dashed">
+            <div class="p-d-inline-flex p-ai-center">
+                <i class="pi pi-users p-mr-2"></i>
+                <b>NOTE</b>
+            </div>
+        </p-divider>
+        <div>
+            <textarea [(ngModel)]="note.note" rows="5" maxlength="255" style="width: 100%;" pInputTextarea >
+
+            </textarea>
+            <div>
+                <label>{{note?.note?.length}}/255</label>
+            </div>
+        </div>
+        <div style="text-align: right">
+            <button pButton
+                    (click)="save()"
+                    class="p-button-success"
+                    label="SAVE"
+                    icon="pi pi-save"></button>
+        </div>
+
+
+    </div>
+
+</div>

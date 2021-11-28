@@ -1,0 +1,354 @@
+
+
+<div style="margin-bottom: 25px;">
+
+    <div>
+        <p-splitButton
+                class="p-button-success"
+                [style]="{width:'100%'}"
+                (onClick)="newMeetingRouting()"
+                [model]="commandItems"
+                label="ADD MEETING"
+                icon="pi pi-plus"></p-splitButton>
+    </div>
+
+</div>
+
+<div class="p-grid dashboard">
+    <div class="p-col-12 p-md-6 p-lg-3">
+        <div class="p-grid p-nogutter card overview-box overview-box-1">
+            <span class="overview-box-name">Meetings</span>
+            <span class="overview-box-count">{{count?.meetings}}</span>
+            <span class="overview-box-badge">+30%</span>
+            <img src="assets/layout/images/dashboard/chart-1.svg" />
+        </div>
+    </div>
+    <div class="p-col-12 p-md-6 p-lg-3">
+        <div class="p-grid p-nogutter card overview-box overview-box-2">
+            <span class="overview-box-name">Sessions</span>
+            <span class="overview-box-count">{{count?.sessions}}</span>
+            <span class="overview-box-badge">+45%</span>
+            <img src="assets/layout/images/dashboard/chart-2.svg" />
+        </div>
+    </div>
+    <div class="p-col-12 p-md-6 p-lg-3">
+        <div class="p-grid p-nogutter card overview-box overview-box-3">
+            <span class="overview-box-name">Notes</span>
+            <span class="overview-box-count">{{count?.notes}}</span>
+            <span class="overview-box-badge">-75%</span>
+            <img src="assets/layout/images/dashboard/chart-3.svg" />
+        </div>
+    </div>
+    <div class="p-col-12 p-md-6 p-lg-3">
+        <div class="p-grid p-nogutter card overview-box overview-box-4">
+            <span class="overview-box-name">Todos</span>
+            <span class="overview-box-count">{{count?.todos}}</span>
+            <span class="overview-box-badge">25%</span>
+            <img src="assets/layout/images/dashboard/chart-4.svg" />
+        </div>
+    </div>
+
+    <div class="p-col-12">
+        <span class="p-input-icon-left" style="width: 100%">
+            <i class="pi pi-search"></i>
+                    <input pInputText
+                           style="width: 100%"
+                           placeholder="search"
+                           (focus)="showSearchBar = !showSearchBar">
+        </span>
+    </div>
+
+    <div class="p-col-12 p-lg-4">
+        <p-panel header="Todos" [style]="{'height':'100%'}">
+            <div class="activity-header">
+                <div class="p-grid">
+                    <div class="p-col-6">
+                        <span style="font-weight:bold">Most Urgend Todos</span>
+                        <p>Updated 1 minute ago</p>
+                    </div>
+                    <div class="p-col-6" style="text-align:right">
+                        <button type="button" label="Update" icon="pi pi-refresh" pButton></button>
+                    </div>
+                </div>
+            </div>
+            <ul class="activity-list">
+                <li *ngFor="let o of todos">
+                    <div class="p-d-flex p-jc-between p-ai-center p-mb-3">
+                        <h5 class="activity p-m-0">{{o.label}}</h5>
+                        <div pTooltip="Due in Days" *ngIf="o.dueDate" class="count" [class.bg-green]="o.dueDaysTillDeadline < 30" [class.bg-yellow]="o.dueDaysTillDeadline < 60" [class.bg-red]="o.dueDaysTillDeadline >= 90">
+                            {{o.dueDays}}
+                        </div>
+                    </div>
+                    <p-progressBar [value]="o.dueDaysTillDeadline" [showValue]="false"></p-progressBar>
+                    <div style="margin-top: 5px;" *ngIf="o.dueDate">
+                        <div pTooltip="Creation Date" [class.bg-green]="o.dueDaysTillDeadline < 30" [class.bg-yellow]="o.dueDaysTillDeadline < 60" [class.bg-red]="o.dueDaysTillDeadline >= 90" class="count" style="float: left">
+                            {{o.created | date:'dd.MM'}}
+                        </div>
+                        <div pTooltip="Due Date" [class.bg-green]="o.dueDaysTillDeadline < 30" [class.bg-yellow]="o.dueDaysTillDeadline < 60" [class.bg-red]="o.dueDaysTillDeadline >= 90" class="count" style="float: right">
+                            {{o.dueDate | date:'dd.MM' }}
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                </li>
+            </ul>
+        </p-panel>
+    </div>
+
+    <div class="p-col-12 p-md-4">
+        <p-panel header="Last Meeting Activities" [style]="{'height':'100%'}">
+            <div class="activity-header">
+                <div class="p-grid">
+                    <div class="p-col-6">
+                        <span style="font-weight:bold">Last Meeting Activity</span>
+                        <p>Updated 1 minute ago</p>
+                    </div>
+                    <div class="p-col-6" style="text-align:right">
+                        <button type="button" label="Update" icon="pi pi-refresh" pButton></button>
+                    </div>
+                </div>
+            </div>
+            <ul class="activity-list">
+                <li *ngFor="let m of lastMeetings">
+                    <div class="p-d-flex p-jc-between p-ai-center p-mb-3">
+                        <h5 class="activity p-m-0">{{m.topic}}</h5>
+                        <button pButton [routerLink]="['meeting','view',m.id]" class="p-button-link" label="OPEN"></button>
+                    </div>
+                    <p-progressBar [value]="m.finishedInPercent" [showValue]="false"></p-progressBar>
+                </li>
+            </ul>
+        </p-panel>
+    </div>
+
+
+    <div class="p-col-12 p-lg-4 contacts">
+        <p-panel *ngIf="communications" header="Most Communications" [style]="{'min-height':'360px'}" styleClass="p-shadow-content">
+            <div class="activity-header">
+                <div class="p-grid">
+                    <div class="p-col-6">
+                        <span style="font-weight:bold">Communications</span>
+                        <p>Updated 1 minute ago</p>
+                    </div>
+                    <div class="p-col-6" style="text-align:right">
+                        <button type="button" label="Update" icon="pi pi-refresh" pButton></button>
+                    </div>
+                </div>
+            </div>
+            <ul>
+                <li *ngFor="let c of communications" class="clearfix">
+                    <img src="assets/layout/images/profile-image.png" style="width: 45px"/>
+                    <div class="contact-info">
+                        <span class="name">{{c.firstName}} {{c.lastName}}</span>
+                        <span class="location">{{c.mail}}</span>
+                    </div>
+                    <div class="contact-actions">
+                        <span class="connection-status online">{{c.count}}</span>
+                        <i class="pi pi-envelope"></i>
+                        <i class="pi pi-reply"></i>
+                    </div>
+                </li>
+            </ul>
+        </p-panel>
+    </div>
+
+    <div class="p-col-12 p-lg-4 contacts">
+        <p-card header="Note Timeline">
+            <div class="activity-header">
+                <div class="p-grid">
+                    <div class="p-col-6">
+                        <span style="font-weight:bold">Last Notes</span>
+                        <p>Updated 1 minute ago</p>
+                    </div>
+                    <div class="p-col-6" style="text-align:right">
+                        <button type="button" label="Update" icon="pi pi-refresh" pButton></button>
+                    </div>
+                </div>
+            </div>
+            <p-timeline [value]="lastNotesList" align="left" styleClass="customized-timeline">
+                <ng-template pTemplate="marker" let-event>
+            <span class="custom-marker " [style.backgroundColor]="event.color">
+                    <i class="pi pi-comment" style="color:#9c27b0; font-size: 2em;"></i>
+            </span>
+                </ng-template>
+                <ng-template pTemplate="opposite" let-event>
+                    <label style="font-size: 1.1em; text-overflow: fade; width: 50px;">{{event.dayString}}</label>
+                </ng-template>
+                <ng-template pTemplate="content" let-event>
+                    <span class="event-owner" style="color:#009688; font-size: 1.4em;">{{event.participant?.firstName}}</span>
+                    <div style="margin-bottom: 15px; width: 140px">
+                        <span class="event-text" style="font-size: 1.1em; text-overflow: ellipsis; width: 80px;">{{event.note}}</span>
+                        <div style="text-align: right; margin-top: 5px;">
+                            <button [routerLink]="['/app/wdys/meeting/view',event.meeting,'session',event.session]" class="p-button-link" pButton label="MORE"></button>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-timeline>
+        </p-card>
+    </div>
+
+    <div *ngIf="false" class="p-col-12 activity-feed">
+        <p-panel header="ACTIVITY FEED" styleClass="p-shadow-content">
+            <h3>Last Activity</h3>
+            <p>Updated 1 minute ago</p>
+            <div class="p-grid">
+                <div class="p-col-12 p-md-3">
+                    <span>INCOME</span>
+                    <div class="knob income">$900</div>
+                </div>
+                <div class="p-col-12 p-md-3">
+                    <span>TAX</span>
+                    <div class="knob tax">$250</div>
+                </div>
+                <div class="p-col-12 p-md-3">
+                    <span>INVOICES</span>
+                    <div class="knob invoice">$125</div>
+                </div>
+                <div class="p-col-12 p-md-3">
+                    <span>EXPENSES</span>
+                    <div class="knob expense">$250</div>
+                </div>
+            </div>
+        </p-panel>
+    </div>
+
+    <div *ngIf="false" class="p-col-12 p-md-6 p-lg-4 task-list">
+        <p-panel header="Tasks" styleClass="p-shadow-content">
+            <ul>
+                <li>
+                    <p-checkbox binary="true"></p-checkbox>
+                    <span class="task-name">Sales Reports</span>
+                    <i class="pi pi-briefcase"></i>
+                </li>
+                <li>
+                    <p-checkbox binary="true"></p-checkbox>
+                    <span class="task-name">Pay Invoices</span>
+                    <i class="pi pi-file"></i>
+                </li>
+                <li>
+                    <p-checkbox binary="true"></p-checkbox>
+                    <span class="task-name">Dinner with Tony</span>
+                    <i class="pi pi-comments"></i>
+                </li>
+                <li>
+                    <p-checkbox binary="true"></p-checkbox>
+                    <span class="task-name">Client Meeting</span>
+                    <i class="pi pi-users"></i>
+                </li>
+                <li>
+                    <p-checkbox binary="true"></p-checkbox>
+                    <span class="task-name">New Theme</span>
+                    <i class="pi pi-palette"></i>
+                </li>
+                <li>
+                    <p-checkbox binary="true"></p-checkbox>
+                    <span class="task-name">Flight Ticket</span>
+                    <i class="pi pi-ticket"></i>
+                </li>
+                <li>
+                    <p-checkbox binary="true"></p-checkbox>
+                    <span class="task-name">Generate Charts</span>
+                    <i class="pi pi-chart-bar"></i>
+                </li>
+                <li>
+                    <p-checkbox binary="true"></p-checkbox>
+                    <span class="task-name">Call Client</span>
+                    <i class="pi pi-mobile"></i>
+                </li>
+            </ul>
+        </p-panel>
+    </div>
+    <div *ngIf="false" class="p-col-12 p-md-6 p-lg-4 p-fluid contact-form">
+        <p-panel header="Contact Us" styleClass="p-shadow-content">
+            <div class="p-grid">
+                <div class="p-col-12">
+                </div>
+                <div class="p-col-12">
+                    <span class="p-float-label">
+                        <input id="name" type="text" pInputText />
+                        <label for="name">Name</label>
+                    </span>
+                </div>
+                <div class="p-col-12">
+                    <span class="p-float-label">
+                        <input id="age" type="text" pInputText />
+                        <label for="age">Age</label>
+                    </span>
+                </div>
+            </div>
+            <button type="button" label="Send" icon="pi pi-check" pButton></button>
+        </p-panel>
+    </div>
+
+    <div *ngIf="false" class="p-col-12 p-lg-4 contacts">
+        <p-panel header="Contacts" [style]="{'min-height':'360px'}" styleClass="p-shadow-content">
+            <ul>
+                <li class="clearfix">
+                    <img src="assets/layout/images/profile-image.png" style="width: 45px"/>
+                    <div class="contact-info">
+                        <span class="name">Jane White (me)</span>
+                        <span class="location">jane@pf-barcelona.com</span>
+                    </div>
+                    <div class="contact-actions">
+                        <span class="connection-status online">online</span>
+                        <i class="pi pi-envelope"></i>
+                        <i class="pi pi-reply"></i>
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <img src="assets/layout/images/avatar1.png" style="width: 45px"/>
+                    <div class="contact-info">
+                        <span class="name">Joshua Williams</span>
+                        <span class="location">joshua@pf-barcelona.com</span>
+                    </div>
+                    <div class="contact-actions">
+                        <span class="connection-status online">online</span>
+                        <i class="pi pi-envelope"></i>
+                        <i class="pi pi-reply"></i>
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <img src="assets/layout/images/avatar2.png" style="width: 45px"/>
+                    <div class="contact-info">
+                        <span class="name">Emily Clark</span>
+                        <span class="location">emily@pf-barcelona.com</span>
+                    </div>
+                    <div class="contact-actions">
+                        <span class="connection-status offline">offline</span>
+                        <i class="pi pi-envelope"></i>
+                        <i class="pi pi-reply"></i>
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <img src="assets/layout/images/avatar3.png" style="width: 45px"/>
+                    <div class="contact-info">
+                        <span class="name">Tim Johnson</span>
+                        <span class="location">tim@pf-barcelona.com</span>
+                    </div>
+                    <div class="contact-actions">
+                        <span class="connection-status online">online</span>
+                        <i class="pi pi-envelope"></i>
+                        <i class="pi pi-reply"></i>
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <img src="assets/layout/images/avatar4.png" style="width: 45px"/>
+                    <div class="contact-info">
+                        <span class="name">David Stark</span>
+                        <span class="location">kelly@pf-barcelona.com</span>
+                    </div>
+                    <div class="contact-actions">
+                        <span class="connection-status offline">offline</span>
+                        <i class="pi pi-envelope"></i>
+                        <i class="pi pi-reply"></i>
+                    </div>
+                </li>
+            </ul>
+        </p-panel>
+    </div>
+
+</div>
+
+<app-running-time-tracker></app-running-time-tracker>
+
+<p-sidebar [fullScreen]="true" [(visible)]="showSearchBar">
+    <app-meeting-list></app-meeting-list>
+</p-sidebar>

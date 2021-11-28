@@ -1,0 +1,38 @@
+<div>
+    <div class="p-grid">
+        <div class="p-col-12">
+            <div class="p-inputgroup">
+                <input [(ngModel)]="searchLine" type="text" pInputText placeholder="Keyword">
+                <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn"></button>
+            </div>
+        </div>
+        <div class="p-col-2"></div>
+    </div>
+
+</div>
+
+<div class="p-grid">
+    <div class="p-col-12 p-sm-4 p-md-3" *ngFor="let p of participants | participant: searchLine">
+        <p-card (click)="select(p)" *ngIf="!p['selected']">
+            <p-avatar [label]="p.initial" shape="circle" size="large"></p-avatar>
+            <label>&nbsp;{{p.fullName}}</label>
+        </p-card>
+        <p-card (click)="unselect()" *ngIf="p['selected']" [style]="{backgroundColor: '#0D47A1'}">
+            <p-avatar [label]="p.initial" shape="circle" size="large"></p-avatar>
+            <label style="color:snow;">&nbsp;{{p.fullName}}</label>
+        </p-card>
+    </div>
+
+    <div class="p-col-12" style="text-align: right">
+        <button
+            pButton
+            class="p-button-link"
+            (click)="close()"></button>
+        <button
+            pButton
+            class="p-button-success"
+            [disabled]="!selectedParticipant"
+            (click)="choose()"
+            label="CHOOSE"></button>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<div>
+    <p-messages></p-messages>
+    <p-divider align="left" type="dashed">
+        <div class="p-d-inline-flex p-ai-center">
+            <i class="pi pi-calendar-times p-mr-2"></i>
+            <b>DATE</b>
+        </div>
+    </p-divider>
+    <div style="text-align: center">
+        <p-calendar [(ngModel)]="cmd.meetingDate" *ngIf="!cmd.meetingDate" [inline]="true" [monthNavigator]="true" [minDate]="firstDate" ></p-calendar>
+        <div *ngIf="cmd.meetingDate" style="text-align: center; font-weight: bold; font-size: 2em" (click)="cmd.meetingDate = null" >
+            <label>{{cmd.meetingDate | date:'dd.MM.yyyy'}}</label>
+        </div>
+    </div>
+
+    <p-divider align="left" type="dashed">
+        <div class="p-d-inline-flex p-ai-center">
+            <i class="pi p-message p-mr-2"></i>
+            <b>DESCRIPTION</b>
+        </div>
+    </p-divider>
+
+    <span class="p-float-label p-input-icon-right" style="width: 100%">
+            <textarea id="inputtext-right" pInputTextarea rows="4" maxlength="255" style="width: 100%" [(ngModel)]="cmd.description" ></textarea>
+            <label for="inputtext-right">DESCRIPTION</label>
+    </span>
+
+
+    <p-divider align="left" type="dashed">
+        <div class="p-d-inline-flex p-ai-center">
+            <i class="pi pi-user p-mr-2"></i>
+            <b>PARTICIPANTS</b>
+        </div>
+    </p-divider>
+
+    <app-search-participant *ngIf="!cmd.participantsFromMeeting" (participants)="handleParticipants($event)"></app-search-participant>
+    <div>
+        <p-checkbox [binary]="true" [(ngModel)]="cmd.participantsFromMeeting" label="FROM MEETING"></p-checkbox>
+    </div>
+
+    <div style="margin-top: 15px;">
+        <button
+            pButton
+            (click)="save()"
+            label="SAVE"
+            style="width: 100%"></button>
+    </div>
+
+
+</div>

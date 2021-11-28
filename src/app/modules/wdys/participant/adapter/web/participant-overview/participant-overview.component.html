@@ -1,0 +1,29 @@
+<p-toast></p-toast>
+
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-divider align="left">
+            <div class="p-d-inline-flex p-ai-center">
+                <i class="pi pi-users p-mr-2"></i>
+                <b>PARTICIPANTS</b>
+            </div>
+        </p-divider>
+    </div>
+    <div class="p-col-2" style="text-align: center" >
+        <p-card>
+            <button
+                pButton
+                (click)="show_create_dialog = !show_create_dialog"
+                class="p-button-success p-button-rounded "
+                icon="pi pi-plus"></button>
+        </p-card>
+    </div>
+    <div class="p-col-3" *ngFor="let p of participants" >
+        <p-card>
+            <p-avatar [label]="p.initial" shape="circle" size="large" ></p-avatar>
+            <label>&nbsp;{{p.fullName}}</label>
+        </p-card>
+    </div>
+</div>
+
+<app-create-participant-dialog [(visible)]="show_create_dialog"></app-create-participant-dialog>

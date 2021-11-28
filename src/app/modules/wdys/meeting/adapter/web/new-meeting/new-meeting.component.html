@@ -1,0 +1,74 @@
+<div class="p-grid">
+
+    <p-toast position="top center"></p-toast>
+
+    <div class="p-col-12">
+        <p-divider align="left" type="dashed">
+            <div class="p-d-inline-flex p-ai-center">
+                <i class="pi pi-book p-mr-2"></i>
+                <b>SUBJECT</b>
+            </div>
+        </p-divider>
+        <div class="p-field">
+                    <span class="p-float-label">
+                        <input type="text" id="inputtext" pInputText [(ngModel)]="cmd.subject" style="width: 100%" >
+                        <label for="inputtext">MEETING-SUBJECT</label>
+                    </span>
+        </div>
+
+    </div>
+
+
+    <div style="text-align: right" class="p-col-12">
+        <button pButton label="BACK" [routerLink]="['/app/wdys']" class="p-button-link"></button>
+        <button pButton label="SPEICHERN" (click)="save()" class="p-button-success"></button>
+    </div>
+
+        <div class="p-lg-4 p-sm-12">
+            <p-divider align="left" type="dashed">
+                <div class="p-d-inline-flex p-ai-center">
+                    <i class="pi pi-calendar p-mr-2"></i>
+                    <b>DATE</b>
+                </div>
+            </p-divider>
+                <p-calendar name="date" [(ngModel)]="cmd.meetingTime" [inline]="true" [firstDayOfWeek]="1"   ></p-calendar>
+
+                <div *ngIf="false">
+                    <p-calendar [timeOnly]="true"></p-calendar>
+                </div>
+
+        </div>
+        <div class="p-lg-8 p-sm-12 ">
+            <p-divider align="left" type="dashed">
+                <div class="p-d-inline-flex p-ai-center">
+                    <i class="pi pi-align-justify p-mr-2"></i>
+                    <b>DESCRIPTION</b>
+                </div>
+            </p-divider>
+
+            <textarea rows="6" cols="30" placeholder="Your Message" [(ngModel)]="cmd.description" pInputTextarea style="width: 100%" ></textarea>
+
+                <p-divider align="left" type="dashed">
+                    <div class="p-d-inline-flex p-ai-center">
+                        <i class="pi pi-user p-mr-2"></i>
+                        <b>PARTICIPANTS</b>
+                    </div>
+                </p-divider>
+                <div class="p-inputgroup" style="width: 100%;">
+                    <app-search-participant (participants)="add($event)" ></app-search-participant>
+                    <button type="button" pButton pRipple icon="pi pi-plus" (click)="showCreateParticipantDialog = !showCreateParticipantDialog"></button>
+                </div>
+
+        </div>
+
+
+
+
+
+
+
+
+</div>
+
+
+<app-create-participant-dialog [(visible)]="showCreateParticipantDialog"></app-create-participant-dialog>

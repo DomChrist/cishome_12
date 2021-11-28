@@ -1,0 +1,193 @@
+<div *ngIf="!meeting">
+    <p-skeleton width="100%" height="3rem"></p-skeleton>
+    <div style="margin-top: 15px">
+        <p-skeleton width="100%" height="2rem"></p-skeleton>
+    </div>
+    <div style="margin-top: 55px">
+        <p-skeleton width="100%" height="3rem"></p-skeleton>
+    </div>
+
+    <div class="p-grid" style="margin-top: 30px">
+        <div class="p-col">
+            <p-skeleton width="100%" height="15rem"></p-skeleton>
+        </div>
+        <div class="p-col">
+            <p-skeleton width="100%" height="15rem"></p-skeleton>
+        </div>
+        <div class="p-col">
+            <p-skeleton width="100%" height="15rem"></p-skeleton>
+        </div>
+    </div>
+
+    <div class="p-grid" style="margin-top: 5px">
+        <div class="p-col">
+            <p-skeleton width="100%" height="35rem"></p-skeleton>
+        </div>
+        <div class="p-col">
+            <p-skeleton width="100%" height="35rem"></p-skeleton>
+        </div>
+    </div>
+
+    </div>
+
+
+
+<div *ngIf="meeting">
+
+    <p-breadcrumb [model]="items"></p-breadcrumb>
+
+
+
+
+    <div class="title">
+        <label>{{meeting.meetingTopic}}</label>
+        <hr/>
+    </div>
+
+    <div style="margin-top: 5px; margin-bottom: 5px;">
+        <button (click)="showNewMeetingDialog = !showNewMeetingDialog" pButton class="ui-button-info" label="ADD SESSION" icon="pi pi-plus" style="width: 100%"></button>
+    </div>
+
+    <div class="p-grid" style="margin-top: 10px;">
+        <div  class="p-col">
+            <p-card [style]="{height:'100%'}" >
+                <p-divider align="left" type="dashed">
+                    <div class="p-d-inline-flex p-ai-center">
+                        <i class="pi pi-calendar p-mr-2"></i>
+                        <b>DATE RANGE</b>
+                    </div>
+                </p-divider>
+                <div *ngIf="meeting.dateRange.dateEqual">
+                    <p-chip icon="pi pi-calendar" [label]="meeting.dateRange.firstDate | date:'dd.MM.yyyy'"  styleClass="p-mr-2" ></p-chip>
+                </div>
+                <div *ngIf="!meeting.dateRange.dateEqual" class="p-grid">
+                    <div class="p-col-4 calendar-time " style="text-align: center">
+                        <i class="pi pi-calendar"></i>
+                        <div>
+                            <label>{{meeting.dateRange.firstDate | date:'dd.MM.yyyy'}}</label>
+                        </div>
+                    </div>
+                    <div class="p-col-4" style="text-align: center;">
+                        <i style="font-size: 4em;" class="pi pi-ellipsis-h"></i>
+                    </div>
+                    <div class="p-col-4 calendar-time " style="text-align: center">
+                        <i class="pi pi-calendar-times"></i>
+                        <div>
+                            <label>{{meeting.dateRange.lastDate | date:'dd.MM.yyyy'}}</label>
+                        </div>
+                    </div>
+                </div>
+            </p-card>
+        </div>
+        <div class="p-col">
+            <p-card [style]="{height:'100%'}">
+                <p-divider align="left" type="dashed">
+                    <div class="p-d-inline-flex p-ai-center">
+                        <i class="pi pi-calendar p-mr-2"></i>
+                        <b>TIME SPENT</b>
+                    </div>
+                </p-divider>
+                <h1 style="text-align: center">
+                    {{time?.formatted}}
+                </h1>
+            </p-card>
+        </div>
+        <div class="p-col">
+            <p-card [style]="{height:'100%'}">
+                <p-divider align="left" type="dashed">
+                    <div class="p-d-inline-flex p-ai-center">
+                        <i class="pi pi-users p-mr-2"></i>
+                        <b>PARTICIPANTS</b>
+                    </div>
+                </p-divider>
+                <p-avatarGroup>
+                    <p-avatar [pTooltip]="p.fullName" *ngFor="let p of meeting.participants" [label]="p.initial" size="xlarge" shape="circle" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" ></p-avatar>
+                    <p-avatar *ngIf="false" (click)="show_add_participants = !show_add_participants" icon="pi pi-plus" shape="circle" size="large" styleClass="p-button-success"   ></p-avatar>
+                </p-avatarGroup>
+            </p-card>
+        </div>
+    </div>
+
+
+
+    <div class="p-grid">
+
+        <div class="p-col">
+            <p-card>
+                <app-view-meeting-todo [meeting]="meeting.id"></app-view-meeting-todo>
+            </p-card>
+        </div>
+
+
+        <div *ngIf="meeting?.session.lengthOfOne" class="p-col">
+            <p-card [header]="meeting.session.first.meetingName" [subheader]="meeting.session.first.meetingDate">
+                <p>{{meeting.session.first.description}}</p>
+
+                <button pButton label="Read more" class="p-button-text" [routerLink]="['/app/wdys/meeting/view',meeting.id,'session', meeting.session.first.meetingSessionId]" ></button>
+
+                <p-avatarGroup styleClass="p-mb-3">
+                    <p-avatar *ngFor="let p of participants(meeting.session.first)" [label]="p.initial"  size="large" [pTooltip]="p.firstName" shape="circle"></p-avatar>
+                </p-avatarGroup>
+
+            </p-card>
+        </div>
+
+        <div *ngIf="meeting?.session.lengthOfOne === false " class="p-col">
+            <p-card >
+                <ng-template pTemplate="header">
+                    <img src="./assets/wdys/meeting.jpg" width="100%" height="300px">
+                    <p-divider align="center" type="dashed">
+                        <div class="p-d-inline-flex p-ai-center">
+                            <i class="pi pi-comments p-mr-2"></i>
+                            <b>SESSIONS</b>
+                        </div>
+                    </p-divider>
+                </ng-template>
+                <div style="margin-top: 25px;" *ngIf="meeting">
+                    <p-timeline [value]="meeting.session.sessions" align="alternate">
+                        <ng-template pTemplate="marker" let-event>
+                            <span class="custom-marker p-shadow-2" [style.backgroundColor]="color">
+                                <i [ngClass]="icon"></i>
+                            </span>
+                        </ng-template>
+                        <ng-template pTemplate="content" let-m>
+                            <p-card [header]="m.meetingName" [subheader]="m.meetingDate">
+                                <p>{{m.description}}</p>
+
+                                <button pButton label="Read more" class="p-button-text" [routerLink]="['/app/wdys/meeting/view',meeting.id,'session',m.meetingSessionId]" ></button>
+
+                                <p-avatarGroup styleClass="p-mb-3">
+                                    <p-avatar *ngFor="let p of participants(m)" [label]="p.initial"  size="large" [pTooltip]="p.firstName" shape="circle"></p-avatar>
+                                </p-avatarGroup>
+
+                            </p-card>
+                        </ng-template>
+                    </p-timeline>
+
+                </div>
+            </p-card>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+<p-dialog *ngIf="meeting" [(visible)]="showNewMeetingDialog" [style]="{width:'600px'}" [resizable]="false">
+    <app-add-session [meeting]="meeting"></app-add-session>
+</p-dialog>
+
+<p-sidebar *ngIf="meeting" [(visible)]="show_add_participants" position="right">
+    <app-create-participant-dialog [(visible)]="show_create_participants"></app-create-participant-dialog>
+    <button pButton
+            style="width: 100%"
+            class="p-button-success"
+            icon="pi pi-plus"
+            (click)="show_create_participants = !show_create_participants"></button>
+    <app-search-participant [currentParticipants]="meeting.participants" (participants)="updateParticipants($event)" ></app-search-participant>
+</p-sidebar>
+
+<div style="position: fixed; bottom: 100px; right: 100px;" class="speeddial-circle-demo">
+    <p-speedDial  [model]="commandItems" radius="120" direction="up-left" type="quarter-circle" ></p-speedDial>
+</div>

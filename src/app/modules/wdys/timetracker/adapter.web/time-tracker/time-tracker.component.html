@@ -1,0 +1,66 @@
+<div class="p-grid">
+
+    <div class="p-col-12" style="text-align: right">
+        <div class="p-grid dashboard">
+            <div class="p-col-12 p-md-6 p-lg-3">
+                <div class="p-grid p-nogutter card ">
+                        <button pButton></button>
+                </div>
+            </div>
+            <div class="p-col-12 p-md-6 p-lg-3">
+                <div class="p-grid p-nogutter card overview-box overview-box-1">
+                    <span class="overview-box-name">Time Spent</span>
+                    <span class="overview-box-count">{{meetingTimeAggregate?.time?.formatted}}</span>
+                    <img src="assets/layout/images/dashboard/chart-1.svg" />
+                </div>
+            </div>
+            <div class="p-col-12 p-md-6 p-lg-3">
+                <div class="p-grid p-nogutter card overview-box overview-box-2">
+                    <span class="overview-box-name">Bookings</span>
+                    <span class="overview-box-count">{{meetingTimeAggregate?.times?.length}}</span>
+                    <span class="overview-box-badge">+45%</span>
+                    <img src="assets/layout/images/dashboard/chart-2.svg" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="p-col-6">
+        <div style="margin-bottom: 7px;">
+            <div style="float: right">
+                <app-time-tracker-button [sessionId]="sessionId"></app-time-tracker-button>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+        <textarea style="width: 100%" [(ngModel)]="description" pInputTextarea rows="3" maxlength="200">
+
+        </textarea>
+        <div style="margin: 5px;">
+        </div>
+
+        <button pButton
+                style="width: 100%"
+                label="BUCHEN"
+                (click)="book()"></button>
+
+    </div>
+    <div class="p-col-6">
+        <div *ngFor="let t of meetingTimeAggregate?.times" style="margin-bottom: 10px;">
+            <p-card>
+                <div class="p-grid">
+                    <div class="p-col-6" style="text-align: left">
+                        <p-tag severity="primary" [value]="t.date | date:'dd.MM.yyyy'" [style]="{fontSize:'1.2em'}"></p-tag>
+                    </div>
+                    <div class="p-col-6" style="text-align: right">
+                        <p-tag severity="info" [value]="t.time.formatted" [style]="{fontSize:'1.2em'}"></p-tag>
+                    </div>
+                    <div class="p-col-12" style="text-align: center">
+                        <h4>{{t.description}}</h4>
+                    </div>
+                </div>
+            </p-card>
+        </div>
+    </div>
+</div>
+

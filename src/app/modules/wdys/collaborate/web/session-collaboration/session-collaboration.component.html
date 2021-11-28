@@ -1,0 +1,40 @@
+
+<p-dialog [visible]="!isValid"
+          [style]="{width:'420px'}"
+          positionTop="15"
+          position="top" closable="false" [modal]="true">
+    <div>
+        <label>ENTER CODE</label>
+    </div>
+    <input pInputText
+           style="width: 100%"
+           maxlength="12"
+    [(ngModel)]="code">
+
+    <div style="text-align: right; margin-top: 10px;">
+        <button pButton
+                (click)="load()"
+                label="ENTER"></button>
+
+    </div>
+
+</p-dialog>
+
+
+<div *ngIf="response">
+    <p-card header="MEETING TITLE">
+        {{response.session.meetingName}}
+    </p-card>
+
+    <div style="margin-top: 30px;">
+        <p-card header="AGENDA">
+            <div *ngFor="let a of response.agenda.meetingPoints" style="margin-bottom: 25px;">
+                <p-checkbox [binary]="true" [ngModel]="!a.status.open"></p-checkbox>
+                <label style="margin-left: 15px;">{{a.name}}</label>
+            </div>
+        </p-card>
+    </div>
+
+
+
+</div>

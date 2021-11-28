@@ -1,0 +1,72 @@
+<div>
+
+    <p-toolbar>
+        <div class="p-toolbar-group-left">
+            <div>
+                <div class="p-inputgroup" style="margin-left: 5px;">
+                    <input [(ngModel)]="searchline" (keyup.enter)="search()" type="text" pInputText placeholder="Keyword">
+                    <button type="button" pButton pRipple label="Search" (click)="search()"></button>
+                </div>
+            </div>
+
+        </div>
+
+    </p-toolbar>
+
+    <p-dataView *ngIf="searchResponse" [value]="searchResponse">
+        <ng-template let-m pTemplate="listItem">
+            <div class=" d-none d-sm-block click-item p-col-12 p-sm-12 p-md-2 p-xl-1">
+                <button class="open-button" pButton label="OPEN" (click)="open(m)"></button>
+            </div>
+            <div class="p-col-12 p-sm-12 p-md-10 p-xl-11 ">
+                <div class="product-list-item">
+                    <div class="product-list-detail">
+
+                        <div [routerLink]="['/app/wdys/meeting/view',m.id]" class="meeting-name">{{m.description}}</div>
+
+                        <div class="meeting-description">
+                            <label *ngIf="m.sessionFrom">{{m.sessionFrom | date:'dd.MM.yyyy'}}</label>
+                            <label *ngIf="m.sessionTill">&nbsp;-&nbsp;{{m.sessionTill | date:'dd.MM.yyyy'}}</label>
+                        </div>
+                        <i *ngIf="false" class="pi pi-tag product-category-icon"></i><span class="product-category">TODOs</span>
+                    </div>
+                    <div class="product-list-action">
+                        <div>
+                            <p-tag [style]="{width:'40px', marginTop:'5px'}" styleClass="p-mr-2" icon="pi pi-calendar" [value]="m.sessionCount"></p-tag>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataView>
+
+    <p-dataView *ngIf="meetings" [value]="meetings | meetingList: searchline ">
+        <ng-template let-m pTemplate="listItem">
+            <div class=" d-none d-sm-block click-item p-col-12 p-sm-12 p-md-2 p-xl-1">
+                <button class="open-button" pButton label="OPEN" [routerLink]="['/app/wdys/meeting/view',m.id]"></button>
+            </div>
+            <div class="p-col-12 p-sm-12 p-md-10 p-xl-11 ">
+                <div class="product-list-item">
+                    <div class="product-list-detail">
+
+                        <div [routerLink]="['/app/wdys/meeting/view',m.id]" class="meeting-name">{{m.meetingTopic}}</div>
+
+                        <div class="meeting-description">
+                            <label *ngIf="m.dateRange.firstDate">{{m.dateRange.firstDate | date:'dd.MM.yyyy'}}</label>
+                            <label *ngIf="m.dateRange.lastDate">&nbsp;-&nbsp;{{m.dateRange.lastDate | date:'dd.MM.yyyy'}}</label>
+                        </div>
+                        <i *ngIf="false" class="pi pi-tag product-category-icon"></i><span class="product-category">TODOs</span>
+                    </div>
+                    <div class="product-list-action">
+                        <p-tag [style]="{width:'40px'}" styleClass="p-mr-2" icon="pi pi-user" [value]="m.participants?.length"></p-tag>
+                        <div>
+                            <p-tag [style]="{width:'40px', marginTop:'5px'}" styleClass="p-mr-2" icon="pi pi-calendar" [value]="m.sessions?.length"></p-tag>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataView>
+
+
+</div>

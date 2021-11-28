@@ -1,0 +1,24 @@
+    <div *ngIf="item">
+
+        <div>
+            <input type="text"
+                   style="width: 100%;"
+                   pInputText
+                   [(ngModel)]="item.name">
+        </div>
+
+        <div style="float: right; margin-top: 10px; margin-bottom: 10px;">
+            <button (click)="plus()" pButton class="pi pi-plus"></button>
+            <button *ngIf="counter" pButton [label]="counting"></button>
+            <button pButton class="pi pi-minus"></button>
+        </div>
+        <div style="clear: both"></div>
+
+        <div style="float: right; position: fixed; bottom: 5px;">
+            <button pButton
+                    label="CLOSE"></button>
+            <button pButton
+                    label="SAVE"></button>
+        </div>
+
+    </div>

@@ -1,0 +1,47 @@
+<div>
+
+  <div *ngFor="let d of fuelData?.data?.stations">
+    <div style="border-bottom: 10px">
+      <div style="border-bottom: 2px solid #0c1c2c">
+        <label style="font-weight: bold;">{{d.name}}</label>
+      </div>
+      <table style="margin-left: 10px; width: 100%" class="table table-responsive table-striped table-hover">
+        <tbody>
+        <tr routerLink="fuel/add/{{d?.name?.trim()}}/diesel/{{d.diesel}}">
+          <td>
+            <label class="label label-primary fuelType">DIESEL</label>
+          </td>
+          <td>
+            <label class="price">
+              {{ d.diesel | number : '1.2-2' }}
+            </label>
+          </td>
+        </tr>
+        <tr routerLink="fuel/add/{{d?.name?.trim()}}/e5/{{d.e5}}">
+          <td>
+            <label class="label label-primary fuelType">E5</label>
+          </td>
+          <td>
+            <label class="price">
+              {{ d.e5 | number : '1.2-2' }}
+            </label>
+          </td>
+        </tr>
+        <tr routerLink="fuel/add/{{d?.name?.trim()}}/e10/{{d.e10}}">
+          <td>
+            <label class="label label-primary fuelType">E10</label>
+          </td>
+          <td>
+            <label class="price">
+              {{ d.e10 | number : '1.2-2' }}
+            </label>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+
+</div>

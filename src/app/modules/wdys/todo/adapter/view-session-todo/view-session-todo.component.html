@@ -1,0 +1,76 @@
+
+
+<div class=" d-none ">
+    <p-table [value]="todoList" [responsive]="false" >
+        <ng-template *ngIf="showHeader" pTemplate="caption">
+            <div style="float: left">
+            <h3>TODOS</h3>
+            </div>
+            <div style="clear: both"></div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 75px; text-align: center"></th>
+                <th>LABEL</th>
+                <th style="width: 200px; text-align: center">DUE</th>
+                <th style="width: 55px; text-align: center">
+                    <button
+                        pButton
+                        (click)="showCreateDialog = !showCreateDialog"
+                        icon="pi pi-plus"
+                        class="p-button-success"></button>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-t>
+            <tr [class.fromjump]="t.id === selectedTodo">
+                <td>
+                    <p-checkbox
+                        (onChange)="toggle(t)"
+                        [binary]="true"
+                        [(ngModel)]="t.checked"></p-checkbox>
+                </td>
+                <td>{{t.label}}</td>
+                <td style="text-align: right">
+                    <div *ngIf="t.overdue">
+                    </div>
+                    <label *ngIf="t.overdue" [class.overdue]="t.overdue" >( {{t.due?.daysUntil}} days over)</label>
+                    <label *ngIf="!t.overdue && t.due?.dueDate" class="in-time">({{t.due?.daysUntil}} days left)</label>
+                    <span>&nbsp;</span>
+
+                    <label [class.overdue]="t.overdue">{{t.due?.dueDate | date:'dd.MM'}}</label>
+                </td>
+                <td>
+                    <button
+                        pButton
+                        (click)="delete(t)"
+                        icon="pi pi-times"
+                        class="p-button-danger"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr>
+                <td>
+                    <button
+                        icon="pi pi-plus"
+                        (click)="addNewTodo()"
+                        pButton class="p-button-success"></button>
+                </td>
+                <td>
+                    <span class="p-float-label" style="width: 100%">
+                        <input [(ngModel)]="cmd.description" type="text" id="des" pInputText style="width: 100%" (keydown.enter)="addNewTodo()" >
+                        <label for="des">DESCRIPTION</label>
+                    </span>
+                </td>
+                <td colspan="2">
+                    <p-calendar [style]="{width:'100%'}" [(ngModel)]="cmd.dueDate" [touchUI]="true" [readonlyInput]="true" inputId="touchui" dateFormat="dd.mm.yy" [showButtonBar]="true" ></p-calendar>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="showCreateDialog">
+    <app-create-todo [meetingId]="meeting" [sessionId]="session"></app-create-todo>
+</p-dialog>

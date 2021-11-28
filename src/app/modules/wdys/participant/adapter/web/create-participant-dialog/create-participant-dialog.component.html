@@ -1,0 +1,27 @@
+<p-dialog appendTo="body" [(visible)]="visible" (onHide)="visibleChange.emit(false)" header="CREATE NEW PARTICIPANT" [style]="{width:'400px'}">
+    <div class="m-top-10">
+        <span class="p-float-label">
+            <input type="search" id="first_name" pInputText [(ngModel)]="cmd.firstName" (keyup)="predictMail()" >
+            <label for="first_name">FIRSTNAME</label>
+        </span>
+    </div>
+    <div class="m-top-10">
+        <span class="p-float-label">
+            <input type="search" id="last_name" pInputText [(ngModel)]="cmd.lastName" (keyup)="predictMail()" >
+            <label for="last_name">LASTNAME</label>
+        </span>
+    </div>
+    <div class="m-top-10">
+        <span class="p-float-label">
+            <input type="search" id="email" pInputText [(ngModel)]="cmd.mail">
+            <label for="email">eMAIL</label>
+        </span>
+    </div>
+
+    <div class="m-top-10" style="text-align: right">
+        <button pButton label="SAVE" (click)="save()"></button>
+        <button pButton label="CANCEL" class="p-button-link" (click)="visible = !visible"></button>
+    </div>
+
+
+</p-dialog>

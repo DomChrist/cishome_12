@@ -1,0 +1,20 @@
+<div class="p-grid" style="margin-top: 15%">
+
+    <div class="p-offset-4"></div>
+    <div class="p-col-4">
+        <p-card>
+            <div style="text-align: center;">
+                <i *ngIf="!loggedIn" class="pi pi-lock" style="font-size: 5em;" ></i>
+                <i *ngIf="loggedIn" class="pi pi-lock" style="font-size: 5em; color: #1B5E20" ></i>
+                <div *ngIf="text" style="margin-top: 10px;">
+                    <label *ngIf="text">{{text}}</label>
+                </div>
+                <div style="margin-top: 10px;">
+                    <p-progressBar [showValue]="false" [value]="value"></p-progressBar>
+                </div>
+            </div>
+        </p-card>
+    </div>
+    <div class="p-offset-4"></div>
+
+</div>

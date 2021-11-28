@@ -1,0 +1,17 @@
+li {
+  display: inline;
+}
+
+.hide-dots{
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.hide-dots > *{
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.ui-carousel-dots-container{
+    display: none !important;
+}

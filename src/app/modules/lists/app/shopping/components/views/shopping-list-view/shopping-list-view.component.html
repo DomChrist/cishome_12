@@ -1,0 +1,250 @@
+<div>
+    <div class="">
+        <p-card>
+            <div style="margin: 5px; border-bottom: 2px solid #3d71c8; color: #0D47A1; text-transform: uppercase; font-weight: bold; font-size: 1.2em" >
+                <label *ngIf="model">{{model.name}}</label>
+                <div style="padding: 5px; padding-bottom: 15px;">
+                    <p-skeleton *ngIf="!model" width="100%" height="1rem"></p-skeleton>
+                </div>
+            </div>
+        </p-card>
+    </div>
+
+    <div class="p-grid" *ngIf="!model">
+
+        <div class="p-col-12 p-sm-6 p-md-4 p-lg-3">
+            <div style="padding: 5px;">
+                <p-card>
+                    <div style="text-align: center; font-weight: bold; font-size: 1.3em; text-transform: uppercase">
+                        <p-skeleton width="100%"></p-skeleton>
+                    </div>
+                    <p-footer>
+                        <div style="text-align: right">
+                            <button pButton
+                                    [disabled]="true"
+                                    style="margin-left: 8px"
+                                    icon="pi pi-shopping-cart"></button>
+                            <button pButton
+                                    class="ui-button-danger"
+                                    [disabled]="true"
+                                    style="margin-left: 8px"
+                                    icon="pi pi-trash"></button>
+                        </div>
+                    </p-footer>
+                </p-card>
+            </div>
+        </div>
+
+        <div class="p-col-12 p-sm-6 p-md-4 p-lg-3">
+            <div style="padding: 5px;">
+                <p-card>
+                    <div style="text-align: center; font-weight: bold; font-size: 1.3em; text-transform: uppercase">
+                        <p-skeleton width="100%"></p-skeleton>
+                    </div>
+                    <div class="p-grid" *ngIf="false">
+                        <div class="p-col-6"></div>
+                        <div class="p-col-6">
+                            <button pButton
+                                    [disabled]="true"
+                                    icon="pi pi-plus"></button>
+                            <button pButton
+                                    [disabled]="true"
+                                    icon="pi pi-minus"></button>
+                        </div>
+                    </div>
+                    <p-footer>
+                        <div style="text-align: right">
+                            <button pButton
+                                    [disabled]="true"
+                                    style="margin-left: 8px"
+                                    icon="pi pi-shopping-cart"></button>
+                            <button pButton
+                                    class="ui-button-danger"
+                                    [disabled]="true"
+                                    style="margin-left: 8px"
+                                    icon="pi pi-trash"></button>
+                        </div>
+                    </p-footer>
+                </p-card>
+            </div>
+        </div>
+        <div class="p-col-12 p-sm-6 p-md-4 p-lg-3">
+            <div style="padding: 5px;">
+                <p-card>
+                    <div style="text-align: center; font-weight: bold; font-size: 1.3em; text-transform: uppercase">
+                        <p-skeleton width="100%"></p-skeleton>
+                    </div>
+                    <div class="p-grid" *ngIf="false">
+                        <div class="p-col-6"></div>
+                        <div class="p-col-6">
+                            <button pButton
+                                    [disabled]="true"
+                                    icon="pi pi-plus"></button>
+                            <button pButton
+                                    [disabled]="true"
+                                    icon="pi pi-minus"></button>
+                        </div>
+                    </div>
+                    <p-footer>
+                        <div style="text-align: right">
+                            <button pButton
+                                    [disabled]="true"
+                                    style="margin-left: 8px"
+                                    icon="pi pi-shopping-cart"></button>
+                            <button pButton
+                                    class="ui-button-danger"
+                                    [disabled]="true"
+                                    style="margin-left: 8px"
+                                    icon="pi pi-trash"></button>
+                        </div>
+                    </p-footer>
+                </p-card>
+            </div>
+        </div>
+        <div class="p-col-12 p-sm-6 p-md-4 p-lg-3">
+            <div style="padding: 5px;">
+                <p-card>
+                    <div style="text-align: center; font-weight: bold; font-size: 1.3em; text-transform: uppercase">
+                        <p-skeleton width="100%"></p-skeleton>
+                    </div>
+                    <div class="p-grid" *ngIf="false">
+                        <div class="p-col-6"></div>
+                        <div class="p-col-6">
+                            <button pButton
+                                    [disabled]="true"
+                                    icon="pi pi-plus"></button>
+                            <button pButton
+                                    [disabled]="true"
+                                    icon="pi pi-minus"></button>
+                        </div>
+                    </div>
+                    <p-footer>
+                        <div style="text-align: right">
+                            <button pButton
+                                    [disabled]="true"
+                                    style="margin-left: 8px"
+                                    icon="pi pi-shopping-cart"></button>
+                            <button pButton
+                                    class="ui-button-danger"
+                                    [disabled]="true"
+                                    style="margin-left: 8px"
+                                    icon="pi pi-trash"></button>
+                        </div>
+                    </p-footer>
+                </p-card>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="p-grid">
+
+        <div *ngIf="!newItemView" class="p-col-12">
+            <div *ngIf="model" class="p-grid" style="padding-bottom: 55px">
+
+                <div *ngFor="let i of model.list" class="p-col-12 p-sm-6 p-md-4 p-lg-3">
+                    <div style="padding: 5px;" *ngIf="!i.hidden">
+                        <p-card>
+                            <p-header>
+                            </p-header>
+
+                            <div style="text-align: center; font-weight: bold; font-size: 1.3em; text-transform: uppercase">
+                                <label>{{i.name}}</label>
+                            </div>
+
+                            <div class="p-grid" *ngIf="false">
+                                <div class="p-col-6"></div>
+                                <div class="p-col-6">
+                                    <button pButton
+                                            icon="pi pi-plus"></button>
+                                    <button pButton
+                                            icon="pi pi-minus"></button>
+                                </div>
+                            </div>
+
+                            <p-footer>
+                                <div style="text-align: right">
+                                    <button pButton
+                                            (click)="bought(i)"
+                                            style="margin-left: 8px"
+                                            icon="pi pi-shopping-cart"></button>
+                                    <button pButton
+                                            class="ui-button-danger"
+                                            (click)="removeItem( i )"
+                                            style="margin-left: 8px"
+                                            icon="pi pi-trash"></button>
+                                    <button pButton
+                                            class="ui-button-danger"
+                                            (click)="selectedItem = i"
+                                            [label]="i?.counter"
+                                            style="margin-left: 8px"></button>
+                                </div>
+                            </p-footer>
+                        </p-card>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<footer class="footer" style="">
+    <button pButton
+            [disabled]="!model"
+            class="p-button-secondary"
+            (click)="back()"
+            style="margin-left: 10px; font-size: 2rem; width: 45px; height: 45px;"
+            icon="pi pi-arrow-left"></button>
+
+    <button pButton
+            [disabled]="!model"
+            style="margin-left: 10px; font-size: 2rem; width: 45px; height: 45px;"
+            class="p-button-error"
+            icon="pi pi-times"></button>
+    <button pButton
+            *ngIf="newItemView"
+            [disabled]="!model"
+            (click)="newItemView = !newItemView"
+            style="margin-left: 10px; font-size: 2rem; width: 45px; height: 45px;"
+            class="p-button-danger"
+            icon="pi pi-minus"></button>
+
+    <button pButton
+            [disabled]="!model"
+            style="margin-left: 10px; font-size: 2rem; width: 45px; height: 45px;"
+            (click)="finish()"
+            icon="pi pi-shopping-cart"></button>
+    <button pButton
+            [disabled]="!model"
+            style="margin-left: 10px; font-size: 2rem; width: 45px; height: 45px;"
+            (click)="load()"
+            icon="pi pi-undo"></button>
+</footer>
+
+    <button
+        class="p-button-rounded add-button "
+        routerLink="add"
+        style="position:fixed"
+        pButton
+        icon="pi pi-fw pi-plus"></button>
+
+
+<p-sidebar position="bottom" [(visible)]="selectedItem" (close)="selectedItem = null" [style]="{height:'400px'}">
+    <app-shopping-item-detail [shoppingItem]="selectedItem"></app-shopping-item-detail>
+</p-sidebar>

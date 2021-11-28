@@ -1,0 +1,103 @@
+<div *ngIf="pageError">
+    <label>Could not connect to server</label>
+</div>
+
+<div *ngIf="pagePending" style="text-align: center">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+
+<div *ngIf="userData && pageReady" >
+
+    <div class="p-grid">
+
+        <div class="p-col-12">
+            <div>
+                <h3>{{greeting}}</h3>
+            </div>
+        </div>
+
+        <div class="p-col-12">
+            <p-divider></p-divider>
+        </div>
+        <div class="p-col-12" >
+            <div class="p-grid"  >
+                <div class="p-col-4" *ngIf="hasNextcloudRole">
+                    <p-card (click)="nextCloud()">
+                        <div style="text-align: center">
+                            <i style="font-size: 4.2em; color: #0D47A1" class="pi pi-cloud"></i>
+                        </div>
+                        <p-footer>
+                            <button pButton
+                                    class="p-button-link"
+                                    style="width: 100%"
+                                    label="Nextcloud"
+                                    (click)="nextCloud()"
+                                    icon="fa fa-cloud"></button>
+                        </p-footer>
+                    </p-card>
+                </div>
+                <div *ngIf="hasListRole" class="p-col-4 ">
+                    <p-card [routerLink]="['/','app','lists']" >
+                        <div style="text-align: center">
+                            <i style="font-size: 4.2em; color: #0D47A1" class="pi pi-bars"></i>
+                        </div>
+                        <p-footer>
+                            <button pButton
+                                    class="p-button-link"
+                                    style="width: 100%"
+                                    label="LISTS"
+                                    [routerLink]="['/','app','lists']"
+                                    icon="fa fa-list"></button>
+                        </p-footer>
+                    </p-card>
+                </div>
+                <div class="p-col-4" *ngIf="hasMeetingRole">
+                    <p-card [routerLink]="['/','app','wdys']">
+                        <div style="text-align: center;">
+                            <div style="text-align: center">
+                                <i style="font-size: 4.2em; color: #0D47A1" class="pi pi-calendar-plus"></i>
+                            </div>
+                        </div>
+                        <p-footer>
+                            <button pButton
+                                    class="p-button-link"
+                                    style="width: 100%"
+                                    label="WDYS"
+                                    [routerLink]="['/','app','wdys']"
+                                    icon="fa fa-list"></button>
+                        </p-footer>
+                    </p-card>
+
+                </div>
+            </div>
+        </div>
+        <div class="p-col-12">
+            <p-divider></p-divider>
+        </div>
+
+        <div class="p-col-12">
+            <button
+                pButton
+                label="GOOGLE"
+                icon="pi pi-google"
+                (click)="google.toGoogleLogin()">
+            </button>
+        </div>
+
+        <div class="p-col-12 p-sm-6">
+            <p-card>
+                <app-fuel-overview></app-fuel-overview>
+            </p-card>
+        </div>
+        <div class="p-col-12 p-sm-6">
+            <div style="margin-bottom: 10px;">
+
+            </div>
+
+            <p-card>
+                <app-weather-overview></app-weather-overview>
+            </p-card>
+        </div>
+
+
+</div>
