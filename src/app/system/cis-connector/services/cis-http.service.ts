@@ -14,7 +14,7 @@ export class CisHttpService {
 
 
     public ping( success:()=>void , error:()=>void ){
-        const uri = environment.cisHome.service + 'q/health';
+        const uri = environment.cisHome.base + 'q/health';
         this.http.get<HealthCheck>( uri,{headers:this.app.createAuthHeader(),observe:'response'} ).subscribe( (resp)=>{
             if( resp.status >= 200 && resp.status < 300 ){
                 if( resp.body.status === 'UP' ) success();

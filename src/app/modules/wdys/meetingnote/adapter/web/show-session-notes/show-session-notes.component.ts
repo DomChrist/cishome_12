@@ -14,6 +14,9 @@ export class ShowSessionNotesComponent implements OnInit , OnDestroy {
   @Input()
   public session: Session;
 
+  @Input()
+  public type: string;
+
   public notes: Array<MeetingNote>;
 
   private subscription: Subscription;

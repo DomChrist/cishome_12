@@ -65,6 +65,7 @@
                 </p-divider>
                 <div style="text-align: left">
                     <p-avatar *ngFor="let p of session.participants" shape="circle" icon="pi pi-user" size="large" [label]="p.initial" [pTooltip]="p.fullName" ></p-avatar>
+                    <p-avatar shape="circle" (click)="show_participant_widget = !show_participant_widget" icon="pi pi-plus" size="large" ></p-avatar>
                 </div>
             </div>
         </div>
@@ -74,21 +75,9 @@
                 <p-tabPanel header="Overview">
                     <div class="p-grid">
                         <div class="p-sm-12 p-md-6">
-                            <p-divider align="left" type="dashed">
-                                <div class="p-d-inline-flex p-ai-center">
-                                    <i class="pi pi-file p-mr-2"></i>
-                                    <b>NOTES</b>
-                                </div>
-                            </p-divider>
-                            <app-show-session-notes [session]="session"></app-show-session-notes>
+                            <app-show-session-notes [session]="session" type="table"></app-show-session-notes>
                         </div>
                         <div class="p-sm-12 p-md-6">
-                            <p-divider align="left" type="dashed">
-                                <div class="p-d-inline-flex p-ai-center">
-                                    <i class="pi pi-check p-mr-2"></i>
-                                    <b>AGENDA</b>
-                                </div>
-                            </p-divider>
                             <app-meeting-agenda-overview [meetingId]="session.meetingId" [sessionId]="session.meetingSessionId" ></app-meeting-agenda-overview>
                         </div>
                     </div>
@@ -96,12 +85,6 @@
                 <p-tabPanel header="Notes">
                     <div class="p-grid">
                         <div class="p-sm-12 p-md-6">
-                            <p-divider align="left" type="dashed">
-                                <div class="p-d-inline-flex p-ai-center">
-                                    <i class="pi pi-file p-mr-2"></i>
-                                    <b>NOTES</b>
-                                </div>
-                            </p-divider>
                             <app-show-session-notes [session]="session"></app-show-session-notes>
                         </div>
                     </div>

@@ -4,7 +4,9 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 const cisHome = {
-    "service" : 'http://localhost:8080/',
+    "service" : 'http://localhost:8080/api/',
+    "base" : 'http://localhost:8080/',
+    "socket" : 'ws://localhost:8080/',
     //"service" : 'http://pi4:8088/',
     // "login" : "http://pi4:8180/auth/realms/CIS/protocol/openid-connect/auth?client_id=account&redirect_uri=http://localhost:4200/auth/token&response_type=code&scope=openid"
     "login" : "http://localhost:8082/auth/realms/CIS/protocol/openid-connect/auth?client_id=account&redirect_uri=http://localhost:4200/auth/token&response_type=code&scope=openid"

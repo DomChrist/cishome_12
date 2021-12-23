@@ -50,7 +50,7 @@ export class TokenHandlerComponent implements OnInit {
         input.append("redirect_uri" , code);
 
         let host = location.protocol + '//' + location.host + '/auth/token';
-        let url = environment.serviceUrl + '/auth/token?code=' + code + '&host=' + host;
+        let url = environment.cisHome.service + 'auth/validate/token?code=' + code + '&host=' + host;
 
         let request = {
             'code' : code,

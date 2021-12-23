@@ -8,6 +8,7 @@
     </div>
     <input pInputText
            style="width: 100%"
+           (keyup.enter)="load()"
            maxlength="12"
     [(ngModel)]="code">
 
@@ -22,19 +23,49 @@
 
 
 <div *ngIf="response">
-    <p-card header="MEETING TITLE">
-        {{response.session.meetingName}}
+    <p-card [header]="response.session.meetingName" [subheader]="response.session.description">
+        <div>
+            <p-avatar [style]="{float:'right'}" *ngFor="let p of response.session.participants" [label]="p.initial" [pTooltip]="p.fullName"  shape="circle" size="large"></p-avatar>
+            <div style="clear: both"></div>
+        </div>
     </p-card>
 
     <div style="margin-top: 30px;">
-        <p-card header="AGENDA">
-            <div *ngFor="let a of response.agenda.meetingPoints" style="margin-bottom: 25px;">
-                <p-checkbox [binary]="true" [ngModel]="!a.status.open"></p-checkbox>
-                <label style="margin-left: 15px;">{{a.name}}</label>
-            </div>
+        <p-card header="AGENDA" *ngIf="response.agenda">
+            <p-table [value]="response.agenda.meetingPoints">
+                <ng-template pTemplate="body" let-p>
+                    <tr>
+                        <td style="width: 35px;">
+                            <p-checkbox [binary]="true" [ngModel]="!p.status.open"></p-checkbox>
+                        </td>
+                        <td>
+                            <label style="margin-left: 15px;">{{p.name}}</label>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </p-card>
     </div>
 
+    <div style="margin-top: 30px;">
+        <p-card header="NOTES" *ngIf="response.notes">
 
+            <p-timeline [value]="response.notes" align="alternate">
+                <ng-template pTemplate="marker" let-event>
+                    <span class="custom-marker p-shadow-2" style="background: #3d71c8" >
+                        <i class="pi pi-envelope"></i>
+                    </span>
+                </ng-template>
+                <ng-template pTemplate="content" let-n>
+                    <p-card [header]="n.note.value" [subheader]="n.created | date:'dd.MM.yyyy'">
+                        <div>
+                            <label>{{n?.participant?.fullName}}</label>
+                        </div>
+                    </p-card>
+                </ng-template>
+            </p-timeline>
+
+        </p-card>
+    </div>
 
 </div>

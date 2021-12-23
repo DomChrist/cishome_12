@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {CisHttpService} from "../../../../system/cis-connector/services/cis-http.service";
+import {CisAuthService} from "../../../../system/cis-connector/services/cis-auth-service.";
 
 @Component({
   selector: 'app-google-token-handler',
@@ -12,18 +13,20 @@ export class GoogleTokenHandlerComponent implements OnInit {
   //https://accounts.google.com/o/oauth2/auth/identifier?response_type=code&redirect_uri=http://localhost:4200%2Ftoken%2Fgoogle&client_id=178901623500-c541la5kro2pkjp74accoqpejpm80f9v.apps.googleusercontent.com&scope=openid%20email%20profile&access_type=offline
 
 
-  constructor( private route: ActivatedRoute, private http: CisHttpService) { }
+  constructor( private route: ActivatedRoute, private http: CisHttpService, private router: Router, private user: CisAuthService) { }
 
   ngOnInit(): void {
+      this.user.checkAuth();
       this.route.queryParamMap.subscribe( map=>{
          let code = map.get('code');
          console.log(code);
-         alert(code);
+         //alert(code);
          let request = {
              "code" : code
          }
-         this.http.cisPost( 'auth/google/token?code='+code , request ).subscribe( (resp)=>{
 
+         this.http.cisPost( 'auth/google/token?code='+code , request ).subscribe( (resp)=>{
+            this.router.navigate(['/']);
          });
       });
   }

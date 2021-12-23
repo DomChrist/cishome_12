@@ -1,5 +1,6 @@
 import {Session} from "./meeting-model";
 import {MeetingAgenda} from "./meeting-agenda";
+import {MeetingNote} from "../../meetingnote/domain/meeting-note-model";
 
 export interface MeetingSearchResponse {
     id: string;
@@ -16,5 +17,6 @@ export class PresentationModeResponse{
 
     session: Session;
     agenda: MeetingAgenda;
+    notes: MeetingNote[];
 
 }

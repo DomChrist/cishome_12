@@ -7,34 +7,78 @@
 
 </div>
 
-<div *ngIf="notes">
+
+<div *ngIf="notes && type==='list'">
 
     <div>
 
     </div>
 
     <div *ngFor="let n of notes" style="margin-top: 8px;">
-        <p-card>
-            <label style="text-overflow: ellipsis; width: 100px;" class="note">{{n.note.mediumValue}}</label>
+        <div style="padding-bottom: 10px; border-bottom: 1px solid silver">
+            <div style="margin-bottom: 5px; margin-top:5px;">
+                <label style="text-overflow: ellipsis; width: 100px;" class="note">{{n.note.mediumValue}}</label>
+            </div>
             <p-footer>
                 <div>
-                    <label>
-                        <i class="pi pi-calendar"></i>
-                        {{n.created | date:'dd.MM.yyyy'}}
-                    </label>
+                    <div style="float: left">
+                        <label>
+                            <i class="pi pi-calendar"></i>
+                            {{n.created | date:'dd.MM.yyyy'}}
+                        </label>
+                    </div>
+                    <div *ngIf="n.participant"  style="text-align: right; float: right">
+                        <p-avatarGroup>
+                            <p-avatar [pTooltip]="n.participant.fullName" [label]="n.participant?.initial" shape="circle"></p-avatar>
+                        </p-avatarGroup>
+                    </div>
+                    <div style="clear: both"></div>
                 </div>
-                <div *ngIf="n.participant"  style="text-align: right; float: right">
-                    <p-avatarGroup>
-                        <p-avatar [pTooltip]="n.participant.fullName" [label]="n.participant?.initial" shape="circle"></p-avatar>
-                    </p-avatarGroup>
-                </div>
-                <div style="clear: both"></div>
+
             </p-footer>
-        </p-card>
+        </div>
     </div>
 
     <p-dialog [(visible)]="show_create_meeting_note" responsive="true" resizable="true" [style]="{minWidth:'600px'}" modal="true"  >
         <app-create-meeting-note [session]="session"></app-create-meeting-note>
     </p-dialog>
 
+</div>
+
+<div *ngIf="notes && type==='table'">
+    <p-card>
+        <p-table [value]="notes">
+            <ng-template pTemplate="caption">
+                <p-divider align="left" type="dashed">
+                    <div class="p-d-inline-flex p-ai-center">
+                        <i class="pi pi-file p-mr-2"></i>
+                        <b>NOTES</b>
+                    </div>
+                </p-divider>
+            </ng-template>
+            <ng-template pTemplate="body" let-n>
+                <tr>
+                    <td>
+                        <div style="margin-bottom: 7px;">
+                            <label style="text-overflow: ellipsis; width: 100px;" class="note">{{n.note.mediumValue}}</label>
+                        </div>
+                        <div>
+                            <div style="float: left">
+                                <label>
+                                    <i class="pi pi-calendar"></i>
+                                    {{n.created | date:'dd.MM.yyyy'}}
+                                </label>
+                            </div>
+                            <div *ngIf="n.participant"  style="text-align: right; float: right">
+                                <p-avatarGroup>
+                                    <p-avatar [pTooltip]="n.participant.fullName" [label]="n.participant?.initial" shape="circle"></p-avatar>
+                                </p-avatarGroup>
+                            </div>
+                            <div style="clear: both"></div>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-card>
 </div>

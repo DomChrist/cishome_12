@@ -24,7 +24,6 @@ export class ParticipantWidgetComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-      alert('init');
       this.subscription = this.service.subscribe( p => {
             console.log(p);
             this.participants = p;

@@ -15,23 +15,36 @@
 <div *ngIf="meetingAgenda || loadFinished">
 
     <p-card>
-        <p-header>
-            <div style="text-align: right">
+        <p-table *ngIf="meetingAgenda?.meetingPoints" [value]="meetingAgenda.meetingPoints">
+
+            <ng-template pTemplate="caption">
+                <p-divider align="left" type="dashed">
+                    <div class="p-d-inline-flex p-ai-center">
+                        <i class="pi pi-check p-mr-2"></i>
+                        <b>AGENDA</b>
+                    </div>
+                </p-divider>
                 <button pButton
                         class="p-button-secondary p-button-rounded"
                         icon="pi pi-plus"
+                        style="float: right"
                         (click)="showOpenNewAgendaCommand()"></button>
-            </div>
-        </p-header>
-        <div *ngIf="meetingAgenda">
-            <div *ngFor="let p of meetingAgenda.meetingPoints" style="margin-top: 15px;">
-                <p-checkbox [binary]="true" [(ngModel)]="!p.status.open"></p-checkbox>
-                <label style="font-size: 1.2em; margin-left: 5px;" >{{p.name}}</label>
-            </div>
-        </div>
+                <div style="clear: both"></div>
+            </ng-template>
 
+            <ng-template pTemplate="body" let-a>
+                <tr>
+                    <td style="width: 35px;">
+                        <p-checkbox [binary]="true" [(ngModel)]="!a.status.open"></p-checkbox>
+                    </td>
+                    <td>
+                        <label style="font-size: 1.2em; margin-left: 5px;" >{{a.name}}</label>
+                    </td>
+                </tr>
+            </ng-template>
+
+        </p-table>
     </p-card>
-
 
 </div>
 
