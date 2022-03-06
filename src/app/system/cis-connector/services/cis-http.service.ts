@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {MessageService} from "primeng/api";
 import {Observable} from "rxjs";
 import {environment} from "../../../../environments/environment";
@@ -26,12 +26,22 @@ export class CisHttpService {
         });
     }
 
+    /*
     public cisGet<T>( url ): Observable<HttpResponse<T>>{
         const uri = environment.cisHome.service  + url;
         return this.http.get<T>( uri , {headers:this.app.createAuthHeader(),observe:'response'});
     }
+     */
 
-
+    public cisGet<T>( url , headers:HttpHeaders = new HttpHeaders() ): Observable<HttpResponse<T>>{
+        const uri = environment.cisHome.service  + url;
+        let h = this.app.createAuthHeader();
+        headers.keys().forEach( k => {
+                let v = headers.get( k );
+                h = h.append( k , v);
+            });
+        return this.http.get<T>( uri , {headers:h,observe:'response'});
+    }
 
 
     public cisPost<T>( url , body: any ){

@@ -2,7 +2,7 @@
 
     <div class="p-col-12" style="text-align: right">
         <div class="p-grid dashboard">
-            <div class="p-col-12 p-md-6 p-lg-3">
+            <div *ngIf="false" class="p-col-12 p-md-6 p-lg-3">
                 <div class="p-grid p-nogutter card ">
                         <button pButton></button>
                 </div>
@@ -20,6 +20,13 @@
                     <span class="overview-box-count">{{meetingTimeAggregate?.times?.length}}</span>
                     <span class="overview-box-badge">+45%</span>
                     <img src="assets/layout/images/dashboard/chart-2.svg" />
+                </div>
+            </div>
+            <div class="p-col-12 p-md-6 p-lg-3">
+                <div class="p-grid p-nogutter card overview-box overview-box-1">
+                    <span class="overview-box-name">Average Spent</span>
+                    <span class="overview-box-count">{{meetingTimeAggregate?.time?.formatted}}</span>
+                    <img src="assets/layout/images/dashboard/chart-1.svg" />
                 </div>
             </div>
         </div>
@@ -46,21 +53,37 @@
 
     </div>
     <div class="p-col-6">
-        <div *ngFor="let t of meetingTimeAggregate?.times" style="margin-bottom: 10px;">
-            <p-card>
-                <div class="p-grid">
-                    <div class="p-col-6" style="text-align: left">
-                        <p-tag severity="primary" [value]="t.date | date:'dd.MM.yyyy'" [style]="{fontSize:'1.2em'}"></p-tag>
-                    </div>
-                    <div class="p-col-6" style="text-align: right">
-                        <p-tag severity="info" [value]="t.time.formatted" [style]="{fontSize:'1.2em'}"></p-tag>
-                    </div>
-                    <div class="p-col-12" style="text-align: center">
-                        <h4>{{t.description}}</h4>
-                    </div>
-                </div>
-            </p-card>
-        </div>
+
+        <p-table [value]="meetingTimeAggregate?.times" [responsive]="true">
+            <ng-template pTemplate="caption">
+                <button style="float:right"
+                pButton
+                label="BOOK">
+                </button>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>DATE</th>
+                    <th>NOTE</th>
+                    <th>
+                        <button
+                                pButton
+                                icon="pi pi-plus"
+                                label="TIME">
+                        </button>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-t>
+                <tr>
+                    <td><label>{{t.date | date:'dd.MM.yyyy'}}</label></td>
+                    <td><label>{{t.description}}</label></td>
+                    <td><label>{{t.time.formatted}}</label></td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+
     </div>
 </div>
 

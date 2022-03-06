@@ -1,0 +1,36 @@
+<div>
+
+    <div class="p-grid">
+        <div class="p-col-6" style="text-align: center; font-size: 2em;">
+            <div>RICHTIG</div>
+            <div class="correct">{{richtig}}</div>
+            <div *ngFor="let a of rightAnswers" >
+                <p-card>
+                    <label>{{a.operation1}} {{a.symbol}} {{a.operation2}} = </label>
+                    <label class="wrong" >{{a.input}}</label>
+                    <label>&nbsp;</label>
+                    <label class="correct" >{{a.result}}</label>
+                </p-card>
+            </div>
+
+        </div>
+        <div class="p-col-6" style="text-align: center; font-size: 2em;">
+            <div>FALSCH</div>
+            <div class="wrong">{{falsch}}</div>
+
+            <div *ngFor="let a of wrongAnswers" >
+                <p-card>
+                    <label>{{a.operation1}} {{a.symbol}} {{a.operation2}} = </label>
+                    <label class="wrong" >{{a.input}}</label>
+                    <label>&nbsp;</label>
+                    <label class="correct" >{{a.result}}</label>
+                </p-card>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+</div>

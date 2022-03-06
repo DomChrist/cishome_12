@@ -5,6 +5,7 @@ import {MessageService} from "primeng/api";
 import {environment} from "../../../../environments/environment";
 import {Observable} from "rxjs";
 import {CisUser, Group, Keycloak, KeycloakToken} from "../model/user";
+import {CryptoService} from "../../crypto/crypto.service";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class CisAuthService {
     public user: CisUser;
     public accessToken: KeycloakToken;
 
-    constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private msg:MessageService) {
+    constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient,
+                private msg:MessageService) {
     }
 
     public checkAuth() {

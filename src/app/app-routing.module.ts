@@ -52,6 +52,8 @@ import {AuthGuard} from "./system/cis-connector/services/auth.guard";
                     {path: '', component: CisDashboardComponent , canActivate:  [AuthGuard]},
                     {path:'app/lists'  , loadChildren : () => import('./modules/lists/lists.module').then( m => m.ListsModule ) , canActivate:[AuthGuard]},
                     {path:'app/wdys'  , loadChildren : () => import('./modules/wdys/wdys.module').then( m => m.WdysModule )},
+                    {path:'app/safe'  , loadChildren : () => import('./modules/safe/safe.module').then( m => m.SafeModule )},
+                    {path:'app/school'  , loadChildren : () => import('./modules/school/school.module').then( m => m.SchoolModule )},
                     {path: 'uikit/formlayout', component: FormLayoutDemoComponent},
                     {path: 'uikit/floatlabel', component: FloatLabelDemoComponent},
                     {path: 'uikit/invalidstate', component: InvalidStateDemoComponent},
