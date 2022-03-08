@@ -12,6 +12,7 @@ export interface Aufgabe{
     input: number;
     check: number;
     help: boolean;
+    helpCounter: number;
     split: TeilAufgabe[];
 }
 

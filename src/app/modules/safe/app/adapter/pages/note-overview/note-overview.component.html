@@ -1,0 +1,88 @@
+<div *ngIf="note">
+
+    <label class="head">{{note.name}}</label>
+    <hr/>
+
+
+    <div>
+        <p-table [value]="note.secrets">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>DESCRIPTION</th>
+                    <th>SECRET</th>
+                    <th>
+                        <button pButton icon="pi pi-lock" (click)="unlockAll()" ></button>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-i>
+                <tr>
+                    <td>{{i.description}}</td>
+                    <td>
+                        <label *ngIf="i.decrypted">
+                            {{i.decrypted}}
+                        </label>
+                        <label *ngIf="!i.decrypted">
+                            - - - -
+                        </label>
+                    </td>
+                    <td>
+                        <button *ngIf="!i.decrypted" pButton icon="pi pi-lock" (click)="unlock(i)" ></button>
+                        <button *ngIf="i.decrypted" pButton icon="pi pi-unlock" (click)="lock(i)" ></button>
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+
+            </ng-template>
+
+        </p-table>
+    </div>
+
+
+    <div style="position: fixed; bottom: 175px; right: 175px;">
+        <p-speedDial [model]="items" radius="120" direction="up-left" type="circle" buttonClassName="p-button-success"></p-speedDial>
+    </div>
+
+    <p-dialog modal="true" [(visible)]="showAddDialog">
+        <div>
+            <input pInputText  placeholder="DESCRIPTION" [(ngModel)]="description">
+            <input pInputText placeholder="SECRET" [(ngModel)]="secret" >
+            <div style="margin-top: 15px;">
+                <button style="width: 100%" pButton label="ADD" (click)="addItem()"></button>
+            </div>
+        </div>
+    </p-dialog>
+
+    <p-dialog header="PASSWORD" modal="true" [(visible)]="!passwordValid"  >
+
+        <div *ngIf="passwordFailCounter > 0">
+            <p-message severity="error" text="PASSWORD INVALID" >PASSWORD INVALID</p-message>
+        </div>
+
+        <div>
+            <p-password [(ngModel)]="password" appendTo="body" [style]="{width:'100%'}" (keyup.enter)="addPassword()"  >
+                <ng-template pTemplate="header">
+                    <h6>Pick a password</h6>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <p-divider></p-divider>
+                    <p class="p-mt-2">Suggestions</p>
+                    <ul class="p-pl-2 p-ml-2 p-mt-0" style="line-height: 1.5">
+                        <li>At least one lowercase</li>
+                        <li>At least one uppercase</li>
+                        <li>At least one numeric</li>
+                        <li>Minimum 8 characters</li>
+                    </ul>
+                </ng-template>
+            </p-password>
+        </div>
+        <div style="margin-top: 15px;">
+            <button style="width: 100%" pButton label="ADD" (click)="addPassword()"></button>
+        </div>
+
+    </p-dialog>
+
+</div>

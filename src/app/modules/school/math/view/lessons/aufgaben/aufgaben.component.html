@@ -13,7 +13,7 @@
                     <input *ngIf=" (!a.split) && (a.check === 0 || !a.check)" [(ngModel)]="a.input" type="number" class="input-result">
                     <div *ngIf="(a.split) && (a.check === 0 || !a.check)" class="p-inputgroup">
                         <input type="text" [(ngModel)]="a.input" class="input-result" pInputText >
-                        <button type="button" pButton pRipple (click)="a.help = !a.help" label="?" styleClass="p-button-warn"></button>
+                        <button tabindex="-1" type="button" pButton pRipple (click)="activateHelp(a)" label="?" styleClass="p-button-warn"></button>
                     </div>
                 </div>
                     <div *ngIf="a.help && a.split" class="p-col-12">

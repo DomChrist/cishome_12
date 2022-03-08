@@ -25,6 +25,16 @@ export class MinusComponent extends Checker implements OnInit {
     public check(){
         this.checked = true;
         this.component.check();
+
+        this.component.wrongAnswers;
+        const request = {
+            'wrongAnswers' : this.component.wrongAnswers
+        }
+        console.log(request);
+        this.http.cisPost<object>( 'school/math/answers/wrong' , request).subscribe( (data)=>{
+            console.log('check send');
+        });
+
     }
 
 }

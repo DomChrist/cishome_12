@@ -81,7 +81,7 @@ export class CisDashboardComponent implements OnInit {
           {
               name: 'SCHOOL',
               link: ['/','app','school'],
-              icon: 'pi pi-shield',
+              icon: 'pi pi-briefcase',
               accessible : true,
               action : ()=>{
                   this.router.navigate(['','app','school']);

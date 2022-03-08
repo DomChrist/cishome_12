@@ -22,9 +22,18 @@ export class MixComponent extends Checker implements OnInit {
       });
   }
 
-    check() {
-      this.checked = true;
-      this.component.check();
+    check(){
+        this.component.check();
+
+        this.component.wrongAnswers;
+        const request = {
+            'wrongAnswers' : this.component.wrongAnswers
+        }
+        console.log(request);
+        this.http.cisPost<object>( 'school/math/answers/wrong' , request).subscribe( (data)=>{
+            console.log('check send');
+        });
+
     }
 
 }

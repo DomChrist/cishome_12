@@ -47,4 +47,10 @@ export class AufgabenComponent implements OnInit {
             a.help = false;
         }
     }
+
+    activateHelp( a:Aufgabe ){
+      a.help = !a.help;
+      a.helpCounter++;
+    }
+
 }
