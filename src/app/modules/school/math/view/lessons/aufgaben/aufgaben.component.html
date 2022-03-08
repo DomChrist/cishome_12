@@ -1,0 +1,41 @@
+<div class="p-grid">
+    <div *ngFor="let a of aufgaben" class="p-sm-12 p-md-4" style="font-size: 2em;">
+
+        <p-card>
+            <div class="p-grid" style="font-size: 2em; text-align: center">
+                <div class="p-col-2">{{a.operation1}}</div>
+                <div class="p-col-2">{{a.symbol}}</div>
+                <div class="p-col-2">{{a.operation2}}</div>
+                <div class="p-col-2">=</div>
+                <div class="p-col-4">
+                    <label class="richtig" *ngIf="a.check === 1">{{a.input}}</label>
+                    <label class="falsch" *ngIf="a.check === -1">{{a.input}}</label>
+                    <input *ngIf=" (!a.split) && (a.check === 0 || !a.check)" [(ngModel)]="a.input" type="number" class="input-result">
+                    <div *ngIf="(a.split) && (a.check === 0 || !a.check)" class="p-inputgroup">
+                        <input type="text" [(ngModel)]="a.input" class="input-result" pInputText >
+                        <button type="button" pButton pRipple (click)="a.help = !a.help" label="?" styleClass="p-button-warn"></button>
+                    </div>
+                </div>
+                    <div *ngIf="a.help && a.split" class="p-col-12">
+                        <hr/>
+                        <div *ngFor="let s of getCorrectSplits(a)" >
+                            <div class="p-grid">
+                                <div class="p-col-2">{{s.operator1}}</div>
+                                <div class="p-col-2">{{s.symbol}}</div>
+                                <div class="p-col-2">{{s.operator2}}</div>
+                                <div class="p-col-2">=</div>
+                                <div class="p-col-4">
+                                    <input pInputText type="number" class="input-result" [(ngModel)]="s.input"  (keyup)="splitCheck(a,s)" >
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+        </p-card>
+
+    </div>
+</div>
+

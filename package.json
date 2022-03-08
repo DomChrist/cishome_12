@@ -30,6 +30,7 @@
         "buffer": "^6.0.3",
         "chart.js": "^3.3.2",
         "crypto": "^1.0.1",
+        "crypto-js": "^4.1.1",
         "jsencrypt": "^3.2.1",
         "node-rsa": "^1.1.1",
         "primeflex": "2.0.0",

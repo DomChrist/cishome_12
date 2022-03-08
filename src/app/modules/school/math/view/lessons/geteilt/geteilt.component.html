@@ -1,0 +1,20 @@
+
+<div [hidden]="!checked">
+    <app-check #checkc [aufgaben]="aufgaben"></app-check>
+</div>
+
+<div>
+    <button pButton label="TEST ABGEBEN" class="p-button-secondary" (click)="check()" style="width: 100%" ></button>
+</div>
+
+<div style="margin-top: 25px;" *ngIf="aufgaben" class="p-grid">
+
+    <app-aufgaben [aufgaben]="aufgaben"></app-aufgaben>
+
+</div>
+
+
+
+
+
+

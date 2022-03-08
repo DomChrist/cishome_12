@@ -159,6 +159,8 @@ import {FuelOverviewComponent} from "./pages/dashboard/widgets/fuel-overview/fue
 import {CisDashboardComponent} from "./pages/dashboard/cis-dashboard/cis-dashboard.component";
 import {SpinnerModule} from "primeng/spinner";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
+import { ActiveModulePipe } from './pages/dashboard/cis-dashboard/active-module.pipe';
+import {SchoolModule} from "./modules/school/school.module";
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -253,7 +255,7 @@ FullCalendarModule.registerPlugins([
         TreeTableModule,
         VirtualScrollerModule,
         AppCodeModule,
-        ListsModule, ListsRoutingModule,
+        ListsModule, ListsRoutingModule, SchoolModule,
         WdysModule, SpinnerModule, ProgressSpinnerModule
     ],
     declarations: [
@@ -309,7 +311,8 @@ FullCalendarModule.registerPlugins([
         AppAccessdeniedComponent,
         WeatherOverviewComponent,
         FuelOverviewComponent,
-        CisDashboardComponent
+        CisDashboardComponent,
+        ActiveModulePipe
     ],
     providers: [
         {provide: LocationStrategy, useClass: PathLocationStrategy},

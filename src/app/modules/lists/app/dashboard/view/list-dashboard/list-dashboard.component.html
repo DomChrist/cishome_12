@@ -17,7 +17,7 @@
 <hr>
 
 <div class="p-grid">
-      <div *ngIf="!data" class="p-col-12 p-sm-3 list">
+      <div *ngIf=" isPending && !data" class="p-col-12 p-sm-3 list">
           <p-card>
               <p-skeleton width="100%" height="1rem"></p-skeleton>
               <div style="margin-top: 35px;">

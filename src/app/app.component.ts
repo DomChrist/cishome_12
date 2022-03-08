@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PrimeNGConfig} from 'primeng/api';
 import {CisAuthService} from "./system/cis-connector/services/cis-auth-service.";
 import {ActivatedRoute} from "@angular/router";
+import {CryptoService} from "./system/crypto/crypto.service";
 
 @Component({
     selector: 'app-root',
@@ -19,10 +20,13 @@ export class AppComponent implements OnInit{
 
     compactMode = false;
 
-    constructor(private primengConfig: PrimeNGConfig, private userService: CisAuthService, private route: ActivatedRoute) {}
+    constructor(private primengConfig: PrimeNGConfig, private crypto: CryptoService,
+                private userService: CisAuthService, private route: ActivatedRoute) {}
 
     ngOnInit() {
         this.primengConfig.ripple = true;
+        this.userService.checkAuth();
+        //this.crypto.call();
         //this.userService.checkAuth();
     }
 }

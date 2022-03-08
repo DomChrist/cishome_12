@@ -4,6 +4,7 @@ import {CisAuthService} from "../../../system/cis-connector/services/cis-auth-se
 import {CisUser} from "../../../system/cis-connector/model/user";
 import {GoogleService} from "../../../system/google/google.service";
 import {CisHttpService} from "../../../system/cis-connector/services/cis-http.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-cis-dashboard',
@@ -14,7 +15,7 @@ export class CisDashboardComponent implements OnInit {
 
 
 
-  constructor( private auth:CisAuthService, public google:GoogleService, public http: CisHttpService) { }
+  constructor( private auth:CisAuthService, public google:GoogleService, public http: CisHttpService, private router: Router) { }
 
   public userData: CisUser;
 
@@ -22,6 +23,8 @@ export class CisDashboardComponent implements OnInit {
   public showLists = false;
 
   public ready = READY_STATE.NO;
+
+  public modules: Module[];
 
   ngOnInit(): void {
       this.auth.checkAuth();
@@ -35,6 +38,58 @@ export class CisDashboardComponent implements OnInit {
           } , ()=>{this.ready= READY_STATE.ERROR} )
 
       } , 1000 );
+
+      this.modules = [
+          {
+              name: 'Nextcloud',
+              icon: 'pi pi-cloud',
+              link: [''],
+              accessible : this.hasNextcloudRole,
+              action : this.nextCloud,
+              offlineSupport : false
+          },
+          {
+              name: 'Lists',
+              link: ['/','app','list'],
+              icon: 'pi pi-list',
+              accessible : this.hasListRole,
+              action : ()=>{
+                  this.router.navigate(['','app','lists']);
+              },
+              offlineSupport : true
+          },
+          {
+              name: 'WDYS',
+              link: ['/','app','wdys'],
+              icon: 'pi pi-calendar-plus',
+              accessible : this.hasMeetingRole,
+              action : ()=>{
+                  this.router.navigate(['','app','wdys']);
+              },
+              offlineSupport : false
+          },
+          {
+              name: 'SAFE',
+              link: ['/','app','safe'],
+              icon: 'pi pi-shield',
+              accessible : true,
+              action : ()=>{
+                  this.router.navigate(['','app','safe']);
+              },
+              offlineSupport : false
+          },
+          {
+              name: 'SCHOOL',
+              link: ['/','app','school'],
+              icon: 'pi pi-shield',
+              accessible : true,
+              action : ()=>{
+                  this.router.navigate(['','app','school']);
+              },
+              offlineSupport : false
+          },
+
+      ]
 
   }
 
@@ -99,9 +154,20 @@ export class CisDashboardComponent implements OnInit {
 
 }
 
-enum READY_STATE{
+export enum READY_STATE{
     NO,
     PENDING,
     ERROR,
     YES
+}
+
+export class Module{
+
+    public name: string;
+    public link: string[] = new Array<string>();
+    public accessible: boolean;
+    public icon: string;
+    public offlineSupport: boolean;
+    public action: ()=>void;
+
 }
