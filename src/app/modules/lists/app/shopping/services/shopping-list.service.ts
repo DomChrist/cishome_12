@@ -4,7 +4,7 @@ import {Observable, Subject} from "rxjs";
 import {HttpResponse} from "@angular/common/http";
 import {ListResponse} from "../../web/list-response";
 import {Item, ListAggregate} from "../../domain/list-model";
-import {ShoppingModel} from "../model/shopping-model";
+import {ShoppingModel} from "../shoppinglist/domain/shopping-model";
 import {MessageService} from "primeng/api";
 
 @Injectable({
@@ -20,6 +20,19 @@ export class ShoppingListService {
 
     public open( id:string ): ShoppingModel{
         return this.shoppingList(id);
+    }
+
+    public list( id:string , success:( model:ShoppingModel )=>void ){
+        if( this.shoppingModel && this.shoppingModel.id === id ){
+            success(this.shoppingModel);
+        } else {
+            this.http.cisGet<ShoppingModel>( 'list/shoppinglist/query/v1/' + id ).subscribe( (resp)=>{
+                console.log(resp.body);
+                this.shoppingModel = resp.body;
+                this.shoppingSubject.next(this.shoppingModel);
+                success(this.shoppingModel);
+            });
+        }
     }
 
     public shoppingList( id:string ): ShoppingModel{

@@ -6,6 +6,12 @@ import {NgModule} from "@angular/core";
 import {ShoppingListViewComponent} from "./app/shopping/components/views/shopping-list-view/shopping-list-view.component";
 import {ShoppingAddItemViewComponent} from "./app/shopping/components/views/shopping-add-item-view/shopping-add-item-view.component";
 import {ShoppingRootViewComponent} from "./app/shopping/components/views/shopping-root-view/shopping-root-view.component";
+import {
+    ProductOverviewComponent
+} from "./app/shopping/shoppingproducts/adapter/view/product-overview/product-overview.component";
+import {
+    ShoppingStoreDashboardComponent
+} from "./app/shopping/shoppingstores/adapter/view/shopping-store-dashboard/shopping-store-dashboard.component";
 
 /*
 const routes = [
@@ -20,9 +26,16 @@ const routes = [
         ]}];
  */
 
+const shopping = {
+
+}
+
 const routes = [
     { path: '' , component: ListDashboardComponent },
-    {path: 'shopping/:id' , component: ShoppingRootViewComponent , children: [
+    { path: 'shopping' , component: ShoppingRootViewComponent},
+    { path: 'shopping/products' , component: ProductOverviewComponent},
+    { path: 'shopping/stores' , component: ShoppingStoreDashboardComponent},
+    {path: 'shopping/list/:id' , component: ShoppingListViewComponent , children: [
             {path: '' , component: ShoppingListViewComponent},
             {path: 'add' , component: ShoppingAddItemViewComponent}
         ]}

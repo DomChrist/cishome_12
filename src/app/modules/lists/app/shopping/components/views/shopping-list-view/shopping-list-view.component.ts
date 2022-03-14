@@ -4,7 +4,7 @@ import {ListService} from "../../../../application/list.service";
 import {Location} from "@angular/common";
 import {ShoppingListService} from "../../../services/shopping-list.service";
 import {ActivatedRoute} from "@angular/router";
-import {ShoppingItem, ShoppingModel} from "../../../model/shopping-model";
+import {ShoppingItem, ShoppingModel} from "../../../shoppinglist/domain/shopping-model";
 
 @Component({
   selector: 'app-shopping-list-view',
@@ -28,9 +28,11 @@ export class ShoppingListViewComponent implements OnInit {
 
   ngOnInit(){
       this.route.paramMap.subscribe( map=>{
-         this.model = this.shoppingService.open(map.get('id'));
+          this.shoppingService.list( map.get('id') , (model:ShoppingModel)=>{
+              this.model = model;
+          });
       });
-      this.shoppingService.shoppingStream.subscribe( (m)=>this.model = m );
+      //this.shoppingService.shoppingStream.subscribe( (m)=>this.model = m );
   }
 
     set list( l: ListAggregate ){

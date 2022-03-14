@@ -26,3 +26,14 @@ button.action {
     bottom: 55px;
     font-size: 1.8em;
 }
+
+
+.top-title{
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+.top-div{
+    padding-bottom: 16px;
+    border-bottom: 2px solid silver
+}

@@ -2,21 +2,63 @@
 
 
 <div>
-    <label style="float: left">
-        LISTEN
-    </label>
-    <button
-        style="float: right"
-        pButton
-        (click)="newListDialogVisible = !newListDialogVisible"
-        class="p-button-success"
-        icon="pi pi-plus"></button>
-    <div style="clear: both"></div>
+
+    <div class="p-grid">
+
+        <div *ngFor="let t of listTypes" class="p-sm-12 p-col-12 p-md-6 p-lg-4">
+
+            <div class="p-grid">
+                <div class="p-offset-1"></div>
+                <div class="p-col-10">
+                    <div class="top-div">
+                        <label [routerLink]="[t.path]" class="top-title">{{t.name}}</label>
+                        <button
+                            style="float: right"
+                            pButton
+                            (click)="newListDialogVisible = !newListDialogVisible"
+                            [routerLink]="t.path"
+                            class="p-button-success"
+                            icon="pi pi-plus"></button>
+                    </div>
+                    <div style="margin-top: 2px;">
+                        <button [routerLink]="t.path" pButton class="p-button-outlined" label="ALLE ANZEIGEN" style="float: right"></button>
+                    </div>
+
+                </div>
+                <div class="p-offset-1"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="p-grid" *ngIf="false">
+        <div class="p-col-1" style="text-align: center">
+            <button
+                pButton
+                style="height: 130px; width: 130px;"
+                icon="pi pi-plus"></button>
+        </div>
+        <div class="p-col-11">
+            <div *ngFor="let d of data" (click)="open(d)" class="p-col-12 p-sm-3 list" style="cursor: pointer; float: left; height: 130px;">
+                <p-card [style]="{height:'110px'}">
+                    <h3>{{d.name}}</h3>
+                </p-card>
+            </div>
+        </div>
+
+
+
 </div>
 
-<hr>
 
-<div class="p-grid">
+
+
+
+<div class="p-grid" *ngIf="false">
       <div *ngIf=" isPending && !data" class="p-col-12 p-sm-3 list">
           <p-card>
               <p-skeleton width="100%" height="1rem"></p-skeleton>

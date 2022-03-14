@@ -27,6 +27,10 @@ import { ShoppingRootViewComponent } from './app/shopping/components/views/shopp
 import {SpeedDialModule} from "primeng/speeddial";
 import { ShoppingItemDetailComponent } from './app/shopping/components/views/shopping-item-detail/shopping-item-detail.component';
 import { ShoppingStoreChooserComponent } from './app/shopping/components/views/shopping-add-item-view/shopping-store-chooser/shopping-store-chooser.component';
+import { ProductOverviewComponent } from './app/shopping/shoppingproducts/adapter/view/product-overview/product-overview.component';
+import { AddShoppingItemComponent } from './app/shopping/shoppinglist/adapter/components/add-shopping-item/add-shopping-item.component';
+import { ShoppingItemListViewComponent } from './app/shopping/shoppinglist/adapter/components/shopping-item-list-view/shopping-item-list-view.component';
+import { ShoppingStoreDashboardComponent } from './app/shopping/shoppingstores/adapter/view/shopping-store-dashboard/shopping-store-dashboard.component';
 
 
 
@@ -42,7 +46,11 @@ import { ShoppingStoreChooserComponent } from './app/shopping/components/views/s
       ShoppingAddItemViewComponent,
       ShoppingRootViewComponent,
       ShoppingItemDetailComponent,
-      ShoppingStoreChooserComponent
+      ShoppingStoreChooserComponent,
+      ProductOverviewComponent,
+      AddShoppingItemComponent,
+      ShoppingItemListViewComponent,
+      ShoppingStoreDashboardComponent
   ],
     imports: [
         CommonModule,

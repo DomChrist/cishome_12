@@ -1,4 +1,71 @@
 <p-toast  ></p-toast>
 
+<div class="p-grid">
+    <div class="p-sm-12 p-col-12 p-md-4 p-xl-4">
+        <p-card routerLink="stores">
+            <img src="assets/icons/flaticon/supermarkt.png" style="width: 55px; height: 55px;">
+            <label class="box-name"> 5 Stores</label>
+        </p-card>
+    </div>
+
+    <div class="p-sm-12 p-col-12 p-md-4 p-xl-4">
+        <p-card>
+            <img src="assets/icons/flaticon/shopping-cart.png" style="width: 55px; height: 55px;">
+            <label routerLink="products" class="box-name"> 75 Products</label>
+        </p-card>
+
+    </div>
+
+    <div class="p-sm-12 p-col-12 p-md-4 p-xl-4">
+        <p-card>
+            <img src="assets/icons/flaticon/task-list.png" style="width: 55px; height: 55px;">
+            <label class="box-name">
+                <label> {{list?.responseList?.length}} </label>
+                <label>Lists</label>
+            </label>
+        </p-card>
+
+    </div>
+</div>
+
+<div>
+    <div>
+        <div style="background: #3d71c8; height: 72px;" >
+            <div class="card-icon">
+                <img  src="assets/icons/flaticon/task-list.png" style="width: 55px; height: 55px; ">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <p-card>
+        <label class="box-name">
+            <label> {{list?.responseList?.length}} </label>
+            <label>Lists</label>
+        </label>
+
+        <div *ngFor="let l of list?.responseList" style="margin-top: 10px;">
+            <p-card>
+                <div>
+                    <label>{{l.name}}</label>
+                </div>
+                <div style="text-align: right">
+                    <button
+                        pButton
+                        [routerLink]="['list',l.id]"
+                        icon="pi pi-pencil"
+                        label="BEARBEITEN"
+                        class="p-button-outlined p-button-secondary"></button>
+                </div>
+            </p-card>
+        </div>
+    </p-card>
+
+</div>
+
+
+
 <router-outlet></router-outlet>
 

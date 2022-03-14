@@ -12,6 +12,8 @@ export class ListDashboardComponent implements OnInit {
 
   public httpState: READY_STATE;
 
+  public listTypes: Array<ListType>;
+
   public data: Array<ListProjection>;
   public newListDialogVisible = false;
 
@@ -19,6 +21,11 @@ export class ListDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.load();
+    this.listTypes = [
+        {name: 'SHOPPING', icon: 'pi pi-cart' , path:'shopping'},
+        {name: 'TODO', icon: 'pi pi-cart' , path:'shopping'},
+        {name: 'DEFAULT', icon: 'pi pi-cart' , path:'shopping'}
+    ]
   }
 
   private load(){
@@ -60,4 +67,10 @@ interface ListProjection {
   type: string;
   creator: string;
   creatorGroup: string;
+}
+
+interface ListType{
+    name: string;
+    icon: string;
+    path: string;
 }
