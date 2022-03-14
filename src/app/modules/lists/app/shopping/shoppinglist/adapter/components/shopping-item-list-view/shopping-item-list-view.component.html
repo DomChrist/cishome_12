@@ -1,0 +1,29 @@
+<p-card>
+<div style="padding-bottom: 15px; ">
+
+    <div #listElement>
+        <div *ngFor="let i of list">
+            <div style="padding-bottom: 5px;">
+                <label style="position: relative; top: -13px;">
+                    <p-checkbox [style]="{top:'-13px'}" *ngIf="i.value" binary="true"></p-checkbox>
+                </label>
+                <i *ngIf="!i.value" class="pi pi-plus"></i>
+
+
+                <input
+                    [id]="i.id"
+                    [(ngModel)]="i.value"
+                    style="border:none; outline: none; box-shadow: none; background: none;"
+                    placeholder="LISTENEINTRAG"
+                    (keyup)="keyListener($event,i)"
+                    pInputText
+                >
+            </div>
+
+        </div>
+    </div>
+
+<div style="clear: both"></div>
+
+</div>
+</p-card>
