@@ -39,7 +39,7 @@ export class CheckComponent implements OnInit {
           console.log( a.input + "===" + a.result );
           if( !a.input ){
               a.check = 0;
-          } else if( a.input === a.result ){
+          } else if( a.input == a.result ){
               a.check = 1;
               this.$rightAnswers.push( a );
               this.$richtig++;

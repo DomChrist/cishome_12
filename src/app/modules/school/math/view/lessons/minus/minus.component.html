@@ -1,15 +1,20 @@
 
 <div [hidden]="!checked">
-    <app-check #checkc [aufgaben]="aufgaben"></app-check>
+    <app-check #checkc [aufgaben]="aufgabe?.aufgaben"></app-check>
+    <button
+        pButton
+        style="width: 100%;"
+        (click)="reload()"
+        label="NEU"></button>
 </div>
 
 <div>
     <button pButton label="TEST ABGEBEN" class="p-button-secondary" (click)="check()" style="width: 100%" ></button>
 </div>
 
-<div style="margin-top: 25px;" *ngIf="aufgaben" class="p-grid">
+<div style="margin-top: 25px;" *ngIf="aufgabe" class="p-grid">
 
-    <app-aufgaben [aufgaben]="aufgaben"></app-aufgaben>
+    <app-aufgaben [aufgabe]="aufgabe"></app-aufgaben>
 
 </div>
 

@@ -1,5 +1,5 @@
 <div class="p-grid">
-    <div *ngFor="let a of aufgaben" class="p-sm-12 p-md-4" style="font-size: 2em;">
+    <div *ngFor="let a of aufgaben" class="p-col-12 p-sm-12 p-md-12" style="font-size: 2em; margin-bottom: 5px;">
 
         <p-card>
             <div class="p-grid" style="font-size: 2em; text-align: center">
@@ -10,9 +10,9 @@
                 <div class="p-col-4">
                     <label class="richtig" *ngIf="a.check === 1">{{a.input}}</label>
                     <label class="falsch" *ngIf="a.check === -1">{{a.input}}</label>
-                    <input *ngIf=" (!a.split) && (a.check === 0 || !a.check)" [(ngModel)]="a.input" type="number" class="input-result">
+                    <input *ngIf=" (!a.split) && (a.check === 0 || !a.check)" (blur)="blur($event)" [(ngModel)]="a.input" type="number" class="input-result">
                     <div *ngIf="(a.split) && (a.check === 0 || !a.check)" class="p-inputgroup">
-                        <input type="text" [(ngModel)]="a.input" class="input-result" pInputText >
+                        <input type="number" (blur)="blur($event)" [(ngModel)]="a.input" class="input-result" pInputText >
                         <button tabindex="-1" type="button" pButton pRipple (click)="activateHelp(a)" label="?" styleClass="p-button-warn"></button>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Aufgabe, TeilAufgabe} from "../../../model/school";
+import {Aufgabe, AufgabenAggregate, TeilAufgabe} from "../../../model/school";
 
 @Component({
   selector: 'app-aufgaben',
@@ -8,7 +8,7 @@ import {Aufgabe, TeilAufgabe} from "../../../model/school";
 })
 export class AufgabenComponent implements OnInit {
 
-  private $aufgaben: Aufgabe[];
+  private $aufgabe: AufgabenAggregate;
 
   constructor() { }
 
@@ -16,12 +16,13 @@ export class AufgabenComponent implements OnInit {
   }
 
   @Input()
-  set aufgaben( aufgaben:Aufgabe[] ){
-        this.$aufgaben = aufgaben;
+  set aufgabe( a:AufgabenAggregate ){
+      this.$aufgabe = a;
+      console.log(this.$aufgabe);
   }
 
   get aufgaben(){
-      return this.$aufgaben;
+      return this.$aufgabe.aufgaben;
   }
 
   public getCorrectSplits( aufgabe:Aufgabe ){
@@ -53,4 +54,8 @@ export class AufgabenComponent implements OnInit {
       a.helpCounter++;
     }
 
+    blur($event: FocusEvent) {
+      console.log(this.$aufgabe);
+        if( this.$aufgabe ) this.$aufgabe.store();
+    }
 }

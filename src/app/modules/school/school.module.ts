@@ -14,6 +14,7 @@ import {FormsModule} from "@angular/forms";
 import { CheckComponent } from './math/view/lessons/check/check.component';
 import { MixComponent } from './math/view/lessons/mix/mix.component';
 import {InputTextModule} from "primeng/inputtext";
+import { SpeedMathComponent } from './math/view/lessons/speed-math/speed-math.component';
 
 
 
@@ -27,7 +28,8 @@ import {InputTextModule} from "primeng/inputtext";
     MalComponent,
     GeteiltComponent,
     CheckComponent,
-    MixComponent
+    MixComponent,
+    SpeedMathComponent
   ],
     imports: [
         CommonModule,

@@ -7,9 +7,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SchoolDashboardComponent implements OnInit {
 
-  constructor() { }
+    public aufgaben: Aufgabe[];
+
+    constructor() { }
 
   ngOnInit(): void {
+      this.aufgaben = [
+          {name:"+",path:"math/plus"},
+          {name:"-" , path:"math/minus"},
+          {name:"*", path:"math/mal"},
+          {name:":" , path:"math/geteilt"},
+          {name:"MIX" , path:"math/mix"},
+          {name:"SPEED" , path:"math/speed"}
+      ];
   }
 
+}
+
+interface Aufgabe{
+    name: string;
+    path: string;
 }

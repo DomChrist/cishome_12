@@ -8,18 +8,10 @@ import {CisHttpService} from "../../../../../system/cis-connector/services/cis-h
 })
 export class MathDashboardComponent implements OnInit {
 
-  public aufgaben: Aufgabe[];
 
   constructor( private http:CisHttpService) { }
 
   ngOnInit(): void {
-      this.aufgaben = [
-          {name:"+",path:"plus"},
-          {name:"-" , path:"minus"},
-          {name:"*", path:"mal"},
-          {name:":" , path:"geteilt"},
-          {name:"MIX" , path:"mix"}
-      ];
   }
 
 
@@ -30,7 +22,3 @@ export class MathDashboardComponent implements OnInit {
 
 
 
-interface Aufgabe{
-    name: string;
-    path: string;
-}

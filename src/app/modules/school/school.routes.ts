@@ -8,6 +8,7 @@ import {MinusComponent} from "./math/view/lessons/minus/minus.component";
 import {MalComponent} from "./math/view/lessons/mal/mal.component";
 import {GeteiltComponent} from "./math/view/lessons/geteilt/geteilt.component";
 import {MixComponent} from "./math/view/lessons/mix/mix.component";
+import {SpeedMathComponent} from "./math/view/lessons/speed-math/speed-math.component";
 
 /*
 const routes = [
@@ -29,7 +30,8 @@ const routes = [
             {path:'minus' , component: MinusComponent},
             {path:'mal' , component: MalComponent},
             {path:'geteilt' , component: GeteiltComponent},
-            {path:'mix' , component: MixComponent}
+            {path:'mix' , component: MixComponent},
+            {path:'speed' , component: SpeedMathComponent}
         ]
     },
 ]
