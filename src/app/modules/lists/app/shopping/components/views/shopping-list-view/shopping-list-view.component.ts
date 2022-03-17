@@ -5,6 +5,8 @@ import {Location} from "@angular/common";
 import {ShoppingListService} from "../../../services/shopping-list.service";
 import {ActivatedRoute} from "@angular/router";
 import {ShoppingItem, ShoppingModel} from "../../../shoppinglist/domain/shopping-model";
+import {ShoppingStoreService} from "../../../shoppingstores/application/shopping-store.service";
+import {Store, StoreAggregate} from "../../../shoppingstores/domain/store-model";
 
 @Component({
   selector: 'app-shopping-list-view',
@@ -20,11 +22,14 @@ export class ShoppingListViewComponent implements OnInit {
     public inputStep = 0;
 
     public newItemView = false;
+    public newStoreView = false;
 
     public model: ShoppingModel;
     public selectedItem: ShoppingItem;
 
-    constructor( private service: ListService , private shoppingService: ShoppingListService, private route: ActivatedRoute, private location: Location) { }
+    public stores: StoreAggregate[];
+
+    constructor( private storeService: ShoppingStoreService, private service: ListService , private shoppingService: ShoppingListService, private route: ActivatedRoute, private location: Location) { }
 
   ngOnInit(){
       this.route.paramMap.subscribe( map=>{
@@ -32,6 +37,9 @@ export class ShoppingListViewComponent implements OnInit {
               this.model = model;
           });
       });
+      this.storeService.stores( (aggregates => {
+        this.stores = aggregates;
+      }) , () => {} );
       //this.shoppingService.shoppingStream.subscribe( (m)=>this.model = m );
   }
 
@@ -77,4 +85,13 @@ export class ShoppingListViewComponent implements OnInit {
     }
 
 
+    addStore($event: Store) {
+        if( $event ){
+            if( !this.model.storeGroupedList[$event.storeId.id] ){
+                this.model.storeGroupedList[$event.storeId.id]  = new Array<ShoppingItem>();
+                console.log(this.model.storeGroupedList);
+                this.newStoreView = false;
+            }
+        }
+    }
 }

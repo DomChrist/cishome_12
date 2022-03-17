@@ -1,0 +1,13 @@
+
+    <div style="" class="frame" >
+        <label>list</label>
+        <p-scrollPanel [style]="{width: '100%'}" >
+            <div *ngFor="let s of store">
+                <div style="margin-bottom: 10px; ">
+                    <p-card (click)="choose(s)">
+                        <label>{{s.name.name}}</label>
+                    </p-card>
+                </div>
+            </div>
+        </p-scrollPanel>
+    </div>

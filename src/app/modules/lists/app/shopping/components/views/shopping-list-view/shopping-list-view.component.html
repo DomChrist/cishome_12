@@ -13,32 +13,14 @@
     </p-card>
 </div>
 
-<div class="p-grid">
+<div class="p-grid" *ngIf="model" style="margin-top: 15px;">
 
-    <div class="p-col-12 p-sm-12 p-md-4">
-        <app-shopping-item-list-view></app-shopping-item-list-view>
+    <div *ngFor="let l of model.storeGroupedList | keyvalue" class="p-col-12 p-sm-12 p-md-4">
+        <app-shopping-item-list-view [storeId]="l.key"
+                                     [list]="l.value"  >
+
+        </app-shopping-item-list-view>
     </div>
-
-    <div class="p-col-12 p-sm-12 p-md-4">
-        <app-shopping-item-list-view></app-shopping-item-list-view>
-    </div>
-
-    <div class="p-col-12 p-sm-12 p-md-4">
-        <app-shopping-item-list-view></app-shopping-item-list-view>
-    </div>
-
-    <div class="p-col-12 p-sm-12 p-md-4">
-        <app-shopping-item-list-view></app-shopping-item-list-view>
-    </div>
-
-    <div class="p-col-12 p-sm-12 p-md-4">
-        <app-shopping-item-list-view></app-shopping-item-list-view>
-    </div>
-
-    <div class="p-col-12 p-sm-12 p-md-4">
-        <app-shopping-item-list-view></app-shopping-item-list-view>
-    </div>
-
 
 </div>
 
@@ -53,7 +35,7 @@
 
 
 
-<div >
+<div *ngIf="false" >
     <div class="">
         <p-card>
             <div style="margin: 5px; border-bottom: 2px solid #3d71c8; color: #0D47A1; text-transform: uppercase; font-weight: bold; font-size: 1.2em" >
@@ -295,11 +277,12 @@
     <button
         class="p-button-rounded add-button "
         routerLink="add"
+        (click)="newStoreView = !newStoreView"
         style="position:fixed"
         pButton
         icon="pi pi-fw pi-plus"></button>
 
 
-<p-sidebar position="bottom" [(visible)]="selectedItem" (close)="selectedItem = null" [style]="{height:'400px'}">
-    <app-shopping-item-detail [shoppingItem]="selectedItem"></app-shopping-item-detail>
+<p-sidebar position="bottom" [(visible)]="newStoreView" (close)="selectedItem = null" [style]="{height:'700px'}">
+    <shopping-list-add-new-store (storeAdded)="addStore($event)" ></shopping-list-add-new-store>
 </p-sidebar>

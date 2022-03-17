@@ -31,6 +31,10 @@ import { ProductOverviewComponent } from './app/shopping/shoppingproducts/adapte
 import { AddShoppingItemComponent } from './app/shopping/shoppinglist/adapter/components/add-shopping-item/add-shopping-item.component';
 import { ShoppingItemListViewComponent } from './app/shopping/shoppinglist/adapter/components/shopping-item-list-view/shopping-item-list-view.component';
 import { ShoppingStoreDashboardComponent } from './app/shopping/shoppingstores/adapter/view/shopping-store-dashboard/shopping-store-dashboard.component';
+import { StoreLabelComponent } from './app/shopping/shoppingstores/adapter/component/store-label/store-label.component';
+import { AddNewStoreComponent } from './app/shopping/shoppinglist/adapter/components/add-new-store/add-new-store.component';
+import {ScrollPanelModule} from "primeng/scrollpanel";
+import { ShoppingListPipe } from './app/shopping/shoppinglist/adapter/components/shopping-item-list-view/shopping-list.pipe';
 
 
 
@@ -50,7 +54,10 @@ import { ShoppingStoreDashboardComponent } from './app/shopping/shoppingstores/a
       ProductOverviewComponent,
       AddShoppingItemComponent,
       ShoppingItemListViewComponent,
-      ShoppingStoreDashboardComponent
+      ShoppingStoreDashboardComponent,
+      StoreLabelComponent,
+      AddNewStoreComponent,
+      ShoppingListPipe
   ],
     imports: [
         CommonModule,
@@ -68,7 +75,8 @@ import { ShoppingStoreDashboardComponent } from './app/shopping/shoppingstores/a
         RippleModule,
         DialogModule,
         CheckboxModule,
-        SpeedDialModule
+        SpeedDialModule,
+        ScrollPanelModule
     ],
     providers : [
         {provide: LocationStrategy, useClass: PathLocationStrategy},

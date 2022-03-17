@@ -1,1 +1,63 @@
 <p>shopping-store-dashboard works!</p>
+
+<div>
+    <input
+        pInputText
+        style="width: 100%"
+        [(ngModel)]="inputName"
+        (keyup.enter)="newStore()"
+        placeholder="NEW STORE NAME"
+    >
+</div>
+
+<div *ngIf="list" style="margin-top: 10px;">
+    <div *ngFor="let s of list" style="margin-bottom: 10px;">
+        <p-card (click)="select(s)">
+            <div style="float: left">
+                <img [src]="imagePath(s)" style="width: 75px; height: 75px;">
+            </div>
+            <div style="float: left">
+                {{s.store.name.name}}
+            </div>
+            <div style="clear: both"></div>
+        </p-card>
+    </div>
+</div>
+
+
+<p-dialog
+    *ngIf="selectedItem"
+    [header]="selectedItem.store.name.name"
+    [(visible)]="selectedItem"
+    (close)="unselect()"
+    [modal]="true"
+    [responsive]="true"
+    >
+
+    <div class="store-detail-name">
+        <label>{{selectedItem.store.name.name}}</label>
+    </div>
+    <div *ngIf="selectedItem.store.link.searchPath">
+        <div class="p-inputgroup">
+            <input type="text" [(ngModel)]="searchLine" (keyup.enter)="search()" pInputText placeholder="Keyword">
+            <button type="button" pButton pRipple icon="pi pi-refresh" styleClass="p-button-warn"></button>
+        </div>
+
+    </div>
+    <div>
+
+        <div>
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-globe"></i></span>
+                <input type="text" pInputText [ngModel]="selectedItem.store.link.link" placeholder="WEBSITE">
+            </div>
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+                <input type="text" pInputText [ngModel]="selectedItem.store.link.searchPath" placeholder="SEARCHLINK">
+            </div>
+        </div>
+
+    </div>
+
+</p-dialog>
+

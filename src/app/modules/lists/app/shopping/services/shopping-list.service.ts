@@ -48,11 +48,14 @@ export class ShoppingListService {
         console.log( 'addItem' );
         console.log(this.shoppingModel);
         const uri = 'list/shopping/cmd/v1/list/'+this.shoppingModel.id+'/add/item';
+        if( store && store === 'default' ) store = null;
         let request = {
             itemName : name,
             counter : 1,
             store : store
         }
+        console.log('request');
+        console.log(request);
         let obs = this.http.cisPut<ListResponse<any>>( uri , request);
 
         obs.subscribe( (data)=>{

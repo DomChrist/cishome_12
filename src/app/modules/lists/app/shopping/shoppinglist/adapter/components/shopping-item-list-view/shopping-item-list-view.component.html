@@ -1,21 +1,66 @@
-<p-card>
+<p-card [style]="">
+    <div style="text-align: center;">
+        <app-store-label [storeId]="storeId"></app-store-label>
+        <div style="text-align: right">
+            <button pButton
+                    [disabled]="true"
+                    class="p-button-outlined"
+                    style="margin-left: 10px; font-size: 2rem; width: 45px; height: 45px;"
+                    class="p-button-error"
+                    icon="pi pi-trash"></button>
+            <button pButton
+                    style="margin-left: 10px; font-size: 2rem; width: 45px; height: 45px;"
+                    class="p-button-outlined"
+                    [disabled]="true"
+                    icon="pi pi-shopping-cart"></button>
+            <button pButton
+                    style="margin-left: 10px; font-size: 2rem; width: 45px; height: 45px;"
+                    [disabled]="true"
+                    class="p-button-outlined"
+                    icon="mdi mdi-credit-card-check-outline"></button>
+        </div>
+    </div>
 <div style="padding-bottom: 15px; ">
 
     <div #listElement>
-        <div *ngFor="let i of list">
-            <div style="padding-bottom: 5px;">
+        <div *ngFor="let i of open; index as index">
+            <div style="padding-bottom: 5px;" [class.swipe]="i.swiped"  (touchstart)="listHandler.touchstart($event,i)"
+                 (touchend)="listHandler.touchend($event,i)"
+                 (touchmove)="listHandler.touchmoved($event)" >
                 <label style="position: relative; top: -13px;">
-                    <p-checkbox [style]="{top:'-13px'}" *ngIf="i.value" binary="true"></p-checkbox>
+                    <p-checkbox [ngModel]="i.bought" [value]="i.bought"
+                                (onChange)="listHandler.itemBought(i)"
+                                [style]="{top:'-13px'}" *ngIf="!i.insert" binary="true"></p-checkbox>
                 </label>
-                <i *ngIf="!i.value" class="pi pi-plus"></i>
 
-
+                <i *ngIf="i.insert" class="pi pi-plus"></i>
                 <input
-                    [id]="i.id"
-                    [(ngModel)]="i.value"
+                    [id]="i.identifier"
+                    [(ngModel)]="i.name"
                     style="border:none; outline: none; box-shadow: none; background: none;"
                     placeholder="LISTENEINTRAG"
-                    (keyup)="keyListener($event,i)"
+                    (keyup)="inputElement.keyListener($event,i,index)"
+                    (blur)="inputElement.addItem(i,index)"
+                    pInputText
+                >
+            </div>
+
+        </div>
+    </div>
+
+    <div #doneElements>
+        <div *ngFor="let i of done">
+            <div style="padding-bottom: 5px;" >
+                <label style="position: relative; top: -13px;">
+                    <p-checkbox [ngModel]="i.bought" [value]="i.bought" [style]="{top:'-13px'}" binary="true"></p-checkbox>
+                </label>
+
+                <input
+                    [id]="i.identifier"
+                    [(ngModel)]="i.name"
+                    [disabled]="true"
+                    style="border:none; outline: none; box-shadow: none; background: none;"
+                    placeholder=""
                     pInputText
                 >
             </div>
@@ -26,4 +71,18 @@
 <div style="clear: both"></div>
 
 </div>
+
+        <div style="text-align: right" [hidden]="true">
+            <button pButton
+                    style="margin-left: 10px; font-size: 2rem; width: 45px; height: 45px;"
+                    class="p-button-outlined"
+                    [disabled]="true"
+                    icon="pi pi-shopping-cart"></button>
+            <button pButton
+                    [disabled]="true"
+                    style="margin-left: 10px; font-size: 2rem; width: 45px; height: 45px;"
+                    class="p-button-outlined"
+                    icon="mdi mdi-credit-card-check-outline"></button>
+        </div>
+
 </p-card>
