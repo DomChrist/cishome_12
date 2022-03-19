@@ -15,7 +15,8 @@ export class ShoppingItem {
     insert: boolean;
     bought: boolean;
     identifier:string;
-    swiped: boolean;
+    doneSwipe: boolean;
+    removeSwipe: boolean;
 }
 
 export class ShoppingAggregate{

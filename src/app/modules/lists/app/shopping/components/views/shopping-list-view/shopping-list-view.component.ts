@@ -15,9 +15,9 @@ import {Store, StoreAggregate} from "../../../shoppingstores/domain/store-model"
 })
 export class ShoppingListViewComponent implements OnInit {
 
-    private listReference: string;
+    public listReference: string;
 
-    private listAggregate: ListAggregate;
+    public listAggregate: ListAggregate;
 
     public inputStep = 0;
 
@@ -70,7 +70,7 @@ export class ShoppingListViewComponent implements OnInit {
     }
 
     public removeItem( item: Item){
-        this.shoppingService.remove( this.model.id, this.list , item , (m:ShoppingModel) => {
+        this.shoppingService.remove( this.model.id , item.id , (m:ShoppingModel) => {
             this.model = m;
         });
     }

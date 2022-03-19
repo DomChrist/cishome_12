@@ -97,8 +97,8 @@ export class ShoppingListService {
             } );
     }
 
-    remove(reference: string, list: ListAggregate, item: Item , success:(agg:ShoppingModel)=>void) {
-        const uri = 'list/shopping/cmd/v1/list/'+reference+'/remove/item/' + item.id;
+    remove(list: string, itemId: string , success:(agg:ShoppingModel)=>void) {
+        const uri = 'list/shopping/cmd/v1/list/'+list+'/remove/item/' + itemId;
         this.http.cisDelete<ShoppingModel>( uri ).subscribe( (resp)=>{
             this.message.add( {severity:'success' , summary:'Item deleted'} );
             this.shoppingModel = resp.body;

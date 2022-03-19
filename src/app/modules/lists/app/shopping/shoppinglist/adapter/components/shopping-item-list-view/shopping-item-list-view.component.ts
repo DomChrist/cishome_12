@@ -19,6 +19,9 @@ export class ShoppingItemListViewComponent implements OnInit {
   public inputElement: InputElement;
   public listHandler: ListHandler;
 
+  @Input()
+  public listReference:string;
+
   @ViewChild("listinput")
   public input: ElementRef;
 
@@ -28,7 +31,7 @@ export class ShoppingItemListViewComponent implements OnInit {
 
   ngOnInit(): void {
       this.inputElement = new InputElement( this.$shopId , this.shoppingListService );
-      this.listHandler = new ListHandler(this.$list,this.$shopId);
+      this.listHandler = new ListHandler(this.$list,this.listReference,this.$shopId,this.shoppingListService);
   }
 
   public id( i:Item): string{
@@ -113,10 +116,10 @@ export class ShoppingItemListViewComponent implements OnInit {
         if(  this.startX < this.endX){
             //alert('swipe right')
             item.bought = false;
+            this.listHandler.removeFromList(item);
+            console.log('item removed');
         } else {
             this.markAsBought(item);
-            //this.itemBought(item);
-            //alert('swipe left')
         }
     }
 
@@ -184,10 +187,14 @@ class ListHandler{
 
     private endX: number;
     private startX: number;
+    private _service: ShoppingListService;
+    private listReference: string;
 
-    constructor( list:Array<ShoppingItem> , store:StoreId ) {
+    constructor( list:Array<ShoppingItem> , listReference:string, store:StoreId, service:ShoppingListService ) {
         this._$done = new Array<ShoppingItem>();
         this.$storeId = store;
+        this._service = service;
+        this.listReference = listReference;
         this.init( list );
     }
 
@@ -207,22 +214,37 @@ class ListHandler{
         console.log(t);
         this.endX = undefined;
         this.startX = t.touches[0].pageX;
-        item.swiped = true;
     }
 
-    touchmoved(t){
+    touchmoved(t , item: ShoppingItem){
         console.log("touch.moved");
         console.log(t);
         this.endX = t.touches[0].pageX;
+        if( this.startX < this.endX ){
+            item.doneSwipe = false;
+            item.removeSwipe = true;
+        } else {
+            item.doneSwipe = true;
+            item.removeSwipe = false;
+        }
     }
 
     touchend(t:TouchEvent, item: ShoppingItem){
+        let width = document.getElementsByClassName('item-div')[0].clientWidth * 0.75;
+
         console.log("touch.end");
         console.log(t);
-        item.swiped = false;
+        item.removeSwipe = false;
+        item.doneSwipe = false;
+        console.log( this.startX );
+        console.log( this.endX );
+        let swipe = Math.abs( this.startX - (this.endX ? this.endX : 0) );
+        console.log('swipe + ' + swipe);
+        if( swipe < width ) return;
         if( t.touches.length > 0) t.touches[0].pageX;
         if(  this.startX < this.endX){
             //alert('swipe right')
+            this.removeFromList(item);
             item.bought = false;
         } else {
             item.bought = true;
@@ -239,6 +261,23 @@ class ListHandler{
                 this._$done.push( e );
             });
         this._$open = this._$open.filter(e=>!e.bought );
+    }
+
+    notBought(i: ShoppingItem) {
+        i.bought = false;
+        i.insert = false;
+        this._$open = this._$open.filter( e=>!e.insert );
+        this._$open.push( i );
+        console.log( this._$done.length );
+        this._$done = this._$done.filter(e=>e.bought );
+        console.log( this._$done.length );
+    }
+
+    public removeFromList( item:ShoppingItem ){
+        this._service.remove( this.listReference , item.id , ()=>{
+            console.log('yeah');
+            this._$open = this._$open.filter( i => i.id != item.id );
+        });
     }
 
 
@@ -259,6 +298,8 @@ class ListHandler{
     get done(): Array<ShoppingItem> {
         return this._$done;
     }
+
+
 }
 
 class InputElement {
@@ -314,12 +355,17 @@ class InputElement {
 class ShoppingItemAggregate{
 
     private readonly _item: ShoppingItem;
+    private readonly listId : string;
     private startX: number;
     private endX: number;
+    private readonly service:ShoppingListService;
 
-    constructor(item: ShoppingItem) {
+
+    constructor(item: ShoppingItem, service: ShoppingListService) {
         this._item = item;
     }
+
+
 
     get item(){
         return this._item;

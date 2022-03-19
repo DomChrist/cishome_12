@@ -1,11 +1,36 @@
 
-@keyframes example {
+@keyframes doneAnimation {
     from {background-color: transparent;}
     to {background-color: #66BB6A;}
 }
 
 
-.swipe{
-    animation-name: example;
+.done-swipe{
+    animation-name: doneAnimation;
     animation-duration: 2s;
+}
+
+
+@keyframes removeAnimation {
+    from {background-color: transparent;}
+    to {background-color: #C63737;}
+}
+.remove-swipe{
+    animation-name: removeAnimation;
+    animation-duration: 2s;
+}
+
+input{
+    border:none;
+    outline: none;
+    box-shadow: none !important;
+    background: none;
+}
+
+input.new-entry-input{
+    width: calc(100% - 20px );
+}
+
+input.exist-entry-input{
+    width: calc(100% - 60px );
 }
