@@ -19,6 +19,8 @@ export class ShoppingItemListViewComponent implements OnInit {
   public inputElement: InputElement;
   public listHandler: ListHandler;
 
+  public showSettlement = false;
+
   @Input()
   public listReference:string;
 
