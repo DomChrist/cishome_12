@@ -1,0 +1,37 @@
+<div>
+
+
+    <button
+        pButton
+        (click)="start()"
+        label="START"></button>
+
+</div>
+
+
+<div>
+
+    <div *ngIf="aufgabe" class="p-grid">
+        <div class="p-col-3"></div>
+        <div class="p-col-6">
+            <div class="p-grid">
+                <div class="p-col-2">
+                    <label class="operator">{{aufgabe.operation1}}</label>
+                </div>
+                <div class="p-col-2">
+                    <label class="operator">{{aufgabe.symbol}}</label>
+                </div>
+                <div class="p-col-2">
+                    <label class="operator">{{aufgabe.operation2}}</label></div>
+                </div>
+                <div class="p-col-2">
+                    <label class="operator">=</label>
+                </div>
+                <div class="p-col-2">
+                    <input pInputText  style="width: 80px;" [(ngModel)]="aufgabe.input" (keyup.enter)="next()" >
+                </div>
+            </div>
+        </div>
+        <div class="p-col-3"></div>
+    </div>
+
