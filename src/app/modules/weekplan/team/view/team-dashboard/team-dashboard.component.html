@@ -1,0 +1,47 @@
+
+
+<button pButton
+        (click)="newMemberDialogVisible=true"
+        label="ANLEGEN"></button>
+
+
+<p-table [value]="team">
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 100px;"></th>
+      <th>NAME</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-t>
+    <tr>
+      <td>
+        <img class="team-user" [src]="t.image.baseImage">
+      </td>
+      <td>
+        {{t.fullName}}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+
+<p-dialog
+  [responsive]="true"
+  [(visible)]="newMemberDialogVisible">
+
+  <div>
+    <input pInputText placeholder="NAME" [(ngModel)]="name" style="width: 100%;" maxlength="55">
+  </div>
+
+  <div>
+    <h3 class="first">BILD</h3>
+    <p-fileUpload mode="basic" (onSelect)="fileSelect($event)" accept="image/*" maxFileSize="1000000"></p-fileUpload>
+  </div>
+
+  <div>
+    <button pButton
+            label="SPEICHERN"
+            (click)="save()"></button>
+  </div>
+
+</p-dialog>

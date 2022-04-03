@@ -1,0 +1,91 @@
+.weekplan-day:nth-child(even){
+  background: snow;
+}
+
+
+
+.add-area , .header{
+  text-align: center;
+}
+
+.header{
+  border-bottom: 15px solid white;
+}
+
+.add-area{
+  border: 1px dashed lightgray;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 1.6em;
+}
+
+.add-area:hover{
+  animation-duration: 1s;
+  background: rgb(13,79,161);
+  background: linear-gradient(129deg, rgba(13,79,161,1) 7%, rgba(90,128,205,1) 76%, rgba(14,13,161,1) 100%);
+  color: snow;
+}
+.add-area:active{
+  background: rgb(13,161,43);
+  background: linear-gradient(129deg, rgba(13,161,43,1) 7%, rgba(218,255,216,1) 76%, rgba(13,161,43,1) 100%);
+}
+
+.tasks{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.task{
+  height: 95px;
+  margin: 5px auto;
+  background: transparent;
+  box-shadow: 0px 0px 2px 1px silver;
+  padding: 10px;
+}
+
+.task-content{
+  height: 100%;
+  width: 100%;
+  background: purple;
+}
+
+.task-user{
+  float: right;
+  height: 35px;
+  width: 35px;
+  background: #0ee8ff;
+  border-radius: 100%;
+  position: relative;
+  left: 18px;
+  bottom: 10px;
+}
+
+.drop-task{
+  height: 95px;
+  margin: 5px auto;
+  background: transparent;
+  border: 5px dotted silver;
+  padding: 10px;
+}
+
+.drag-task{
+  width: 75px;
+  height: 75px;
+  margin-right: 5px;
+}
+
+.team-user-icon{
+  border-radius: 100%;
+  box-shadow: 2px 2px 5px 2px silver;
+}
+
+.pendingTask{
+  border: 5px solid yellow;
+}
+
+.today{
+    background: #2ebcfc;
+    padding: 5px;
+    color: snow;
+    font-weight: bold;
+}

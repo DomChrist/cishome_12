@@ -1,0 +1,13 @@
+<div>
+
+  <input pInputText [(ngModel)]="description" placeholder="BESCHREIBUNG">
+
+  <h3 class="first">BILD</h3>
+  <p-fileUpload mode="basic" (onSelect)="fileSelect($event)" accept="image/*" maxFileSize="1000000"></p-fileUpload>
+
+  <button
+    pButton
+    (click)="upload()"
+    label="SPEICHERN"></button>
+
+</div>

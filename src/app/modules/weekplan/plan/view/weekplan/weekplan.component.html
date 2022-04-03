@@ -1,0 +1,122 @@
+
+
+
+<div class="p-grid" *ngIf="plan" >
+
+
+  <div class="p-xl-1" style="border-right: 1px solid silver">
+    <div class="add-area" (click)="openShowBar()" >
+      <i class="fa fa-plus"></i>
+    </div>
+    <div style="margin-top: 25px; ">
+      <label>TEILNEHMER</label>
+      <hr>
+    </div>
+    <div *ngFor="let t of teamMember" style="text-align: center; margin-bottom: 8px;">
+      <img [src]="t?.image?.baseImage" class="team-user team-user-icon">
+    </div>
+  </div>
+
+  <div class="p-xl-1 weekplan-day"  *ngFor="let p of plan.list" >
+    <div class="header" [class.today]="p.today">
+      {{p.day | weekday}}
+      <div>
+          {{p.date | date:'dd.MM.yyyy'}}
+      </div>
+    </div>
+
+    <div class="tasks" *ngFor="let t of p.tasks">
+
+      <div class="task" [class.pendingTask]="!t.id" >
+          <div class="task-content">
+              <img style="width: 100%; height: 100%;" [src]="t.task.image" [alt]="t.task.description">
+          </div>
+          <div>
+              <span class="task-user" >
+                <img style="width: 100%; height: 100%" class="team-user-icon" [src]="t.assignee.image">
+              </span>
+            <div style="clear: both"></div>
+          </div>
+      </div>
+      <div style="clear: both"></div>
+
+    </div>
+
+    <div class="drop-task" *ngIf="draggedTask" pDroppable="task" (onDrop)="dropTask(p,$event)" >
+      <div class="drop"></div>
+    </div>
+
+    <div class="add-area" (click)="openShowBar()" >
+      <i class="fa fa-plus"></i>
+    </div>
+
+  </div>
+
+</div>
+
+
+<p-sidebar
+  [modal]="false"
+  [showCloseIcon]="false"
+  [(visible)]="showNewTaskBar"
+  position="right">
+
+  <div style="text-align: center">
+    <h2>AUFGABEN</h2>
+    <div>
+      <button
+        pButton
+        class="ui-button-danger"
+        icon="fas fa-times"
+        style="width: 100%"
+        label="SCHLIESSEN"
+        (click)="showNewTaskBar = false"></button>
+    </div>
+  </div>
+
+  <img *ngFor="let t of allTasks" pDraggable="task" [src]="t.taskImage.baseImage" (onDragStart)="dragStart($event,t)"  class="task drag-task" >
+
+
+</p-sidebar>
+
+<p-dialog [(visible)]="showNewTaskDialog" [style]="{width:'600px'}" >
+  <p-header>
+    <label>
+      {{newDayOfWeek?.day | weekday}}
+    </label>
+  </p-header>
+
+  <div *ngIf="newToDoTask">
+    <div style="text-align: center">
+      <hr/>
+        <img [src]="newToDoTask.taskImage.baseImage" class="team-user">
+        <div style="margin-top: 8px;">
+          <label>{{newToDoTask.description}}</label>
+        </div>
+      <hr/>
+       <div class="p-grid">
+           <div class="p-col-4">
+               <p-radioButton label="Jede Woche" name="weekOfMonthTask" value="0" [(ngModel)]="newToDoTask.weekOfMonth"></p-radioButton>
+           </div>
+           <div class="p-col-4">
+               <p-radioButton label="Erste Woche im Monat" name="weekOfMonthTask" value="1" [(ngModel)]="newToDoTask.weekOfMonth"></p-radioButton>
+           </div>
+           <div class="p-col-4">
+               <p-radioButton label="letzte Woche im Monat" name="weekOfMonthTask" value="4" [(ngModel)]="newToDoTask.weekOfMonth"></p-radioButton>
+           </div>
+       </div>
+      <div style="padding-top: 5px; padding-bottom: 5px;">
+      </div>
+      <hr/>
+
+    </div>
+  </div>
+
+  <div>
+    <span *ngFor="let t of teamMember">
+        <img (click)="addTask(t)" [src]="t.image.baseImage" class="team-user-small team-user-icon">
+    </span>
+  </div>
+
+
+</p-dialog>
