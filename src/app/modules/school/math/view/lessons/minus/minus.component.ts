@@ -14,7 +14,7 @@ export class MinusComponent extends Checker implements OnInit {
     public aufgaben: Aufgabe[];
     public aufgabe: AufgabenAggregate;
 
-    @ViewChild("checkc") component: CheckComponent;
+    @ViewChild('checkc') component: CheckComponent;
 
     @Input()
     public count: number = 20;

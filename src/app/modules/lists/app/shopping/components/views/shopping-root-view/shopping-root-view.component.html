@@ -61,10 +61,37 @@
                 </div>
             </p-card>
         </div>
+        <p-footer>
+            <div style="text-align: right">
+                <button pButton
+                        icon="pi pi-plus"
+                        class="p-button-outlined p-button-success"
+                        (click)="showNewListDialog = !showNewListDialog"
+                        label="ADD"></button>
+            </div>
+        </p-footer>
     </p-card>
 
 </div>
 
+<p-sidebar [(visible)]="showNewListDialog" position="bottom" [style]="{'minHeight':'550px'}" [modal]="true" >
+    <p-header>
+        NEW LIST
+    </p-header>
+    <div *ngIf="showNewListDialog">
+        <div style="padding-bottom: 15px;">
+            <input [(ngModel)]="newListName" pInputText style="width: 100%">
+        </div>
+        <div>
+            <button pButton
+                    label="HINZUFÜGEN"
+                    style="width: 100%"
+                    (click)="newList()"
+            ></button>
+        </div>
+
+    </div>
+</p-sidebar>
 
 
 <router-outlet></router-outlet>

@@ -22,9 +22,9 @@ export class ListDashboardComponent implements OnInit {
   ngOnInit() {
     this.load();
     this.listTypes = [
-        {name: 'SHOPPING', icon: 'pi pi-cart' , path:'shopping'},
-        {name: 'TODO', icon: 'pi pi-cart' , path:'shopping'},
-        {name: 'DEFAULT', icon: 'pi pi-cart' , path:'shopping'}
+        {name: 'SHOPPING', icon: 'pi pi-cart' , path: 'shopping'},
+        {name: 'TODO', icon: 'pi pi-cart' , path: 'shopping'},
+        {name: 'DEFAULT', icon: 'pi pi-cart' , path: 'shopping'}
     ]
   }
 
@@ -44,7 +44,7 @@ export class ListDashboardComponent implements OnInit {
     this.load();
   }
 
-  public open( p:ListProjection ){
+  public open( p: ListProjection ){
       const route = [
           'app/lists',
           p.type.toLowerCase(),

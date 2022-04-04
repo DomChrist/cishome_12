@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CisAuthService} from "./system/cis-connector/services/cis-auth-service.";
+import {CisAuthService} from "./system/cis-connector/services/cis-auth-service";
 
 @Component({
     selector: 'app-menu',

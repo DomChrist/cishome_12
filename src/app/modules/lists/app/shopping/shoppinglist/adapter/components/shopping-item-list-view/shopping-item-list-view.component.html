@@ -15,7 +15,8 @@
                     icon="pi pi-shopping-cart"></button>
             <button pButton
                     style="margin-left: 10px; font-size: 2rem; width: 45px; height: 45px;"
-                    [disabled]="true"
+                    [disabled]="done.length <= 0"
+                    (click)="showSettlement = !showSettlement"
                     class="p-button-outlined"
                     icon="mdi mdi-credit-card-check-outline"></button>
         </div>
@@ -55,6 +56,7 @@
                 >
                 <label style="position:relative; top:-6px;" *ngIf="!i.insert">
                     <button pButton icon="pi pi-trash"
+                            (click)="listHandler.removeFromList(i)"
                             class="p-button-link"></button>
                 </label>
             </div>
@@ -99,3 +101,11 @@
         </div>
 
 </p-card>
+
+<p-dialog
+    [modal]="true"
+    [(visible)]="showSettlement">
+
+    <app-shopping-settlement-dialog *ngIf="showSettlement" [store]="storeId" [shoppingList]="done"></app-shopping-settlement-dialog>
+
+</p-dialog>

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AppMainComponent} from './app.main.component';
-import {CisAuthService} from "./system/cis-connector/services/cis-auth-service.";
+import {CisAuthService} from "./system/cis-connector/services/cis-auth-service";
 import {CisUser} from "./system/cis-connector/model/user";
 
 @Component({

@@ -1,0 +1,26 @@
+<div class="store-label">
+    <app-store-label [storeId]="model.store.id"></app-store-label>
+</div>
+
+<div class="sum">
+
+    <input id="input-sum"
+           class="input-sum"
+           placeholder="0,00"
+           pKeyFilter="money"
+           [ngModel]="sum"
+           (keyup)="handle($event)"
+           type="text"
+        >
+
+</div>
+
+<div>
+
+    <div *ngFor=" let i of model.items" style="margin-bottom: 10px;">
+        <p-card>
+            <label>{{i.item.name}}</label>
+        </p-card>
+    </div>
+
+</div>

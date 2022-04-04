@@ -4,16 +4,19 @@ import {HttpResponse} from "@angular/common/http";
 import {ListResponse} from "../web/list-response";
 import {CisHttpService} from "../../../../system/cis-connector/services/cis-http.service";
 import {Item, ListAggregate} from "../domain/list-model";
+import {MessageService} from "primeng/api";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListService {
 
-  constructor( private http:CisHttpService) { }
+  constructor( private http: CisHttpService, private msg: MessageService) { }
 
   private listSubject = new Subject<ListAggregate>();
   public listStream = this.listSubject.asObservable();
+
+
 
   private list: ListAggregate;
 
@@ -106,4 +109,19 @@ export class ListService {
     }
 
 
+    newList( listName: string , success: (reference: string) => void ) {
+        const uri = 'list/shopping/cmd/v1/new';
+        const request = {
+            name : listName
+        };
+        this.http.cisPut(uri , request).subscribe( (resp) => {
+            if( resp.status >= 200 && resp.status < 300 ){
+                this.msg.add( {severity: 'success' , summary: 'Anlage erfolgreich'} );
+                success( '' );
+            } else {
+                this.msg.add( {severity: 'warn' , summary: 'Anfrage konnte nicht verarbeitet werden'} );
+            }
+
+        });
+    }
 }

@@ -35,6 +35,9 @@ import { StoreLabelComponent } from './app/shopping/shoppingstores/adapter/compo
 import { AddNewStoreComponent } from './app/shopping/shoppinglist/adapter/components/add-new-store/add-new-store.component';
 import {ScrollPanelModule} from "primeng/scrollpanel";
 import { ShoppingListPipe } from './app/shopping/shoppinglist/adapter/components/shopping-item-list-view/shopping-list.pipe';
+import { ShoppingSettlementDialogComponent } from './app/shopping/settlement/adapter/component/shopping-settlement-dialog/shopping-settlement-dialog.component';
+import {KeyFilterModule} from "primeng/keyfilter";
+import { CurrencyPipe } from './app/shopping/settlement/adapter/component/shopping-settlement-dialog/currency.pipe';
 
 
 
@@ -57,7 +60,9 @@ import { ShoppingListPipe } from './app/shopping/shoppinglist/adapter/components
       ShoppingStoreDashboardComponent,
       StoreLabelComponent,
       AddNewStoreComponent,
-      ShoppingListPipe
+      ShoppingListPipe,
+      ShoppingSettlementDialogComponent,
+      CurrencyPipe
   ],
     imports: [
         CommonModule,
@@ -76,7 +81,8 @@ import { ShoppingListPipe } from './app/shopping/shoppinglist/adapter/components
         DialogModule,
         CheckboxModule,
         SpeedDialModule,
-        ScrollPanelModule
+        ScrollPanelModule,
+        KeyFilterModule
     ],
     providers : [
         {provide: LocationStrategy, useClass: PathLocationStrategy},

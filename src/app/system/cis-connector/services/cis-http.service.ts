@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {MessageService} from "primeng/api";
 import {Observable} from "rxjs";
 import {environment} from "../../../../environments/environment";
-import {CisAuthService} from "./cis-auth-service.";
+import {CisAuthService} from "./cis-auth-service";
 
 @Injectable({
   providedIn: 'root'

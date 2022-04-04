@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpResponse} from "@angular/common/http";
-import {CisAuthService} from "../../../../../system/cis-connector/services/cis-auth-service.";
+import {CisAuthService} from "../../../../../system/cis-connector/services/cis-auth-service";
 import {MessageService} from "primeng/api";
 import {Observable} from "rxjs";
 import {environment} from "../../../../../../environments/environment";

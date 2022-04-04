@@ -2,8 +2,10 @@
     background-color: #f5f5f5;
     padding-top: 200px;
     height: auto;
-    background: url("../../layout/images/login/login-image.png") no-repeat;
-    background-position: 0 -100px;
+    background: url("../../layout/images/login/login-image.png");
+    background-repeat: no-repeat;
+    background-position: 0 -180px;
+    background-size: cover;
 
     .login-panel {
         background-color: #ffffff;
@@ -46,12 +48,6 @@
         .p-col-12 {
             padding: 20px 70px;
         }
-    }
-}
-
-@media (min-width: 1441px) {
-    .login-body {
-        background-size: contain;
     }
 }
 

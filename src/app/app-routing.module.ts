@@ -38,22 +38,22 @@ import {AppCalendarComponent} from './pages/app.calendar.component';
 import {AppTimelineDemoComponent} from './pages/app.timelinedemo.component';
 import {AppInvoiceComponent} from './pages/app.invoice.component';
 import {AppHelpComponent} from './pages/app.help.component';
-import {CisDashboardComponent} from "./pages/dashboard/cis-dashboard/cis-dashboard.component";
-import {AuthGuard} from "./system/cis-connector/services/auth.guard";
+import {CisDashboardComponent} from './pages/dashboard/cis-dashboard/cis-dashboard.component';
+import {AuthGuard} from './system/cis-connector/services/auth.guard';
 
 @NgModule({
     imports: [
         RouterModule.forRoot([
-            {path: 'auth/token' , loadChildren: ()=>import('./modules/keycloak/keycloak.module').then( m => m.KeycloakModule)},
-            {path: 'token' , loadChildren: ()=>import('./modules/keycloak/keycloak.module').then( m => m.KeycloakModule)},
+            {path: 'auth/token' , loadChildren: () => import('./modules/keycloak/keycloak.module').then( m => m.KeycloakModule)},
+            {path: 'token' , loadChildren: () => import('./modules/keycloak/keycloak.module').then( m => m.KeycloakModule)},
             {
                 path: '', component: AppMainComponent,
                 children: [
                     {path: '', component: CisDashboardComponent , canActivate:  [AuthGuard]},
-                    {path:'app/lists'  , loadChildren : () => import('./modules/lists/lists.module').then( m => m.ListsModule ) , canActivate:[AuthGuard]},
-                    {path:'app/wdys'  , loadChildren : () => import('./modules/wdys/wdys.module').then( m => m.WdysModule )},
-                    {path:'app/safe'  , loadChildren : () => import('./modules/safe/safe.module').then( m => m.SafeModule )},
-                    {path:'app/school'  , loadChildren : () => import('./modules/school/school.module').then( m => m.SchoolModule )},
+                    {path: 'app/lists'  , loadChildren : () => import('./modules/lists/lists.module').then( m => m.ListsModule ) , canActivate:[AuthGuard]},
+                    {path: 'app/wdys'  , loadChildren : () => import('./modules/wdys/wdys.module').then( m => m.WdysModule )},
+                    {path: 'app/safe'  , loadChildren : () => import('./modules/safe/safe.module').then( m => m.SafeModule )},
+                    {path: 'app/school'  , loadChildren : () => import('./modules/school/school.module').then( m => m.SchoolModule )},
                     {path: 'uikit/formlayout', component: FormLayoutDemoComponent},
                     {path: 'uikit/floatlabel', component: FloatLabelDemoComponent},
                     {path: 'uikit/invalidstate', component: InvalidStateDemoComponent},
@@ -93,7 +93,7 @@ import {AuthGuard} from "./system/cis-connector/services/auth.guard";
             {path: 'notfound', component: AppNotfoundComponent},
             {path: 'login', component: AppLoginComponent},
             {path: '**', redirectTo: '/notfound'},
-        ], {scrollPositionRestoration: 'enabled' , enableTracing : true , useHash:false})
+        ], {scrollPositionRestoration: 'enabled' , enableTracing : true , useHash: false})
     ],
     exports: [RouterModule]
 })

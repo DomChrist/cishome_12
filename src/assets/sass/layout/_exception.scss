@@ -62,7 +62,11 @@
     }
 
     &.error-body {
-        background: url("../../layout/images/exception/error-image.png") no-repeat 0 -100px;
+        background: url("../../layout/images/exception/error-image.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+
         .exception-panel {
             img {
                 width: 100%;
@@ -88,7 +92,10 @@
     }
 
     &.pagenotfound-body {
-        background: url("../../layout/images/exception/404-image.png") no-repeat 0 -100px;
+        background: url("../../layout/images/exception/404-image.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
 
         .exception-panel {
             img {
@@ -120,7 +127,10 @@
     }
 
     &.accessdenied-body {
-        background: url("../../layout/images/exception/access-image.png") no-repeat 0 -100px;
+        background: url("../../layout/images/exception/access-image.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
 
         .exception-panel {
             img {
@@ -149,12 +159,6 @@
                 color: #ffe0b2;
             }
         }
-    }
-}
-
-@media (min-width: 1441px) {
-    .exception-body {
-        background-size: contain !important;
     }
 }
 
