@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import {CisAuthService} from "./cis-auth-service.";
+import {CisAuthService} from "./cis-auth-service";
 
 @Injectable({
   providedIn: 'root'

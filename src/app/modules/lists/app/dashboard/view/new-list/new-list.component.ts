@@ -15,12 +15,12 @@ export class NewListComponent implements OnInit {
   public shopping = false;
 
   public supportedListModules = [
-      'DEFAULT','SHOPPING','TODO'
+      'DEFAULT', 'SHOPPING', 'TODO'
   ];
 
 
   @Output()
-  public reference = new EventEmitter<String>();
+  public reference = new EventEmitter<string>();
 
   constructor(private http: CisHttpService, private msg: MessageService) { }
 

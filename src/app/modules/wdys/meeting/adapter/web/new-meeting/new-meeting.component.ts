@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MeetingCommandService} from "../../../application/service/meeting-command.service";
 import {CreateNewMeeting} from "../../../domain/commands";
-import {CisAuthService} from "../../../../../../system/cis-connector/services/cis-auth-service.";
+import {CisAuthService} from "../../../../../../system/cis-connector/services/cis-auth-service";
 import {Participant} from "../../../../participant/domain/model/participant-model";
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";

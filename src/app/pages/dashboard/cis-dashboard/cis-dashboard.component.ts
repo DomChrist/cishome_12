@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from "../../../../environments/environment";
-import {CisAuthService} from "../../../system/cis-connector/services/cis-auth-service.";
+import {CisAuthService} from "../../../system/cis-connector/services/cis-auth-service";
 import {CisUser} from "../../../system/cis-connector/model/user";
 import {GoogleService} from "../../../system/google/google.service";
 import {CisHttpService} from "../../../system/cis-connector/services/cis-http.service";
@@ -72,7 +72,7 @@ export class CisDashboardComponent implements OnInit {
               name: 'SAFE',
               link: ['/','app','safe'],
               icon: 'pi pi-shield',
-              accessible : true,
+              accessible : this.hasSafeRole,
               action : ()=>{
                   this.router.navigate(['','app','safe']);
               },
@@ -121,21 +121,26 @@ export class CisDashboardComponent implements OnInit {
 
   get hasMeetingRole(): boolean{
       let r: string[] = this.auth.user.resource_access.account.roles;
-      return r.filter( r=>r == 'cis_meeting' ).length != 0;
+      return r.filter( r=>r === 'cis_meeting' ).length != 0;
   }
 
   get hasNextcloudRole(): boolean{
-      let r: string[] = this.auth.user.resource_access.account.roles;
-      return r.filter( r=>r == 'cis_nextcloud' ).length != 0;
+      const r: string[] = this.auth.user.resource_access.account.roles;
+      return r.filter( r => r === 'cis_nextcloud' ).length !== 0;
+  }
+
+  get hasSafeRole(): boolean{
+      const r: string[] = this.auth.user.resource_access.account.roles;
+      return r.filter( r => r === 'cis_safe' ).length !== 0;
   }
 
   get hasListRole(): boolean{
       let r: string[] = this.auth.user.resource_access.account.roles;
-      let b = r.filter( r=>r == 'cis_list' ).length != 0;
+      let b = r.filter( r=>r === 'cis_list' ).length !== 0;
 
       if( environment.production === false ){
           console.log(r);
-          console.log("has cis_list role " + b);
+          console.log('has cis_list role ' + b);
       }
       return b;
   }

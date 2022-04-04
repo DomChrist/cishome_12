@@ -13,12 +13,12 @@ import {CryptoService} from "../../crypto/crypto.service";
 export class CisAuthService {
 
     private token: string;
-    private _headers: HttpHeaders;
+    private headers: HttpHeaders;
     public user: CisUser;
     public accessToken: KeycloakToken;
 
     constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient,
-                private msg:MessageService) {
+                private msg: MessageService) {
     }
 
     public checkAuth() {
@@ -26,7 +26,7 @@ export class CisAuthService {
             this.token = localStorage.getItem('cis_access');
         }
         if (this.token === undefined || this.token === null || this.token.length == 0) {
-            let url = window.location.href;
+            const url = window.location.href;
             if (url.endsWith('/login') || url.includes("/auth/token") || url.endsWith('/logout') ) {
 
             } else {
@@ -49,7 +49,7 @@ export class CisAuthService {
         const url = environment.serviceUrl + "/login";
         console.log(request);
         this.http.post(url, request, {observe: 'response'}).subscribe((resp) => {
-            let auth = resp.headers.get('Authorization');
+            const auth = resp.headers.get('Authorization');
             this.token = auth;
             localStorage.setItem('token', this.token);
             this.checkAuth();
@@ -67,9 +67,9 @@ export class CisAuthService {
     }
 
     get httpHeader(): HttpHeaders {
-        this._headers = new HttpHeaders();
-        this._headers = this._headers.append("Authorization", this.token);
-        return this._headers;
+        this.headers = new HttpHeaders();
+        this.headers = this.headers.append("Authorization", this.token);
+        return this.headers;
     }
 
     public loginWithToken( token:Keycloak){

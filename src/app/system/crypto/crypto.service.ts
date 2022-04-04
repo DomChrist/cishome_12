@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as JsEncryptModule from 'jsencrypt';
-import {CisAuthService} from "../cis-connector/services/cis-auth-service.";
+import {CisAuthService} from "../cis-connector/services/cis-auth-service";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 

@@ -17,7 +17,10 @@ export class ShoppingRootViewComponent implements OnInit {
     public showNewItem = false;
     public showNewItemInline = false;
 
-    public list:ListManagementResponse;
+    public newListName: string;
+    public showNewListDialog = false;
+
+    public list: ListManagementResponse;
 
     constructor(private service: ListService ,
                 private http: CisHttpService,
@@ -42,5 +45,14 @@ export class ShoppingRootViewComponent implements OnInit {
             console.log(resp.body);
         });
   }
+
+  public newList(){
+        this.service.newList( this.newListName , (ref) => {
+            this.load();
+            this.newListName = '';
+            this.showNewListDialog = true;
+        });
+  }
+
 
 }

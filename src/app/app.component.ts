@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {PrimeNGConfig} from 'primeng/api';
-import {CisAuthService} from "./system/cis-connector/services/cis-auth-service.";
-import {ActivatedRoute} from "@angular/router";
-import {CryptoService} from "./system/crypto/crypto.service";
+import {ActivatedRoute} from '@angular/router';
+import {CryptoService} from './system/crypto/crypto.service';
+import {CisAuthService} from "./system/cis-connector/services/cis-auth-service";
 
 @Component({
     selector: 'app-root',

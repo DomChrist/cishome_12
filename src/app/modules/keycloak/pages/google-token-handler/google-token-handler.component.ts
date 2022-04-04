@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {CisHttpService} from "../../../../system/cis-connector/services/cis-http.service";
-import {CisAuthService} from "../../../../system/cis-connector/services/cis-auth-service.";
+import {CisAuthService} from "../../../../system/cis-connector/services/cis-auth-service";
 
 @Component({
   selector: 'app-google-token-handler',

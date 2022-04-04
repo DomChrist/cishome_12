@@ -1,7 +1,7 @@
 import {Component, AfterViewInit, Renderer2, OnInit, OnDestroy} from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import {AppComponent} from './app.component';
-import {CisAuthService} from "./system/cis-connector/services/cis-auth-service.";
+import {CisAuthService} from "./system/cis-connector/services/cis-auth-service";
 
 @Component({
     selector: 'app-main',
