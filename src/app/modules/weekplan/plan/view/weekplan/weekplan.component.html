@@ -6,14 +6,14 @@
 
   <div class="p-xl-1" style="border-right: 1px solid silver">
     <div class="add-area" (click)="openShowBar()" >
-      <i class="fa fa-plus"></i>
+      <i class="pi pi-plus"></i>
     </div>
     <div style="margin-top: 25px; ">
       <label>TEILNEHMER</label>
       <hr>
     </div>
     <div *ngFor="let t of teamMember" style="text-align: center; margin-bottom: 8px;">
-      <img [src]="t?.image?.baseImage" class="team-user team-user-icon">
+        <p-avatar [label]="t.initial" size="large" shape="circle"> </p-avatar>
     </div>
   </div>
 
@@ -33,7 +33,7 @@
           </div>
           <div>
               <span class="task-user" >
-                <img style="width: 100%; height: 100%" class="team-user-icon" [src]="t.assignee.image">
+                <p-avatar [label]="t.assignee.initial" size="large" shape="circle"> </p-avatar>
               </span>
             <div style="clear: both"></div>
           </div>
@@ -47,7 +47,7 @@
     </div>
 
     <div class="add-area" (click)="openShowBar()" >
-      <i class="fa fa-plus"></i>
+      <i class="pi pi-plus"></i>
     </div>
 
   </div>
@@ -74,7 +74,7 @@
     </div>
   </div>
 
-  <img *ngFor="let t of allTasks" pDraggable="task" [src]="t.taskImage.baseImage" (onDragStart)="dragStart($event,t)"  class="task drag-task" >
+  <img *ngFor="let t of allTasks" pDraggable="task" [src]="t.taskImage.safeUrl" (onDragStart)="dragStart($event,t)"  class="task drag-task" >
 
 
 </p-sidebar>
@@ -89,7 +89,7 @@
   <div *ngIf="newToDoTask">
     <div style="text-align: center">
       <hr/>
-        <img [src]="newToDoTask.taskImage.baseImage" class="team-user">
+        <img style="height: 200px;" [src]="newToDoTask.taskImage.safeUrl" class="team-user">
         <div style="margin-top: 8px;">
           <label>{{newToDoTask.description}}</label>
         </div>
@@ -113,8 +113,8 @@
   </div>
 
   <div>
-    <span *ngFor="let t of teamMember">
-        <img (click)="addTask(t)" [src]="t.image.baseImage" class="team-user-small team-user-icon">
+    <span *ngFor="let t of teamMember" (click)="addTask(t)">
+        <p-avatar size="large" shape="circle" [label]="t.initial"></p-avatar>
     </span>
   </div>
 

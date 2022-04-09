@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../../../../environments/environment";
-import {TeamMember} from "../../model/team";
-import {AppService} from "../../../../../system/app.service";
+import {TeamMember} from '../../model/team';
+import {CisHttpService} from '../../../../../system/cis-connector/services/cis-http.service';
+import {CisAuthService} from '../../../../../system/cis-connector/services/cis-auth-service';
 
 @Component({
   selector: 'app-team-dashboard',
@@ -19,7 +18,7 @@ export class TeamDashboardComponent implements OnInit {
 
   newMemberDialogVisible = false;
 
-  constructor( private user: AppService, private http: HttpClient) { }
+  constructor( private user: CisAuthService, private http: CisHttpService) { }
 
 
   ngOnInit() {
@@ -27,8 +26,8 @@ export class TeamDashboardComponent implements OnInit {
   }
 
   private load(){
-    this.http.get<Array<TeamMember>>( environment.cisHome.service+'weekplan/team' , {headers:this.user.createAuthHeader()} ).subscribe( data => {
-        this.team = data;
+    this.http.cisGet<Array<TeamMember>>( 'weekplan/team'  ).subscribe( data => {
+        this.team = data.body;
     });
   }
 
@@ -44,12 +43,11 @@ export class TeamDashboardComponent implements OnInit {
       input.append('file', this.file);
       input.append('name', this.name);
 
-    const url = environment.cisHome.service + 'weekplan/team/new/member';
+    const url = 'weekplan/team/new/member';
 
     this.http
-      .put( url , input , {headers:this.user.createAuthHeader()} )
+      .cisPut( url , input )
       .subscribe( (data) => {
-        alert('sdlkjfdsklfjdslf');
         this.load();
       });
   }

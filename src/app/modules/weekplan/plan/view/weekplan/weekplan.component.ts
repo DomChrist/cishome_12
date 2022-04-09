@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import {Task} from "../../../tasks/model/task";
-import {HttpClient} from "@angular/common/http";
-import {TeamMember} from "../../../team/model/team";
-import {Assignee, DayOfWeek, ToDo, Weekplan, WeekplanTask} from "../../model/weekplan";
-import {AppService} from "../../../../../system/app.service";
-import {environment} from "../../../../../../environments/environment";
+import {Component, Inject, OnInit} from '@angular/core';
+import {CisAuthService} from '../../../../../system/cis-connector/services/cis-auth-service';
+import {CisHttpService} from '../../../../../system/cis-connector/services/cis-http.service';
+import {environment} from '../../../../../../environments/environment';
+import {Assignee, DayOfWeek, ToDo, Weekplan, WeekplanTask} from '../../model/weekplan';
+import {TeamMember} from '../../../team/model/team';
+import { Task } from '../../../tasks/model/task';
+import {TaskService} from '../../../tasks/application/task.service';
+import {WeekplanTeamService} from "../../../team/application/weekplan-team.service";
+import {WeekplanService} from "../../application/weekplan.service";
 
 @Component({
   selector: 'wp-plan',
@@ -13,9 +16,9 @@ import {environment} from "../../../../../../environments/environment";
 })
 export class WeekplanComponent implements OnInit {
 
-  public plan:Weekplan;
+  public plan: Weekplan;
 
-  public allTasks:Array<Task>;
+  public allTasks: Array<Task>;
   public teamMember: Array<TeamMember>;
 
   public showNewTaskBar = false;
@@ -27,55 +30,65 @@ export class WeekplanComponent implements OnInit {
   public newToDoDay: number;
   public newDayOfWeek: DayOfWeek;
 
-  constructor( private user: AppService, private http: HttpClient) { }
+  constructor( private user: CisAuthService, private http: CisHttpService,
+               private weekplan: WeekplanService,
+               private taskCase: TaskService, private team: WeekplanTeamService) { }
 
 
   ngOnInit() {
-    this.loadTeam();
+    this.loadWorkplan();
   }
 
   public loadWorkplan(){
-    let url = environment.cisHome.service + 'weekplan/plan';
-    this.http.get<Weekplan>( url , {headers:this.user.createAuthHeader()}).subscribe( (data) =>{
-        console.log(data);
-        this.plan = data;
-        this.plan.list.forEach( e=>{
-          e.tasks.forEach( t=> {
-            t.assignee.image = this.teamMember.filter( u=>u.id === t.assignee.id )[0].image.baseImage;
-            t.task.image = this.allTasks.filter( ta => ta.id === t.task.taskId )[0].taskImage.baseImage;
-          })
-        });
-    });
+      this.team.team( (team) => {
+          this.taskCase.loadTasks( (tasks: Task[]) => {
+              this.weekplan.loadWeekplan( team , tasks , (wp) => {
+                  this.allTasks = tasks;
+                  this.teamMember = team;
+                  this.plan = wp;
+              } );
+          } );
+      });
   }
 
 
   public loadTeam(){
-    let url = environment.cisHome.service + 'weekplan/team';
-    this.http.get<Array<TeamMember>>( url , {headers:this.user.createAuthHeader()}).subscribe( (data) =>{
+      /*
+    const url = 'weekplan/team';
+    this.http.cisGet<Array<TeamMember>>( url ).subscribe( (data) => {
       console.log(data);
-      this.teamMember = data;
+      this.teamMember = data.body;
       this.loadTasks();
     });
+       */
+    const tm = new TeamMember();
+    tm.id = this.user.user.sub;
+    tm.name = this.user.user.given_name + ' ' + this.user.user.family_name;
+    console.log( tm );
+    this.teamMember = new Array<TeamMember>();
+    this.teamMember.push( tm );
+    console.log( '---tm---' );
+    console.log( this.user.user.sub );
+    this.loadTasks();
+
   }
   private loadTasks(){
-    let url = environment.cisHome.service + 'weekplan/tasks';
-    this.http.get<Array<Task>>( url , {headers:this.user.createAuthHeader()} ).subscribe( (data)=>{
-      console.log(data);
-      this.allTasks = data;
-      this.loadWorkplan();
-    });
+      this.taskCase.loadTasks( (t) => {
+          this.allTasks = t;
+          this.loadWorkplan();
+      });
   }
 
 
 
   public openShowBar(){
     this.showNewTaskBar = true;
-    if( !this.allTasks ) this.loadTasks();
+    if ( !this.allTasks ) { this.loadTasks(); }
   }
 
 
 
-  public dropTask(day,event){
+  public dropTask(day, event){
     console.log(event);
     this.newToDoTask = this.draggedTask;
     this.draggedTask = null;
@@ -87,24 +100,24 @@ export class WeekplanComponent implements OnInit {
     this.draggedTask = item;
   }
 
-  public addTask( t:TeamMember ){
+  public addTask( t: TeamMember ){
 
-    let task = new WeekplanTask();
-      task.id = this.newToDoTask.id;
-      task.description = this.newToDoTask.description;
-      task.image = this.newToDoTask.taskImage.baseImage;
+    const task = new WeekplanTask();
+    task.id = this.newToDoTask.id;
+    task.description = this.newToDoTask.description;
+    task.image = this.newToDoTask.taskImage.safeUrl;
 
-    let assignee = new Assignee();
-      assignee.firstName = t.name;
-      assignee.id = t.id;
-      assignee.image = t.image.baseImage;
+    const assignee = new Assignee();
+    assignee.firstName = t.name;
+    assignee.id = t.id;
+    assignee.image = t.image?.baseImage;
 
-    let todo = new ToDo();
-      todo.assignee = assignee;
-      todo.day = this.newDayOfWeek;
-      todo.task = task;
+    const todo = new ToDo();
+    todo.assignee = assignee;
+    todo.day = this.newDayOfWeek;
+    todo.task = task;
 
-    if( !this.newDayOfWeek.tasks ){
+    if ( !this.newDayOfWeek.tasks ){
       this.newDayOfWeek.tasks = new Array<ToDo>();
     }
     this.newDayOfWeek.tasks.push( todo );
@@ -114,17 +127,17 @@ export class WeekplanComponent implements OnInit {
 
   }
 
-  private saveNewTask(todo:ToDo){
-    let request = {
-        'weekplan' : this.plan.reference.uuid,
-        'day' : todo.day.day,
-        'taskId' : todo.task.id,
-        'assigneeId' : todo.assignee.id
-    }
-    const url = environment.cisHome.service + 'weekplan/plan/add/task';
-    this.http.put<ToDo>( url , request , {headers:this.user.createAuthHeader()} ).subscribe( (data)=>{
+  private saveNewTask(todo: ToDo){
+    const request = {
+        weekplan : this.plan.reference.uuid,
+        day : todo.day.day,
+        taskId : todo.task.id,
+        assigneeId : todo.assignee.id
+    };
+    const url = 'weekplan/plan/add/task';
+    this.http.cisPut<ToDo>( url , request ).subscribe( (data) => {
       console.log(data);
-      todo.id = data.id;
+      todo.id = data.body.id;
     });
   }
 

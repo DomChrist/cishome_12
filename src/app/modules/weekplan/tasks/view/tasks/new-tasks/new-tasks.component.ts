@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {AppService} from "../../../../../../system/app.service";
-import {environment} from "../../../../../../../environments/environment";
+import {CisHttpService} from '../../../../../../system/cis-connector/services/cis-http.service';
+import {CisAuthService} from '../../../../../../system/cis-connector/services/cis-auth-service';
+import {environment} from '../../../../../../../environments/environment';
 
 @Component({
   selector: 'app-new-tasks',
@@ -14,7 +14,7 @@ export class NewTasksComponent implements OnInit {
 
   public file: File;
 
-  constructor( private user: AppService, private http: HttpClient) { }
+  constructor( private user: CisAuthService, private http: CisHttpService) { }
 
   ngOnInit() {
   }
@@ -31,10 +31,10 @@ export class NewTasksComponent implements OnInit {
       input.append('file', this.file);
       input.append('description', this.description);
 
-      const url = environment.cisHome.service + 'weekplan/tasks/task/new';
+      const url = 'weekplan/tasks/task/new';
 
       this.http
-        .put( url , input , {headers:this.user.createAuthHeader()} )
+        .cisPut( url , input )
         .subscribe( (data) => {
             alert('sdlkjfdsklfjdslf');
         });

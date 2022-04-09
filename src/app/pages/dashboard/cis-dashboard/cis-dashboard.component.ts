@@ -61,7 +61,7 @@ export class CisDashboardComponent implements OnInit {
           {
               name: 'WDYS',
               link: ['/','app','wdys'],
-              icon: 'pi pi-calendar-plus',
+              icon: 'pi pi-comments',
               accessible : this.hasMeetingRole,
               action : ()=>{
                   this.router.navigate(['','app','wdys']);
@@ -88,8 +88,28 @@ export class CisDashboardComponent implements OnInit {
               },
               offlineSupport : false
           },
+          {
+              name: 'WEEK',
+              link: ['/','app','weekplan'],
+              icon: 'pi pi-calendar-plus',
+              accessible : this.hasWeekplanRole,
+              action : () => {
+                  this.router.navigate(['','app','weekplan']);
+              },
+              offlineSupport : false
+          },
+          {
+              name: 'TIMETABLE',
+              link: ['/','app','timetable'],
+              icon: 'pi pi-clock',
+              accessible : this.hasWeekplanRole,
+              action : () => {
+                  this.router.navigate(['','app','weekplan']);
+              },
+              offlineSupport : false
+          }
 
-      ]
+      ];
 
   }
 
@@ -132,6 +152,11 @@ export class CisDashboardComponent implements OnInit {
   get hasSafeRole(): boolean{
       const r: string[] = this.auth.user.resource_access.account.roles;
       return r.filter( r => r === 'cis_safe' ).length !== 0;
+  }
+
+  get hasWeekplanRole(): boolean{
+      const r: string[] = this.auth.user.resource_access.account.roles;
+      return r.filter( r => r === 'cis_weekplan' ).length !== 0;
   }
 
   get hasListRole(): boolean{

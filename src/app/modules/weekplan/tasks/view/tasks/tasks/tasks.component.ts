@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../../../../../environments/environment";
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../../../../../environments/environment';
 import { Task } from '../../../model/task';
-import {AppService} from "../../../../../../system/app.service";
+import {CisHttpService} from '../../../../../../system/cis-connector/services/cis-http.service';
+import {DomSanitizer} from '@angular/platform-browser';
+import {TaskService} from "../../../application/task.service";
 
 @Component({
   selector: 'app-tasks',
@@ -11,27 +13,27 @@ import {AppService} from "../../../../../../system/app.service";
 })
 export class TasksComponent implements OnInit {
 
-  constructor( private user: AppService, private http: HttpClient) { }
-  public tasks:Array<Task>;
+  constructor( private taskService: TaskService) { }
+  public tasks: Array<Task>;
 
   ngOnInit() {
     this.load();
   }
 
   private load(){
-      let url = environment.cisHome.service + 'weekplan/tasks';
-      this.http.get<Array<Task>>( url , {headers:this.user.createAuthHeader()} ).subscribe( (data)=>{
-        console.log(data);
-        this.tasks = data;
+      this.taskService.loadTasks( ( t: Array<Task>) => {
+        this.tasks = t;
       });
   }
 
   public deleteTask( id ){
-    let url = environment.cisHome.service + 'weekplan/tasks/task/delete/'+id;
-    this.http.delete( url , {headers:this.user.createAuthHeader()} )
+      /*
+    const url = 'weekplan/tasks/task/delete/' + id;
+    this.http.cisDelete( url  )
       .subscribe( (data) => {
           this.load();
       });
+       */
   }
 
 

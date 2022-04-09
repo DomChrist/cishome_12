@@ -1,3 +1,5 @@
+import {SafeUrl} from "@angular/platform-browser";
+
 export interface Weekplan {
   reference: Reference;
   list: DayOfWeek[];
@@ -20,18 +22,19 @@ export class ToDo {
     id: string;
     task: WeekplanTask;
     assignee: Assignee;
-    day:DayOfWeek;
+    day: DayOfWeek;
 }
 
 export class WeekplanTask {
   id: string;
   taskId: string;
   description: string;
-  image: string;
+  image: SafeUrl;
 }
 
 export class Assignee {
     firstName: string;
+    initial: string;
     id: string;
     image: string;
 }

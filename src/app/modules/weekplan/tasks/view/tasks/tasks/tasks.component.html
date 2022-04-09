@@ -15,7 +15,7 @@
   <ng-template pTemplate="body" let-t>
     <tr>
       <td>
-        <img style="width: 75px; height: 75px;" [src]="t.taskImage.baseImage">
+        <img style="width: 75px; height: 75px;" [src]="t.taskImage.safeUrl">
       </td>
       <td>{{t.description}}</td>
       <td>

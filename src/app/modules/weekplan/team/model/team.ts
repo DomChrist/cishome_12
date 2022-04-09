@@ -1,9 +1,9 @@
 export class TeamMember {
-
     id: string;
     group: string;
     name: string;
-    image:TeamMemberImage;
+    initial: string;
+    image: TeamMemberImage;
 
 }
 

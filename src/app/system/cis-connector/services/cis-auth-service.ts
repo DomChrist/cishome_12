@@ -94,22 +94,26 @@ export class CisAuthService {
         return access;
     }
 
-    public parseToCis( k:KeycloakToken ): CisUser {
+    public parseToCis( k: KeycloakToken ): CisUser {
         let group: Group = {
             id : k.groups[0],
             name : k.groups[0]
         };
+        console.log('--keycloak---');
+        console.log( k );
+        console.log('--keycloak---');
 
 
-        const  u:CisUser = {
+        const  u: CisUser = {
             id: k.sub,
+            sub: k.sub,
             group : group,
             name1 : k.given_name,
             name2: k.family_name,
             fullName : k.name,
             userName : k.preferred_username,
             cisgroup : k.cisgroup,
-            roles : k.resource_access.account.roles,
+            roles : k.resource_access.cishome.roles,
             phone : '',
             given_name : k.given_name,
             family_name : k.family_name,

@@ -1,5 +1,6 @@
 export interface CisUser {
     id: string;
+    sub: string;
     group: Group;
     userName: string;
     name1: string;
@@ -63,6 +64,7 @@ export interface KeycloakToken {
 
 export interface ResourceAccess {
     account: Account;
+    cishome: Account;
 }
 
 export interface Account {
