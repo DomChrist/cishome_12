@@ -43,6 +43,7 @@ export class CisDashboardComponent implements OnInit {
           {
               name: 'Nextcloud',
               icon: 'pi pi-cloud',
+              image: undefined,
               link: [''],
               accessible : this.hasNextcloudRole,
               action : this.nextCloud,
@@ -51,7 +52,8 @@ export class CisDashboardComponent implements OnInit {
           {
               name: 'Lists',
               link: ['/','app','list'],
-              icon: 'pi pi-list',
+              icon: undefined,
+              image: '/assets/icons/flaticon/to-do-list.png',
               accessible : this.hasListRole,
               action : ()=>{
                   this.router.navigate(['','app','lists']);
@@ -61,7 +63,8 @@ export class CisDashboardComponent implements OnInit {
           {
               name: 'WDYS',
               link: ['/','app','wdys'],
-              icon: 'pi pi-comments',
+              icon: undefined,
+              image: '/assets/icons/flaticon/conversation.png',
               accessible : this.hasMeetingRole,
               action : ()=>{
                   this.router.navigate(['','app','wdys']);
@@ -71,7 +74,8 @@ export class CisDashboardComponent implements OnInit {
           {
               name: 'SAFE',
               link: ['/','app','safe'],
-              icon: 'pi pi-shield',
+              icon: undefined,
+              image: '/assets/icons/flaticon/password.png',
               accessible : this.hasSafeRole,
               action : ()=>{
                   this.router.navigate(['','app','safe']);
@@ -81,7 +85,8 @@ export class CisDashboardComponent implements OnInit {
           {
               name: 'SCHOOL',
               link: ['/','app','school'],
-              icon: 'pi pi-briefcase',
+              icon: undefined,
+              image: '/assets/icons/flaticon/school.png',
               accessible : true,
               action : ()=>{
                   this.router.navigate(['','app','school']);
@@ -92,6 +97,7 @@ export class CisDashboardComponent implements OnInit {
               name: 'WEEK',
               link: ['/','app','weekplan'],
               icon: 'pi pi-calendar-plus',
+              image: '/assets/icons/flaticon/schedule.png',
               accessible : this.hasWeekplanRole,
               action : () => {
                   this.router.navigate(['','app','weekplan']);
@@ -102,9 +108,10 @@ export class CisDashboardComponent implements OnInit {
               name: 'TIMETABLE',
               link: ['/','app','timetable'],
               icon: 'pi pi-clock',
+              image: '/assets/icons/flaticon/time.png',
               accessible : this.hasWeekplanRole,
               action : () => {
-                  this.router.navigate(['','app','weekplan']);
+                  this.router.navigate(['','app','timesheet']);
               },
               offlineSupport : false
           }
@@ -197,7 +204,8 @@ export class Module{
     public link: string[] = new Array<string>();
     public accessible: boolean;
     public icon: string;
+    public image: string;
     public offlineSupport: boolean;
-    public action: ()=>void;
+    public action: () => void;
 
 }

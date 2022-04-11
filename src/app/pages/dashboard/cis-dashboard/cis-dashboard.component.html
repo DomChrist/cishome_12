@@ -48,7 +48,8 @@
                 <div class="p-col-4" *ngFor="let m of modules | activeModule: false">
                         <p-card (click)="m.action()" >
                             <div style="text-align: center">
-                                <i style="font-size: 4.2em; color: #0D47A1" [class]="m.icon"></i>
+                                <i *ngIf="m.icon && !m.image" style="font-size: 4.2em; color: #0D47A1" [class]="m.icon"></i>
+                                <img style="width: 160px;" *ngIf="m.image" [src]="m.image">
                             </div>
                             <p-footer>
                                 <button pButton
