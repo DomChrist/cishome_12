@@ -15,3 +15,7 @@ li {
 .ui-carousel-dots-container{
     display: none !important;
 }
+
+label.main-temp{
+    font-size: 2.2em;
+}

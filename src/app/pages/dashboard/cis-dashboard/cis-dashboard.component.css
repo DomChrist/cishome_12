@@ -14,3 +14,19 @@
     padding-top: 30%;
     color: snow;
 }
+
+div.module-view{
+   cursor: pointer;
+    height: 270px;
+}
+
+
+div.module-view {
+    opacity: 0.75;
+}
+
+div.module-view:hover {
+    opacity: 1.0;
+}
+
+

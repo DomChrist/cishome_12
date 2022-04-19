@@ -15,8 +15,9 @@ const cisHome = {
 const keycloak = {
     // "host" : "http://pi4:8180/auth/realms/CIS/account/",
     "host" : "http://localhost:8082/auth/realms/CIS/account/",
-    "realm" : "CIS"
-}
+    "realm" : "CIS",
+    "client" : "cishome"
+};
 
 
 export const environment = {

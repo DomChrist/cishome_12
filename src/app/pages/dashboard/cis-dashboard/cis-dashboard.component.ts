@@ -5,6 +5,7 @@ import {CisUser} from "../../../system/cis-connector/model/user";
 import {GoogleService} from "../../../system/google/google.service";
 import {CisHttpService} from "../../../system/cis-connector/services/cis-http.service";
 import {Router} from "@angular/router";
+import {DashboardService} from "./dashboard.service";
 
 @Component({
   selector: 'app-cis-dashboard',
@@ -15,12 +16,14 @@ export class CisDashboardComponent implements OnInit {
 
 
 
-  constructor( private auth:CisAuthService, public google:GoogleService, public http: CisHttpService, private router: Router) { }
+  constructor( public dashboard: DashboardService, private auth: CisAuthService, public google: GoogleService, public http: CisHttpService, private router: Router) { }
 
   public userData: CisUser;
 
   public showMeeting = false;
   public showLists = false;
+  public showFuelDialog = false;
+  public showWeatherDialog = false;
 
   public ready = READY_STATE.NO;
 
@@ -32,91 +35,22 @@ export class CisDashboardComponent implements OnInit {
       this.showMeeting = this.userData.resource_access.account.roles.filter( r=>r === 'cis_meeting' ).length === 1;
 
       this.ready = READY_STATE.PENDING;
-      window.setTimeout( ()=>{
-          this.http.ping( ()=>{
-              this.ready = READY_STATE.YES;
-          } , ()=>{this.ready= READY_STATE.ERROR} )
+      if ( sessionStorage.getItem('ready') ){
+          this.ready = READY_STATE.YES;
+      } else {
+          window.setTimeout( () => {
+              this.http.ping( () => {
+                  this.ready = READY_STATE.YES;
+                  sessionStorage.setItem('ready' , READY_STATE.PENDING.toString());
+              } , () => {
+                  this.ready = READY_STATE.ERROR;
+              });
 
-      } , 1000 );
+          } , 1000 );
+      }
 
-      this.modules = [
-          {
-              name: 'Nextcloud',
-              icon: 'pi pi-cloud',
-              image: undefined,
-              link: [''],
-              accessible : this.hasNextcloudRole,
-              action : this.nextCloud,
-              offlineSupport : false
-          },
-          {
-              name: 'Lists',
-              link: ['/','app','list'],
-              icon: undefined,
-              image: '/assets/icons/flaticon/to-do-list.png',
-              accessible : this.hasListRole,
-              action : ()=>{
-                  this.router.navigate(['','app','lists']);
-              },
-              offlineSupport : true
-          },
-          {
-              name: 'WDYS',
-              link: ['/','app','wdys'],
-              icon: undefined,
-              image: '/assets/icons/flaticon/conversation.png',
-              accessible : this.hasMeetingRole,
-              action : ()=>{
-                  this.router.navigate(['','app','wdys']);
-              },
-              offlineSupport : false
-          },
-          {
-              name: 'SAFE',
-              link: ['/','app','safe'],
-              icon: undefined,
-              image: '/assets/icons/flaticon/password.png',
-              accessible : this.hasSafeRole,
-              action : ()=>{
-                  this.router.navigate(['','app','safe']);
-              },
-              offlineSupport : false
-          },
-          {
-              name: 'SCHOOL',
-              link: ['/','app','school'],
-              icon: undefined,
-              image: '/assets/icons/flaticon/school.png',
-              accessible : true,
-              action : ()=>{
-                  this.router.navigate(['','app','school']);
-              },
-              offlineSupport : false
-          },
-          {
-              name: 'WEEK',
-              link: ['/','app','weekplan'],
-              icon: 'pi pi-calendar-plus',
-              image: '/assets/icons/flaticon/schedule.png',
-              accessible : this.hasWeekplanRole,
-              action : () => {
-                  this.router.navigate(['','app','weekplan']);
-              },
-              offlineSupport : false
-          },
-          {
-              name: 'TIMETABLE',
-              link: ['/','app','timetable'],
-              icon: 'pi pi-clock',
-              image: '/assets/icons/flaticon/time.png',
-              accessible : this.hasWeekplanRole,
-              action : () => {
-                  this.router.navigate(['','app','timesheet']);
-              },
-              offlineSupport : false
-          }
 
-      ];
+      this.modules = this.dashboard.modules;
 
   }
 
@@ -147,27 +81,27 @@ export class CisDashboardComponent implements OnInit {
   }
 
   get hasMeetingRole(): boolean{
-      let r: string[] = this.auth.user.resource_access.account.roles;
+      let r: string[] = this.auth.user.resource_access.cishome.roles;
       return r.filter( r=>r === 'cis_meeting' ).length != 0;
   }
 
   get hasNextcloudRole(): boolean{
-      const r: string[] = this.auth.user.resource_access.account.roles;
+      const r: string[] = this.auth.user.resource_access.cishome.roles;
       return r.filter( r => r === 'cis_nextcloud' ).length !== 0;
   }
 
   get hasSafeRole(): boolean{
-      const r: string[] = this.auth.user.resource_access.account.roles;
+      const r: string[] = this.auth.user.resource_access.cishome.roles;
       return r.filter( r => r === 'cis_safe' ).length !== 0;
   }
 
   get hasWeekplanRole(): boolean{
-      const r: string[] = this.auth.user.resource_access.account.roles;
+      const r: string[] = this.auth.user.resource_access.cishome.roles;
       return r.filter( r => r === 'cis_weekplan' ).length !== 0;
   }
 
   get hasListRole(): boolean{
-      let r: string[] = this.auth.user.resource_access.account.roles;
+      let r: string[] = this.auth.user.resource_access.cishome.roles;
       let b = r.filter( r=>r === 'cis_list' ).length !== 0;
 
       if( environment.production === false ){
@@ -200,12 +134,30 @@ export enum READY_STATE{
 
 export class Module{
 
-    public name: string;
-    public link: string[] = new Array<string>();
+    public label: string;
+    public key: string;
+    public type: ModuleType;
+    public route: string[];
     public accessible: boolean;
     public icon: string;
-    public image: string;
     public offlineSupport: boolean;
-    public action: () => void;
+    public component: ComponentModule;
+    public card: CardModule;
 
+}
+
+export class ComponentModule{
+    name: string;
+    showDialog: boolean = false;
+}
+
+export class CardModule {
+    image: string;
+    public link: string[] = new Array<string>();
+    public action: () => void;
+}
+
+export enum ModuleType{
+    COMPONENT,
+    CARD
 }

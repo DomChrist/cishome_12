@@ -26,8 +26,33 @@
 </div>
 
 <div *ngIf="pagePending" style="text-align: center">
-    <p-progressSpinner></p-progressSpinner>
+    <div class="p-grid">
+
+        <div class="p-col-12">
+            <p-skeleton width="95%" height="35px" styleClass="mb-2"></p-skeleton>
+        </div>
+
+        <div class="p-col-12 p-sm-12 p-md-8 p-xl-4">
+            <p-skeleton width="100%" height="270px" styleClass="mr-2"></p-skeleton>
+        </div>
+        <div class="p-col-12 p-sm-12 p-md-8 p-xl-4">
+            <p-skeleton width="100%" height="270px" styleClass="mr-2"></p-skeleton>
+        </div>
+        <div class="p-col-12 p-sm-12 p-md-8 p-xl-4">
+            <p-skeleton width="100%" height="270px" styleClass="mr-2"></p-skeleton>
+        </div>
+        <div class="p-col-12 p-sm-12 p-md-8 p-xl-4">
+            <p-skeleton width="100%" height="270px" styleClass="mr-2"></p-skeleton>
+        </div>
+        <div class="p-col-12 p-sm-12 p-md-8 p-xl-4">
+            <p-skeleton width="100%" height="270px" styleClass="mr-2"></p-skeleton>
+        </div>
+        <div class="p-col-12 p-sm-12 p-md-8 p-xl-4">
+            <p-skeleton width="100%" height="270px" styleClass="mr-2"></p-skeleton>
+        </div>
+    </div>
 </div>
+
 
 <div *ngIf="userData && pageReady" >
 
@@ -42,21 +67,29 @@
         <div class="p-col-12">
             <p-divider></p-divider>
         </div>
+
+
+
         <div class="p-col-12" >
 
-            <div class="p-grid">
-                <div class="p-col-4" *ngFor="let m of modules | activeModule: false">
-                        <p-card (click)="m.action()" >
+            <div class="p-grid  " >
+                <div class="module-view p-col-12 p-sm-12 p-md-8 p-xl-4">
+                    <p-card [style]="{height:'270px', background: '#1ea8ef', color: 'white'}">
+                        <app-weather-overview></app-weather-overview>
+                    </p-card>
+                </div>
+                <div class="module-view p-col-12 p-sm-12 p-md-4 p-xl-4" *ngFor="let m of modules | activeModule: false">
+                        <p-card (click)="m.card.action()" [style]="{height:'270px'}" >
                             <div style="text-align: center">
-                                <i *ngIf="m.icon && !m.image" style="font-size: 4.2em; color: #0D47A1" [class]="m.icon"></i>
-                                <img style="width: 160px;" *ngIf="m.image" [src]="m.image">
+                                <i *ngIf="m.icon && m.card && !m.card.image" style="font-size: 4.2em; color: #0D47A1" [class]="m.icon"></i>
+                                <img style="width: 160px;" *ngIf="m.card?.image" [src]="m.card.image">
                             </div>
                             <p-footer>
                                 <button pButton
                                         class="p-button-link"
                                         style="width: 100%"
-                                        [label]="m.name"
-                                        (click)="m.action()"></button>
+                                        [label]="m.label"
+                                        (click)="m.card.action()"></button>
                             </p-footer>
                         </p-card>
                 </div>
@@ -67,33 +100,15 @@
 
             </div>
         </div>
-        <div class="p-col-12">
-            <p-divider></p-divider>
-        </div>
-
-        <div class="p-col-12">
-            <button
-                pButton
-                label="GOOGLE"
-                icon="pi pi-google"
-                (click)="google.toGoogleLogin()">
-            </button>
-        </div>
-
-        <div class="p-col-12 p-sm-6">
-            <p-card>
-                <app-fuel-overview></app-fuel-overview>
-            </p-card>
-        </div>
-        <div class="p-col-12 p-sm-6">
-            <div style="margin-bottom: 10px;">
-
-            </div>
-
-            <p-card>
-                <app-weather-overview></app-weather-overview>
-            </p-card>
-        </div>
-
 
 </div>
+
+
+<app-home-control-widget></app-home-control-widget>
+
+
+<p-dialog [(visible)]="dashboard.showFuelDialog" [modal]="true" [responsive]="true" [style]="{minWidth:'800px'}" header="GAS STATIONS">
+    <app-fuel-overview></app-fuel-overview>
+</p-dialog>
+
+

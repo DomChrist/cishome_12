@@ -101,6 +101,7 @@ export interface MostCommunicationParticipants {
     count: number;
     firstName: string;
     lastName: string;
+    initial: string;
     mail: string;
 }
 

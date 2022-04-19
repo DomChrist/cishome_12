@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {Fuel, FuelResponse, GasStationsAggregate} from "./fuel-model";
 
 @Component({
   selector: 'app-fuel-overview',
@@ -14,8 +15,8 @@ export class FuelOverviewComponent implements OnInit {
   private readonly lon: string;
 
   constructor(private http: HttpClient) {
-    this.lat = "50.230714";
-    this.lon = "7.589126";
+    this.lat = '50.230714';
+    this.lon = '7.589126';
   }
 
   ngOnInit() {
@@ -24,15 +25,12 @@ export class FuelOverviewComponent implements OnInit {
 
 
   private load(): void {
-    var url = 'https://creativecommons.tankerkoenig.de/json/list.php?lat=' + this.lat + '&lng=' + this.lon + '&rad=6&type=all&apikey=9555e371-7230-d723-2874-c5d55862eb06';
+    const url = 'https://creativecommons.tankerkoenig.de/json/list.php?lat=' + this.lat + '&lng=' + this.lon + '&rad=6&type=all&apikey=9555e371-7230-d723-2874-c5d55862eb06';
 
-    this.http.get(url).subscribe((res) => {
-      var f: Fuel = new Fuel();
-      f.stamp = new Date();
-      f.data = res;
-
-      this.fuelData = f;
-      localStorage.setItem('fuel', JSON.stringify(f));
+    this.http.get<FuelResponse>(url).subscribe((res) => {
+        const f: Fuel = Fuel.of(res);
+        this.fuelData = f;
+        localStorage.setItem('fuel', JSON.stringify(f));
     });
 
   }
@@ -40,11 +38,3 @@ export class FuelOverviewComponent implements OnInit {
 }
 
 
-export class Fuel {
-
-  public stamp: Date;
-
-  public data: any;
-
-
-}

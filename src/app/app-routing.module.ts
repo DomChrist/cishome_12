@@ -55,6 +55,8 @@ import {AuthGuard} from './system/cis-connector/services/auth.guard';
                     {path: 'app/safe'  , loadChildren : () => import('./modules/safe/safe.module').then( m => m.SafeModule )},
                     {path: 'app/school'  , loadChildren : () => import('./modules/school/school.module').then( m => m.SchoolModule )},
                     {path: 'app/weekplan'  , loadChildren : () => import('./modules/weekplan/weekplan.module').then( m => m.WeekplanModule )},
+                    {path: 'app/timesheet'  , loadChildren : () => import('./modules/timesheet/timesheet.module').then( m => m.TimesheetModule )},
+                    {path: 'app/homecontrol'  , loadChildren : () => import('./modules/home-control/home-control.module').then( m => m.HomeControlModule )},
                     {path: 'uikit/formlayout', component: FormLayoutDemoComponent},
                     {path: 'uikit/floatlabel', component: FloatLabelDemoComponent},
                     {path: 'uikit/invalidstate', component: InvalidStateDemoComponent},

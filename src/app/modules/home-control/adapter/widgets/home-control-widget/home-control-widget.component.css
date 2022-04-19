@@ -1,0 +1,29 @@
+label.devicename{
+    font-weight: bold;;
+    font-size: 2.1em;
+    text-transform: uppercase;
+    text-overflow: ellipsis;
+}
+
+label.devicename-on{
+    color: #1ab394;
+}
+
+label.devicename-off{
+    color: #C63737;
+}
+
+img.title{
+    padding: 30px;
+    background: #cae6fc;
+    width: 130px;
+    height: 130px;
+    border-radius: 100%;
+}
+
+label.title{
+    font-size: 2em;
+    position:relative;
+    top: -50px;
+    margin-left: 10px;
+}

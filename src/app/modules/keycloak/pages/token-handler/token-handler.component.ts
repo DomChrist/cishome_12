@@ -51,7 +51,7 @@ export class TokenHandlerComponent implements OnInit {
       input.append('redirect_uri' , code);
 
       const host = location.protocol + '//' + location.host + '/auth/token';
-      const url = environment.cisHome.service + 'auth/validate/token?code=' + code + '&host=' + host;
+      const url = environment.cisHome.service + 'auth/validate/token?code=' + code + '&host=' + host + '&client=' + environment.keycloak.client;
 
       const request = {
             code : code,

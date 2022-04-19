@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CisAuthService} from "./system/cis-connector/services/cis-auth-service";
+import {CisDashboardComponent} from "./pages/dashboard/cis-dashboard/cis-dashboard.component";
+import {DashboardService} from "./pages/dashboard/cis-dashboard/dashboard.service";
 
 @Component({
     selector: 'app-menu',
@@ -16,7 +18,7 @@ export class AppMenuComponent implements OnInit {
     public model: any[];
 
 
-    constructor( private userService: CisAuthService) {
+    constructor( private userService: CisAuthService, private dashboard: DashboardService) {
     }
 
     ngOnInit() {
@@ -24,10 +26,17 @@ export class AppMenuComponent implements OnInit {
         const list = this.userService.hasRole('cis_list');
         const nextcloud = this.userService.hasRole('cis_nextcloud');
 
-        this.model = [
-            {label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/']}
-        ];
-        if( meeting ) this.model.push( {label:'WDYS' , icon:'pi pi-calendar' , routerLink:['/app/wdys']} );
-        if( list ) this.model.push( {label:'LISTS' , icon:'pi pi-bars' , routerLink:['/app/lists']} );
+        this.model = [];
+
+        this.model.push( {label: 'Dashboard' , icon:'pi pi-home' , routerLink: '/'} );
+
+        this.dashboard.modules
+            .filter( f => f.card && f.card.link )
+            .map( f => {
+                console.log( f.route );
+                return {label: f.label , icon:f.icon , routerLink: f.route};
+            })
+            .forEach( i => this.model.push(i) );
+
     }
 }

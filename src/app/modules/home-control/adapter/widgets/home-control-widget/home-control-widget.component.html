@@ -1,0 +1,40 @@
+
+
+
+<div class="p-grid">
+
+    <div class="p-col-12">
+            <img class="title" src="/assets/icons/flaticon/smarthome.png">
+            <label class="title">HOME CONTROL</label>
+    </div>
+
+    <div class="p-col-12 p-sm-12 p-md-6 p-xl-6">
+        <p-divider align="left" type="dashed">
+            <div class="inline-flex align-items-center">
+                <b>LIGHTS</b>
+            </div>
+        </p-divider>
+        <div *ngIf="!data" class="p-grid">
+            loading...
+        </div>
+
+        <div *ngIf="data" class="p-grid">
+            <div style="text-align: center" class="p-col-12 p-sm-12 p-md-4 p-xl-3" *ngFor="let d of data | async">
+                <p-card (click)="hue.hue.changeGroupStatus( d, !d.state)">
+                    <img style="height: 90px;" src="/assets/icons/flaticon/light.png">
+                    <div style="margin-top:5px;">
+                        <label class="devicename" [class.devicename-on]="d.state" [class.devicename-off]="!d.state"  >{{d.name}}</label>
+                    </div>
+                </p-card>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="p-col-6"></div>
+
+
+
+</div>

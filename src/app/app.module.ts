@@ -162,6 +162,7 @@ import {ProgressSpinnerModule} from "primeng/progressspinner";
 import { ActiveModulePipe } from './pages/dashboard/cis-dashboard/active-module.pipe';
 import {SchoolModule} from "./modules/school/school.module";
 import {WeekplanModule} from "./modules/weekplan/weekplan.module";
+import {HomeControlModule} from "./modules/home-control/home-control.module";
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -257,7 +258,7 @@ FullCalendarModule.registerPlugins([
         VirtualScrollerModule,
         AppCodeModule,
         ListsModule, ListsRoutingModule, SchoolModule,
-        WdysModule, SpinnerModule, ProgressSpinnerModule, WeekplanModule
+        WdysModule, SpinnerModule, ProgressSpinnerModule, WeekplanModule, HomeControlModule
     ],
     declarations: [
         AppComponent,

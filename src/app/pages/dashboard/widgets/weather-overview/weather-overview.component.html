@@ -1,15 +1,9 @@
-<div style="display: none">
-  <ul>
-    <li *ngFor="let l of list?.list">
-      <div style="float: left; padding: 10px;">
-        <div style="text-align: center;">
-          <label class="page-header" style="text-align: center;">
-            {{l?.dt * 1000 | date : 'HH:mm'}}
-          </label>
-        </div>
 
-        <div style="text-align: center">
-          <label *ngFor="let w of l?.weather" style="font-size : 2em; text-align: center" title="{{w?.id}}">
+
+<div *ngIf="firstTodayForecast" class="p-grid" (click)="show =!show" >
+
+    <div class="p-col-6">
+        <label *ngFor="let w of firstTodayForecast.weather" style="font-size : 8em; text-align: center" title="{{w?.description}}">
             <span *ngIf="w?.id == 800" style="color:darkorange" class="wi wi-day-sunny"></span>
             <span *ngIf="w?.id == 801" class="wi wi-day-cloudy"></span>
             <span *ngIf="w?.id >= 802 && w?.id <= 804" class="wi wi-cloudy"></span>
@@ -17,27 +11,32 @@
             <span *ngIf="w?.id >= 500 && w?.id < 600" class="wi wi-showers"></span>
             <span *ngIf="w?.id >= 600 && w?.id < 700" class="wi wi-snow"></span>
             <span *ngIf="w?.id >= 300 && w?.id < 400" class="wi wi-day-rain"></span>
-
-          </label>
+        </label>
+    </div>
+    <div class="p-col-6">
+        <label class="page-header" style="text-align: center;">
+            {{firstTodayForecast.dt * 1000 | date : 'HH:mm'}}
+        </label>
+        <div>
+            <label class="main-temp">
+                <span style="font-size: 1em;" class="wi wi-thermometer"></span>
+                {{firstTodayForecast.main.temp}}<span>°</span>
+            </label>
+            <div>
+                {{firstTodayForecast.main.temp_min}} / {{firstTodayForecast.main.temp_max}}
+            </div>
         </div>
-
-        <div style="text-align: center">
-          <label>
-            <span style="font-size: 1em;" class="wi wi-thermometer"></span>
-            {{l?.main.temp}}
-            <span class="wi wi-celsius"></span>
-          </label>
-        </div>
-
-      </div>
-    </li>
-  </ul>
-  <div style="clear: both"></div>
-
-
+    </div>
+    <div style="clear: both; padding: 5px;">
+        <label>
+            {{firstTodayForecast.weather[0].description}}
+        </label>
+    </div>
 </div>
 
-<p-carousel headerText="Wetter" dot [value]="list?.list" numVisible="3" dotsContainerClass="hide-dots">
+
+<p-sidebar position="bottom" [fullScreen]="true" [(visible)]="show" [style]="{height:'200px;'}" >
+<p-carousel [value]="list?.list" numVisible="9" [showNavigators]="true" [showIndicators]="false" >
   <ng-template let-l pTemplate="item">
     <div style="float: left; padding: 10px; text-align: center">
       <div style="text-align: center;">
@@ -47,7 +46,7 @@
       </div>
 
       <div style="text-align: center">
-        <label *ngFor="let w of l?.weather" style="font-size : 2em; text-align: center" title="{{w?.description}}">
+        <label *ngFor="let w of l?.weather" style="font-size : 4em; text-align: center" title="{{w?.description}}">
           <span *ngIf="w?.id == 800" style="color:darkorange" class="wi wi-day-sunny"></span>
           <span *ngIf="w?.id == 801" class="wi wi-day-cloudy"></span>
           <span *ngIf="w?.id >= 802 && w?.id <= 804" class="wi wi-cloudy"></span>
@@ -70,5 +69,5 @@
     </div>
   </ng-template>
 </p-carousel>
-
+</p-sidebar>
 

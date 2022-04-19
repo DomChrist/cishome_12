@@ -1,4 +1,39 @@
-<div>
+
+
+
+<div *ngIf="fuelData">
+
+    <div>
+        <div>
+            <label>E5</label>
+            {{fuelData.cheapestE5.name}}
+        </div>
+        <div>
+            <label>{{fuelData.cheapestE5.e5}}</label>
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <label>E10</label>
+            {{fuelData.cheapestE10.name}}
+        </div>
+        <div>
+            <label>{{fuelData.cheapestE10.e10}}</label>
+        </div>
+    </div>
+
+    <div>
+        <div>{{fuelData.cheapestDiesel.name}}</div>
+        <div>
+            <label>{{fuelData.cheapestDiesel.diesel}}</label>
+        </div>
+    </div>
+
+</div>
+
+
+<div >
 
   <div *ngFor="let d of fuelData?.data?.stations">
     <div style="border-bottom: 10px">

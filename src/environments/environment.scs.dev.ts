@@ -6,13 +6,14 @@ const cisHome = {
 
 const keycloak = {
     host : "http://localhost:8082/auth/realms/CIS/account/",
+    client: "cishome",
     realm : "CIS"
 }
 
 export const environment = {
     production: true,
     serviceUrl: 'http://cis-home.selfhost.eu:28081',
-
+    keycloak : keycloak,
     cisHome : cisHome
 
 };
