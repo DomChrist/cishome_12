@@ -44,6 +44,16 @@
 
 <div class="p-grid">
 
+    <div class="p-col-12">
+
+        <button
+            pButton
+            (click)="showNewNoteDialog = !showNewNoteDialog"
+            style="width: 100%"
+            label="NEW"></button>
+
+    </div>
+
     <div class="p-col-4" *ngFor="let n of notes">
         <p-card [routerLink]="['note',n.id]">
             <label>{{n.name}}</label>
@@ -51,3 +61,25 @@
     </div>
 
 </div>
+
+
+
+<p-dialog [(visible)]="showNewNoteDialog">
+
+    <div class="p-grid">
+
+        <div class="p-col-12">
+            <input pInputText
+                   [(ngModel)]="newNoteName"
+                   placeholder="SECRET NAME"
+            >
+        </div>
+        <div class="p-col-12">
+            <button
+                pButton
+                label="CREATE"
+                (click)="newNote()"></button>
+        </div>
+    </div>
+
+</p-dialog>

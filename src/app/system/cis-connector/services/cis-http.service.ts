@@ -33,7 +33,7 @@ export class CisHttpService {
     }
      */
 
-    public cisGet<T>( url , headers:HttpHeaders = new HttpHeaders() ): Observable<HttpResponse<T>>{
+    public cisGet<T>( url , headers: HttpHeaders = new HttpHeaders() ): Observable<HttpResponse<T>>{
         const uri = environment.cisHome.service  + url;
         let h = this.app.createAuthHeader();
         headers.keys().forEach( k => {

@@ -58,11 +58,13 @@ import { MeetingAgendaOverviewComponent } from './meeting/adapter/web/meeting-ag
 import { SessionCollaborationComponent } from './collaborate/web/session-collaboration/session-collaboration.component';
 import { MeetingSessionShareComponent } from './meeting/adapter/web/meeting-session-share/meeting-session-share.component';
 import {OverlayPanelModule} from "primeng/overlaypanel";
+import { SearchMeetingsInputComponent } from './meeting/adapter/dialogs/search-meetings-input/search-meetings-input.component';
+import {EditorModule} from "primeng/editor";
 
 
 
 @NgModule({
-  declarations: [WdysDashboardComponent, NewMeetingComponent, CreateParticipantDialogComponent, SearchParticipantComponent, MeetingOverviewComponent, MeetingListComponent, AddSessionComponent, MeetingSessionOverviewComponent, CreateTodoComponent, ViewSessionTodoComponent, ViewMeetingTodoComponent, CreateMeetingNoteComponent, ShowSessionNotesComponent, MeetingListPipe, SessionAddNoteDialogComponent, TimeTrackerButtonComponent, TimeTrackerComponent, RunningTimeTrackerComponent, ParticipantWidgetComponent, ParticipantPipe, ParticipantOverviewComponent, MeetingAgendaOverviewComponent, SessionCollaborationComponent, MeetingSessionShareComponent],
+  declarations: [WdysDashboardComponent, NewMeetingComponent, CreateParticipantDialogComponent, SearchParticipantComponent, MeetingOverviewComponent, MeetingListComponent, AddSessionComponent, MeetingSessionOverviewComponent, CreateTodoComponent, ViewSessionTodoComponent, ViewMeetingTodoComponent, CreateMeetingNoteComponent, ShowSessionNotesComponent, MeetingListPipe, SessionAddNoteDialogComponent, TimeTrackerButtonComponent, TimeTrackerComponent, RunningTimeTrackerComponent, ParticipantWidgetComponent, ParticipantPipe, ParticipantOverviewComponent, MeetingAgendaOverviewComponent, SessionCollaborationComponent, MeetingSessionShareComponent, SearchMeetingsInputComponent],
     imports: [
         CommonModule,
         WdysRoutingModule,
@@ -98,7 +100,8 @@ import {OverlayPanelModule} from "primeng/overlaypanel";
         ProgressBarModule,
         ToastModule,
         SplitButtonModule,
-        OverlayPanelModule
+        OverlayPanelModule,
+        EditorModule
     ],
     providers: [
         {provide: LocationStrategy, useClass: PathLocationStrategy}

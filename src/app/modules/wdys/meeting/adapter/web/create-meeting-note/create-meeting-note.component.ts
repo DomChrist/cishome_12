@@ -38,9 +38,12 @@ export class CreateMeetingNoteComponent implements OnInit {
         this.note.sessionId = this.session.meetingSessionId;
   }
 
-  public select( p:Participant ){
-      this.newMeetingNote();
+  public select( p: Participant ){
+      if( this.participant ){
+          this.newMeetingNote();
+      }
       this.participant = p;
+
   }
 
   public save(){

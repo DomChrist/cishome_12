@@ -47,7 +47,7 @@ export class NewMeetingComponent implements OnInit {
     public save(){
       console.log("--- CreateNewMeetingCommand ---")
         console.log(this._participants);
-        console.log(this.cmd)
+        console.log(this.cmd);
       console.log("--- CreateNewMeetingCommand ---")
 
       this.validate( ()=>{

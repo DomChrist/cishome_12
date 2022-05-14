@@ -35,6 +35,7 @@ export class MeetingListComponent implements OnInit , OnDestroy {
         this.searchResponse = data;
       } );
       this.meetingService.search(undefined);
+      //window.setTimeout( () => document.getElementById('searchinput').focus() , 1550);
   }
 
   ngOnDestroy(): void {

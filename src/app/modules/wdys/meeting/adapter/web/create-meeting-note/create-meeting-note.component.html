@@ -31,9 +31,12 @@
             </div>
         </p-divider>
         <div>
-            <textarea [(ngModel)]="note.note" rows="5" maxlength="255" style="width: 100%;" pInputTextarea >
+            <textarea *ngIf="false" [(ngModel)]="note.note" rows="5" maxlength="255" style="width: 100%;" pInputTextarea >
 
             </textarea>
+
+            <p-editor [(ngModel)]="note.note" [style]="{height:'250px'}" ></p-editor>
+
             <div>
                 <label>{{note?.note?.length}}/255</label>
             </div>

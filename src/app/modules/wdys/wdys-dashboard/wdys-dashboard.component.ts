@@ -16,7 +16,6 @@ export class WdysDashboardComponent implements OnInit {
 
   public commandItems: MenuItem[];
 
-  public showSearchBar = false;
 
   public count: MeetingDashboardCounting;
   public communications: MostCommunicationParticipants[];
@@ -71,7 +70,7 @@ export class WdysDashboardComponent implements OnInit {
   public overdue(){
       this.service.cisGet<OverdueTodos[]>( 'meeting/dashboard/query/overdue' )
           .subscribe((resp=>{
-              //this.lastMeetings = resp.body;
+              this.todos = resp.body;
           }));
   }
 

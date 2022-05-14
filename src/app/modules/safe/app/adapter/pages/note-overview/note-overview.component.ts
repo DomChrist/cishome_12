@@ -26,7 +26,7 @@ export class NoteOverviewComponent implements OnInit {
   showAddDialog = false;
 
 
-  constructor( private service:KeySafeService,
+  constructor( private service: KeySafeService,
                private router: Router,
                private route: ActivatedRoute) { }
 

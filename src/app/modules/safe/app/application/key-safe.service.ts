@@ -46,6 +46,15 @@ export class KeySafeService {
       this.http.cisPut( url,request ).subscribe();
   }
 
+  public addNote( name: string , success:(note: SecretNote) => void ){
+      const request = {
+          name
+      };
+      this.http.cisPost<SecretNote>( 'secret/note' , request ).subscribe( (resp) => {
+          success( resp.body );
+      });
+  }
+
     decrypt(i: SecretItem, pw: string): string {
         let decrypted = CryptoJS.AES.decrypt(i.secret.trim(), pw.trim()).toString(CryptoJS.enc.Utf8);
         if( !decrypted ) throw new Error("");

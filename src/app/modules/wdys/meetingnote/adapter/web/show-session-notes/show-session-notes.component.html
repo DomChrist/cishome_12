@@ -39,10 +39,6 @@
         </div>
     </div>
 
-    <p-dialog [(visible)]="show_create_meeting_note" responsive="true" resizable="true" [style]="{minWidth:'600px'}" modal="true"  >
-        <app-create-meeting-note [session]="session"></app-create-meeting-note>
-    </p-dialog>
-
 </div>
 
 <div *ngIf="notes && type==='table'">
@@ -60,7 +56,7 @@
                 <tr>
                     <td>
                         <div style="margin-bottom: 7px;">
-                            <label style="text-overflow: ellipsis; width: 100px;" class="note">{{n.note.mediumValue}}</label>
+                            <div [innerHTML]="n.note.mediumValue"></div>
                         </div>
                         <div>
                             <div style="float: left">
@@ -82,3 +78,49 @@
         </p-table>
     </p-card>
 </div>
+
+
+<div *ngIf="notes && type==='card'">
+
+    <div style="margin-bottom: 5px;">
+        <p-card>
+            <p-divider align="left" type="dashed">
+                <div class="p-d-inline-flex p-ai-center">
+                    <i class="pi pi-file p-mr-2"></i>
+                    <b>NOTES</b>
+                </div>
+            </p-divider>
+            <div style="text-align:right">
+                <button pButton
+                        class="p-button-success"
+                        (click)="show_create_meeting_note = !show_create_meeting_note"
+                        [label]="notes ? notes.length : '0'"
+                        icon="pi pi-plus"></button>
+            </div>
+        </p-card>
+    </div>
+
+    <div *ngFor="let n of notes" style="margin-bottom: 5px;">
+        <p-card>
+            <div>
+                <p-avatar [style]="{background: '#2196F3' , color:'#ffffff'}" icon="pi pi-comments" size="large" shape="circle"></p-avatar>
+                <label style="font-size:2em; padding-left: 5px;" *ngIf="n.participant" >{{n.participant.fullName}}</label>
+            </div>
+            <div style="padding-left: 50px;">
+                <label [innerHTML]="n.note.mediumValue"></label>
+            </div>
+            <div style="text-align:right">
+                <label>
+                    <i class="pi pi-calendar"></i>
+                    {{n.created | date:'dd.MM.yyyy'}}
+                </label>
+            </div>
+        </p-card>
+    </div>
+
+
+</div>
+
+<p-dialog [(visible)]="show_create_meeting_note" responsive="true" resizable="true" [style]="{minWidth:'600px'}" modal="true"  >
+    <app-create-meeting-note [session]="session"></app-create-meeting-note>
+</p-dialog>

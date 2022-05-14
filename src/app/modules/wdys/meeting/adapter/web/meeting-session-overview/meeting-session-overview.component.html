@@ -64,7 +64,7 @@
                     </div>
                 </p-divider>
                 <div style="text-align: left">
-                    <p-avatar *ngFor="let p of session.participants" shape="circle" icon="pi pi-user" size="large" [label]="p.initial" [pTooltip]="p.fullName" ></p-avatar>
+                    <p-avatar *ngFor="let p of session.participants" shape="circle" icon="pi pi-user" size="large" [label]="p.initial" [pTooltip]="p.fullName" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" ></p-avatar>
                     <p-avatar shape="circle" (click)="show_participant_widget = !show_participant_widget" icon="pi pi-plus" size="large" ></p-avatar>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                 <p-tabPanel header="Overview">
                     <div class="p-grid">
                         <div class="p-sm-12 p-md-6">
-                            <app-show-session-notes [session]="session" type="table"></app-show-session-notes>
+                            <app-show-session-notes [session]="session" type="card"></app-show-session-notes>
                         </div>
                         <div class="p-sm-12 p-md-6">
                             <app-meeting-agenda-overview [meetingId]="session.meetingId" [sessionId]="session.meetingSessionId" ></app-meeting-agenda-overview>
@@ -84,8 +84,8 @@
                 </p-tabPanel>
                 <p-tabPanel header="Notes">
                     <div class="p-grid">
-                        <div class="p-sm-12 p-md-6">
-                            <app-show-session-notes [session]="session"></app-show-session-notes>
+                        <div class="p-sm-12 p-md-12">
+                            <app-show-session-notes [session]="session" type="card"></app-show-session-notes>
                         </div>
                     </div>
                 </p-tabPanel>
@@ -127,117 +127,5 @@
 </div>
 
 
-
-
-
-<div *ngIf="false && session" >
-
-
-    <p-breadcrumb [model]="items"></p-breadcrumb>
-
-    <div>
-        <p-toolbar>
-            <div class="p-toolbar-group-left">
-                <p-chip icon="pi pi-calendar" [label]="session.meetingDate | date:'dd.MM.yyyy' "></p-chip>
-                <app-time-tracker-button [sessionId]="sessionId" [meetingId]="meetingId">
-                    <ng-template #booking>
-                        <button
-                            pButton
-                            class="p-button-danger p-button-rounded p-button-raised"
-                            icon="pi pi-pause">
-                        </button>
-                    </ng-template>
-                    booking
-                </app-time-tracker-button>
-            </div>
-
-            <div class="p-toolbar-group-right">
-                <p-button pTooltip="CREATE MEETING NOTE" icon="pi pi-file" styleClass="p-button-success" (click)="show_create_meeting_note = !show_create_meeting_note" ></p-button>
-            </div>
-        </p-toolbar>
-    </div>
-
-
-
-    <div>
-        <p-divider align="left" type="dashed">
-            <div class="p-d-inline-flex p-ai-center">
-                <b>MEETING</b>
-            </div>
-        </p-divider>
-        <label style="font-weight: bold; font-size: 2em;">{{session.meetingName}}</label>
-    </div>
-
-
-    <div style="margin-top: 25px;">
-        <p-divider align="left" type="dashed">
-            <div class="p-d-inline-flex p-ai-center">
-                <i class="pi pi-users p-mr-2"></i>
-                <b>DESCRIPTION</b>
-            </div>
-        </p-divider>
-        <textarea
-            (keydown)="descriptionKeyDown($event)"
-            style="width: 100%"
-            pInputTextarea
-            [(ngModel)]="session.description"></textarea>
-        <div style="text-align: right">
-            <button *ngIf="show_description_save_button"
-                (click)="updateDescription()"
-                pButton
-                class="p-button-success"
-                icon="pi pi-save"></button>
-        </div>
-    </div>
-
-
-    <p-tabView>
-        <p-tabPanel header="Overview">
-            <div class="p-grid">
-                <div class="p-sm-12 p-md-6">
-                    <p-divider align="left" type="dashed">
-                        <div class="p-d-inline-flex p-ai-center">
-                            <i class="pi pi-file p-mr-2"></i>
-                            <b>NOTES</b>
-                        </div>
-                    </p-divider>
-                    <app-show-session-notes [session]="session"></app-show-session-notes>
-                </div>
-                <div class="p-sm-12 p-md-6">
-                    <p-divider align="left" type="dashed">
-                        <div class="p-d-inline-flex p-ai-center">
-                            <i class="pi pi-check p-mr-2"></i>
-                            <b>TODOS</b>
-                        </div>
-                    </p-divider>
-                    <app-meeting-agenda-overview></app-meeting-agenda-overview>
-                </div>
-            </div>
-        </p-tabPanel>
-        <p-tabPanel header="Todos">
-            <div class="p-sm-12 p-md-6">
-                <p-divider align="left" type="dashed">
-                    <div class="p-d-inline-flex p-ai-center">
-                        <i class="pi pi-check p-mr-2"></i>
-                        <b>TODOS</b>
-                    </div>
-                </p-divider>
-                <app-view-session-todo [meeting]="this.meetingId" [session]="sessionId"></app-view-session-todo>
-            </div>
-        </p-tabPanel>
-        <p-tabPanel header="Timetracking">
-            <app-time-tracker [sessionId]="sessionId" [meetingId]="meetingId"></app-time-tracker>
-        </p-tabPanel>
-    </p-tabView>
-
-    <p-dialog [(visible)]="show_create_meeting_note" responsive="true" resizable="true" [style]="{minWidth:'600px'}" modal="true"  >
-        <app-create-meeting-note (created)="handleCreatedNote($event)" [session]="session"></app-create-meeting-note>
-    </p-dialog>
-
-    <div style="position: fixed; bottom: 100px; right: 100px;" class="speeddial-circle-demo">
-        <p-speedDial  [model]="commandItems" radius="120" direction="up-left" type="quarter-circle" ></p-speedDial>
-    </div>
-
-</div>
 
 <p-toast position="bottom-center"></p-toast>

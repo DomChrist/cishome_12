@@ -14,6 +14,9 @@ export class WelcomePageComponent implements OnInit{
 
     title = 'EncryptionDecryptionSample';
 
+    public showNewNoteDialog = false;
+    public newNoteName = '';
+
     plainText:string;
     encryptText: string;
     encPassword: string;
@@ -38,6 +41,10 @@ export class WelcomePageComponent implements OnInit{
         this.keySafeService.load( (notes=>{
             this.notes = notes;
         }));
+    }
+
+    public newNote(){
+        this.keySafeService.addNote( this.newNoteName , (note) => this.notes.push(note) );
     }
 
 }

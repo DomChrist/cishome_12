@@ -1,0 +1,63 @@
+
+<div>
+
+    <span class="p-input-icon-left" style="width: 100%">
+            <i class="pi pi-search"></i>
+            <input pInputText
+                   class="search-line"
+                   placeholder="SEARCH FOR MEETINGS"
+                   (focus)="toggle()">
+    </span>
+
+</div>
+
+<p-sidebar
+    [(visible)]="showSearchBar"
+    title="SEARCH FOR MEETINGS"
+    (onShow)="focusInput()"
+    [fullScreen]="true">
+
+    <div>
+        <span class="p-input-icon-left" style="width: 100%">
+            <i class="pi pi-search"></i>
+            <input pInputText
+                   (keyup.enter)="search()"
+                   id="searchline"
+                   [(ngModel)]="searchLine"
+                   class="search-line"
+                   placeholder="SEARCH FOR MEETINGS">
+        </span>
+    </div>
+
+
+    <p-dataView *ngIf="searchResponse" [value]="searchResponse">
+        <ng-template let-m pTemplate="listItem">
+            <div class=" d-none d-sm-block click-item p-col-12 p-sm-12 p-md-2 p-xl-1">
+                <button class="open-button" pButton label="OPEN" (click)="open(m)"></button>
+            </div>
+            <div class="p-col-12 p-sm-12 p-md-10 p-xl-11 ">
+                <div class="product-list-item">
+                    <div class="product-list-detail">
+
+                        <div [routerLink]="['/app/wdys/meeting/view',m.id]" class="meeting-name">{{m.description}}</div>
+
+                        <div class="meeting-description">
+                            <label *ngIf="m.sessionFrom">{{m.sessionFrom | date:'dd.MM.yyyy'}}</label>
+                            <label *ngIf="m.sessionTill">&nbsp;-&nbsp;{{m.sessionTill | date:'dd.MM.yyyy'}}</label>
+                        </div>
+                        <i *ngIf="false" class="pi pi-tag product-category-icon"></i><span class="product-category">TODOs</span>
+                    </div>
+                    <div class="product-list-action">
+                        <div>
+                            <p-tag [style]="{width:'40px', marginTop:'5px'}" styleClass="p-mr-2" icon="pi pi-calendar" [value]="m.sessionCount"></p-tag>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataView>
+
+
+
+</p-sidebar>
+

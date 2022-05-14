@@ -4,8 +4,17 @@
 <div class="p-grid">
 
     <div class="p-col-12">
-            <img class="title" src="/assets/icons/flaticon/smarthome.png">
-            <label class="title">HOME CONTROL</label>
+        <p-card>
+            <div class="p-grid">
+                <div class="p-col-12 p-md-3 " style="text-align: center">
+                    <img class="title" src="/assets/icons/flaticon/smarthome.png">
+                </div>
+                <div class="p-col-12 p-sm-9">
+                    <label class="title">HOME CONTROL</label>
+                </div>
+            </div>
+        </p-card>
+
     </div>
 
     <div class="p-col-12 p-sm-12 p-md-6 p-xl-6">
@@ -19,7 +28,7 @@
         </div>
 
         <div *ngIf="data" class="p-grid">
-            <div style="text-align: center" class="p-col-12 p-sm-12 p-md-4 p-xl-3" *ngFor="let d of data | async">
+            <div style="text-align: center" class="p-col-12 p-sm-12 p-md-6 p-xl-4" *ngFor="let d of data | async">
                 <p-card (click)="hue.hue.changeGroupStatus( d, !d.state)">
                     <img style="height: 90px;" src="/assets/icons/flaticon/light.png">
                     <div style="margin-top:5px;">

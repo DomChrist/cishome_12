@@ -56,7 +56,7 @@
         </div>
     </p-dialog>
 
-    <p-dialog header="PASSWORD" modal="true" [(visible)]="!passwordValid"  >
+    <p-dialog header="PASSWORD" [modal]="true" [(visible)]="!passwordValid"  >
 
         <div *ngIf="passwordFailCounter > 0">
             <p-message severity="error" text="PASSWORD INVALID" >PASSWORD INVALID</p-message>

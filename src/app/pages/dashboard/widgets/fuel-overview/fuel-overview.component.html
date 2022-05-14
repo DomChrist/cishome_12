@@ -3,80 +3,69 @@
 
 <div *ngIf="fuelData">
 
-    <div>
-        <div>
-            <label>E5</label>
-            {{fuelData.cheapestE5.name}}
-        </div>
-        <div>
-            <label>{{fuelData.cheapestE5.e5}}</label>
-        </div>
-    </div>
+    <div class="p-grid">
 
-    <div>
-        <div>
-            <label>E10</label>
-            {{fuelData.cheapestE10.name}}
+        <div class="p-col-12 p-sm-4">
+            <div><label>E5</label></div>
+            <div><label>{{fuelData.cheapestE5.brand}}</label></div>
+            <div><label>{{fuelData.cheapestE5.e5}}</label></div>
         </div>
-        <div>
-            <label>{{fuelData.cheapestE10.e10}}</label>
-        </div>
-    </div>
 
-    <div>
-        <div>{{fuelData.cheapestDiesel.name}}</div>
-        <div>
-            <label>{{fuelData.cheapestDiesel.diesel}}</label>
+        <div class="p-col-12 p-sm-4">
+            <div><label>E10</label></div>
+            <div><label>{{fuelData.cheapestE10.brand}}</label></div>
+            <div><label>{{fuelData.cheapestE10.e10}}</label></div>
         </div>
+
+        <div class="p-col-12 p-sm-4">
+            <div><label>DIESEL</label></div>
+            <div><label>{{fuelData.cheapestDiesel.brand}}</label></div>
+            <div><label>{{fuelData.cheapestDiesel.diesel}}</label></div>
+        </div>
+
     </div>
 
 </div>
 
 
-<div >
+<div style="padding-left: 45px;" >
 
-  <div *ngFor="let d of fuelData?.data?.stations">
-    <div style="border-bottom: 10px">
-      <div style="border-bottom: 2px solid #0c1c2c">
-        <label style="font-weight: bold;">{{d.name}}</label>
-      </div>
-      <table style="margin-left: 10px; width: 100%" class="table table-responsive table-striped table-hover">
-        <tbody>
-        <tr routerLink="fuel/add/{{d?.name?.trim()}}/diesel/{{d.diesel}}">
-          <td>
-            <label class="label label-primary fuelType">DIESEL</label>
-          </td>
-          <td>
-            <label class="price">
-              {{ d.diesel | number : '1.2-2' }}
-            </label>
-          </td>
-        </tr>
-        <tr routerLink="fuel/add/{{d?.name?.trim()}}/e5/{{d.e5}}">
-          <td>
-            <label class="label label-primary fuelType">E5</label>
-          </td>
-          <td>
-            <label class="price">
-              {{ d.e5 | number : '1.2-2' }}
-            </label>
-          </td>
-        </tr>
-        <tr routerLink="fuel/add/{{d?.name?.trim()}}/e10/{{d.e10}}">
-          <td>
-            <label class="label label-primary fuelType">E10</label>
-          </td>
-          <td>
-            <label class="price">
-              {{ d.e10 | number : '1.2-2' }}
-            </label>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+    <div *ngFor="let d of fuelData?.data?.stations">
+        <div style="border-bottom: 2px solid #0c1c2c; font-weight: bold; font-size: 1.4em;">
+            <label>{{d.brand}}</label>
+        </div>
+        <div class="p-grid">
+            <div class="p-col-12 p-sm-12 p-md-4 p-lg-4">
+                <div>
+                    <div>
+                        <label>E5</label>
+                    </div>
+                    <div>
+                        <label>{{d.e5}}</label>
+                    </div>
+                </div>
 
+            </div>
+
+            <div class="p-col-12 p-sm-12 p-md-4 p-lg-4">
+                <div>
+                    <label>E10</label>
+                </div>
+                <div>
+                    <label>{{d.e10}}</label>
+                </div>
+            </div>
+
+            <div class="p-col-12 p-sm-12 p-md-4 p-lg-4">
+                <div>
+                    <label>DIESEL</label>
+                </div>
+                <div>
+                    <label>{{d.diesel}}</label>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
 
 </div>

@@ -19,7 +19,9 @@ export class ViewMeetingTodoComponent implements OnInit {
   ngOnInit(): void {
 
         this.queryService.loadByMeeting(this.meeting , (resp)=>{
-            this.todos = resp.todos;
+            if( resp ){
+                this.todos = resp.todos;
+            }
         });
 
   }

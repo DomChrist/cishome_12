@@ -24,7 +24,7 @@ export class ShowSessionNotesComponent implements OnInit , OnDestroy {
 
   public show_create_meeting_note = false;
 
-  constructor( private note:MeetingNoteService) { }
+  constructor( private note: MeetingNoteService) { }
 
       ngOnInit(): void {
           this.note.notesStream$.subscribe( note => {

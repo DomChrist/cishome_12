@@ -123,6 +123,10 @@ export class CisAuthService {
         return u;
     }
 
+    public hasAccess( roles: string[], role: string ): boolean {
+        return roles.filter( r => r === role ).length !== 0;
+    }
+
     private userFromToken(token) {
         if( token === null || token.length === 0 ) return null;
         let split = token.split(".")[1];

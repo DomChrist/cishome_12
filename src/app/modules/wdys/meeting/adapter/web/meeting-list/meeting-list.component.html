@@ -1,17 +1,10 @@
 <div>
-
-    <p-toolbar>
-        <div class="p-toolbar-group-left">
-            <div>
-                <div class="p-inputgroup" style="margin-left: 5px;">
-                    <input [(ngModel)]="searchline" (keyup.enter)="search()" type="text" pInputText placeholder="Keyword">
-                    <button type="button" pButton pRipple label="Search" (click)="search()"></button>
-                </div>
-            </div>
-
+    <div>
+        <div class="p-inputgroup" style="width: 100%; margin-left: 5px;">
+            <input #searchinput [(ngModel)]="searchline" (keyup.enter)="search()" style="width: 100%" type="text" pInputText placeholder="Keyword">
+            <button type="button" pButton pRipple label="Search" (click)="search()"></button>
         </div>
-
-    </p-toolbar>
+    </div>
 
     <p-dataView *ngIf="searchResponse" [value]="searchResponse">
         <ng-template let-m pTemplate="listItem">
