@@ -1,3 +1,4 @@
+<p-toast position="bottom-center" ></p-toast>
 
 <div class="">
     <p-card>
@@ -13,7 +14,9 @@
 <div  class="p-grid" *ngIf="model" style="margin-top: 15px;">
 
     <div *ngFor="let l of model.storeGroupedList | keyvalue" class="p-col-12 p-sm-12 p-md-4">
-        <app-shopping-item-list-view [storeId]="l.key"
+        <app-shopping-item-list-view (refresh)="reload()"
+                                     (successSettlement)="successSettlement($event)"
+                                     [storeId]="l.key"
                                      [listReference]="model.id"
                                      [list]="l.value"  >
 

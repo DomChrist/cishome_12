@@ -27,10 +27,13 @@ export class CisAuthService {
         }
         if (this.token === undefined || this.token === null || this.token.length == 0) {
             const url = window.location.href;
-            if (url.endsWith('/login') || url.includes("/auth/token") || url.endsWith('/logout') ) {
+            if (url.endsWith('/login') || url.includes('/auth/token') || url.endsWith('/logout') ) {
 
             } else {
-                location.href = environment.cisHome.login;
+                // redirect_uri=http://localhost:4200/auth/token&
+                const redirect = location.protocol + '//' + location.host + '/auth/token';
+                const href = environment.cisHome.login + '&redirect_uri=' + redirect;
+                location.href = href;
             }
         }
         this.user = this.userFromToken(this.token);
@@ -46,7 +49,7 @@ export class CisAuthService {
     }
 
     public handleLogin(request) {
-        const url = environment.serviceUrl + "/login";
+        const url = environment.serviceUrl + '/login';
         console.log(request);
         this.http.post(url, request, {observe: 'response'}).subscribe((resp) => {
             const auth = resp.headers.get('Authorization');
@@ -58,7 +61,7 @@ export class CisAuthService {
     }
 
     public login(request): Observable<HttpResponse<any>> {
-        const url = environment.serviceUrl + "/auth/login";
+        const url = environment.serviceUrl + '/auth/login';
         return this.http.post(url, request, {observe: 'response'});
     }
 
@@ -68,11 +71,11 @@ export class CisAuthService {
 
     get httpHeader(): HttpHeaders {
         this.headers = new HttpHeaders();
-        this.headers = this.headers.append("Authorization", this.token);
+        this.headers = this.headers.append('Authorization', this.token);
         return this.headers;
     }
 
-    public loginWithToken( token:Keycloak){
+    public loginWithToken( token: Keycloak){
         try{
             localStorage.setItem( "cis_bearer" , JSON.stringify(token));
             localStorage.setItem( "cis_access" , token.access_token );

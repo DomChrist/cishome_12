@@ -106,6 +106,6 @@
     [modal]="true"
     [(visible)]="showSettlement">
 
-    <app-shopping-settlement-dialog *ngIf="showSettlement" [store]="storeId" [shoppingList]="done"></app-shopping-settlement-dialog>
+    <app-shopping-settlement-dialog *ngIf="showSettlement" (successSettlement)="success($event)" [store]="storeId" [shoppingList]="done"></app-shopping-settlement-dialog>
 
 </p-dialog>

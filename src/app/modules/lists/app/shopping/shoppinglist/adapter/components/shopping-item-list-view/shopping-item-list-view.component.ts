@@ -1,6 +1,7 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ShoppingListService} from '../../../../services/shopping-list.service';
 import {ShoppingItem} from '../../../domain/shopping-model';
+import {Message} from 'primeng/api';
 
 @Component({
   selector: 'app-shopping-item-list-view',
@@ -29,6 +30,10 @@ export class ShoppingItemListViewComponent implements OnInit {
   public input: ElementRef;
 
   @ViewChild('listElement') public listElement: ElementRef;
+
+  @Output() refresh = new EventEmitter<void>();
+  @Output() successSettlement = new EventEmitter<Message>();
+
 
   constructor( private shoppingListService: ShoppingListService) { }
 
@@ -99,9 +104,6 @@ export class ShoppingItemListViewComponent implements OnInit {
 
 
 
-
-
-
     touchstart(t: TouchEvent){
         this.startX = t.touches[0].pageX;
     }
@@ -130,6 +132,14 @@ export class ShoppingItemListViewComponent implements OnInit {
 
     inputIndex( index: number ): string{
         return 'input-element-' + this.$shopId + '-' + index;
+    }
+
+    reload() {
+        this.refresh.emit();
+    }
+
+    public success( event: Message ){
+      this.successSettlement.emit(event);
     }
 
 }
@@ -233,7 +243,7 @@ class ListHandler{
         const swipe = Math.abs( this.startX - (this.endX ? this.endX : 0) );
         console.log('swipe + ' + swipe);
         if ( swipe < width ){ return; }
-        if ( t.touches.length > 0){ t.touches[0].pageX; }
+        if ( t.touches.length > 0) { t.touches[0].pageX; }
         if (  this.startX < this.endX){
             this.removeFromList(item);
             item.bought = false;

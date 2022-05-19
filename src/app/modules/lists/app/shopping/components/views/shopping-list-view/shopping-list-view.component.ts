@@ -1,12 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Item, ListAggregate} from "../../../../domain/list-model";
-import {ListService} from "../../../../application/list.service";
-import {Location} from "@angular/common";
-import {ShoppingListService} from "../../../services/shopping-list.service";
-import {ActivatedRoute} from "@angular/router";
-import {ShoppingItem, ShoppingModel} from "../../../shoppinglist/domain/shopping-model";
-import {ShoppingStoreService} from "../../../shoppingstores/application/shopping-store.service";
-import {Store, StoreAggregate} from "../../../shoppingstores/domain/store-model";
+import {Item, ListAggregate} from '../../../../domain/list-model';
+import {ListService} from '../../../../application/list.service';
+import {Location} from '@angular/common';
+import {ShoppingListService} from '../../../services/shopping-list.service';
+import {ActivatedRoute} from '@angular/router';
+import {ShoppingItem, ShoppingModel} from '../../../shoppinglist/domain/shopping-model';
+import {ShoppingStoreService} from '../../../shoppingstores/application/shopping-store.service';
+import {Store, StoreAggregate} from '../../../shoppingstores/domain/store-model';
+import {Message, MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-shopping-list-view',
@@ -29,18 +30,30 @@ export class ShoppingListViewComponent implements OnInit {
 
     public stores: StoreAggregate[];
 
-    constructor( private storeService: ShoppingStoreService, private service: ListService , private shoppingService: ShoppingListService, private route: ActivatedRoute, private location: Location) { }
+    constructor( private storeService: ShoppingStoreService, private service: ListService , private shoppingService: ShoppingListService,
+                 private route: ActivatedRoute, private message: MessageService,
+                 private location: Location) { }
 
   ngOnInit(){
-      this.route.paramMap.subscribe( map=>{
-          this.shoppingService.list( map.get('id') , (model:ShoppingModel)=>{
+    this.init();
+  }
+
+  public init(){
+      console.log('init lists');
+      this.model = undefined;
+      this.route.paramMap.subscribe( map => {
+          this.shoppingService.list( map.get('id') , (model: ShoppingModel) => {
               this.model = model;
           });
       });
       this.storeService.stores( (aggregates => {
-        this.stores = aggregates;
+          this.stores = aggregates;
       }) , () => {} );
-      //this.shoppingService.shoppingStream.subscribe( (m)=>this.model = m );
+  }
+
+  public reload(){
+        this.shoppingService.clearCache();
+        this.init();
   }
 
     set list( l: ListAggregate ){
@@ -70,7 +83,7 @@ export class ShoppingListViewComponent implements OnInit {
     }
 
     public removeItem( item: Item){
-        this.shoppingService.remove( this.model.id , item.id , (m:ShoppingModel) => {
+        this.shoppingService.remove( this.model.id , item.id , (m: ShoppingModel) => {
             this.model = m;
         });
     }
@@ -86,12 +99,19 @@ export class ShoppingListViewComponent implements OnInit {
 
 
     addStore($event: Store) {
-        if( $event ){
-            if( !this.model.storeGroupedList[$event.storeId.id] ){
+        if ( $event ){
+            if ( !this.model.storeGroupedList[$event.storeId.id] ){
                 this.model.storeGroupedList[$event.storeId.id]  = new Array<ShoppingItem>();
                 console.log(this.model.storeGroupedList);
                 this.newStoreView = false;
             }
         }
+    }
+
+    successSettlement( event: Message ) {
+        console.log('clear cache and reload');
+        console.log(event);
+        this.message.add( event );
+        this.reload();
     }
 }

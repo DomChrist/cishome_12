@@ -6,6 +6,7 @@ import {ListResponse} from "../../web/list-response";
 import {Item, ListAggregate} from "../../domain/list-model";
 import {ShoppingModel} from "../shoppinglist/domain/shopping-model";
 import {MessageService} from "primeng/api";
+import {Settlement} from "../settlement/domain/model";
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,16 @@ export class ShoppingListService {
 
   constructor( private http: CisHttpService, private message: MessageService) { }
 
-    public open( id:string ): ShoppingModel{
+    public open( id: string ): ShoppingModel{
         return this.shoppingList(id);
     }
 
-    public list( id:string , success:( model:ShoppingModel )=>void ){
+    public clearCache(): ShoppingListService{
+      this.shoppingModel = undefined;
+      return this;
+    }
+
+    public list( id: string , success:( model: ShoppingModel )=>void ){
         if( this.shoppingModel && this.shoppingModel.id === id ){
             success(this.shoppingModel);
         } else {
@@ -35,7 +41,7 @@ export class ShoppingListService {
         }
     }
 
-    public shoppingList( id:string ): ShoppingModel{
+    public shoppingList( id: string ): ShoppingModel{
         this.http.cisGet<ShoppingModel>( 'list/shoppinglist/query/v1/' + id ).subscribe( (resp)=>{
             console.log(resp.body);
             this.shoppingModel = resp.body;
@@ -44,22 +50,20 @@ export class ShoppingListService {
         return this.shoppingModel;
     }
 
-    public addItem( name:string , store:string , onSuccess:(resp:HttpResponse<any>) => void ) : Observable<HttpResponse<any>>{
+    public addItem( name: string , store: string , onSuccess:(resp: HttpResponse<any>) => void ): Observable<HttpResponse<any>>{
         console.log( 'addItem' );
         console.log(this.shoppingModel);
-        const uri = 'list/shopping/cmd/v1/list/'+this.shoppingModel.id+'/add/item';
-        if( store && store === 'default' ) store = null;
-        let request = {
+        const uri = 'list/shopping/cmd/v1/list/'+ this.shoppingModel.id + '/add/item';
+        if ( store && store === 'default' ) store = null;
+        const request = {
             itemName : name,
             counter : 1,
-            store : store
-        }
+            store
+        };
         console.log('request');
         console.log(request);
         let obs = this.http.cisPut<ListResponse<any>>( uri , request);
-
-        obs.subscribe( (data)=>{
-            //this.load(reference);
+        obs.subscribe( (data) => {
             onSuccess(data);
         });
         return obs;
@@ -97,15 +101,37 @@ export class ShoppingListService {
             } );
     }
 
-    remove(list: string, itemId: string , success:(agg:ShoppingModel)=>void) {
-        const uri = 'list/shopping/cmd/v1/list/'+list+'/remove/item/' + itemId;
-        this.http.cisDelete<ShoppingModel>( uri ).subscribe( (resp)=>{
-            this.message.add( {severity:'success' , summary:'Item deleted'} );
+    remove(list: string, itemId: string , success:(agg: ShoppingModel) => void) {
+        const uri = 'list/shopping/cmd/v1/list/' + list + '/remove/item/' + itemId;
+        this.http.cisDelete<ShoppingModel>( uri ).subscribe( (resp) => {
+            this.message.add( {severity: 'success' , summary: 'Item deleted'} );
             this.shoppingModel = resp.body;
             success( this.shoppingModel );
         } , error => {
-            this.message.add( {severity:'error' , summary:'Something went wrong'} );
+            this.message.add( {severity: 'error' , summary: 'Something went wrong'} );
+        });
+    }
+
+    public openSettlement( s: Settlement, success: () => void ){
+
+        const list = s.items.map(i => {
+            return {
+                name : i.item.name,
+                count : i.counter
+            };
         });
 
+        const request = {
+            storeId : s.store.id,
+            amount : s.sum,
+            products : list
+        };
+        console.log( request );
+        this.http.cisPost( 'list/shopping/settlement/v1/cmd', request )
+            .subscribe( (resp) => {
+                this.message.add( {severity: 'success' , summary: 'Settlement submitted'} );
+                window.setTimeout( () => success() , 1000 );
+            });
     }
+
 }

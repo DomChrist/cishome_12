@@ -1,7 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {StoreId} from "../../../../shoppingstores/domain/store-model";
-import {ShoppingItem} from "../../../../shoppinglist/domain/shopping-model";
-import {Settlement, SettlementItem} from "../../../domain/model";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {StoreId} from '../../../../shoppingstores/domain/store-model';
+import {ShoppingItem} from '../../../../shoppinglist/domain/shopping-model';
+import {Settlement, SettlementItem} from '../../../domain/model';
+import {ShoppingListService} from '../../../../services/shopping-list.service';
+import {Message} from 'primeng/api';
 
 @Component({
   selector: 'app-shopping-settlement-dialog',
@@ -10,69 +12,82 @@ import {Settlement, SettlementItem} from "../../../domain/model";
 })
 export class ShoppingSettlementDialogComponent implements OnInit {
 
-  constructor() { }
+  constructor( private settlement: ShoppingListService ) { }
 
-  private _storeId: StoreId;
-  private _list: Array<ShoppingItem>;
-  private _model: Settlement;
+  private $storeId: StoreId;
+  private $list: Array<ShoppingItem>;
+  private $model: Settlement;
 
-  private _sum: string = '0,00';
+  private $sum = '0,00';
   public input: number;
 
-  ngOnInit(): void {
-      this._model = Settlement.withShoppingItems(this._storeId , this._list);
+  @Output() successSettlement = new EventEmitter<Message>();
+
+
+    ngOnInit(): void {
+      this.$model = Settlement.withShoppingItems(this.$storeId , this.$list);
       console.log( 'model' );
-      console.log( this._model );
+      console.log( this.$model );
+  }
+
+  public submit(){
+      this.$model.sum = this.input / 100;
+      this.settlement.openSettlement( this.$model , () => { this.successSettlement.emit({severity: 'success' , summary: 'Abrechnung erfolgreich erstellt', detail: 'Neue Abrechnung verfügbar'}); } );
   }
 
   @Input()
-  set store( s:string ){
-      this._storeId = {
+  set store( s: string ){
+      this.$storeId = {
           id : s
-      }
+      };
   }
 
   @Input()
-  set shoppingList( list:Array<ShoppingItem> ){
+  set shoppingList( list: Array<ShoppingItem> ){
       console.log(' list items =  ' + list.length);
-      this._list = list;
+      this.$list = list;
   }
 
 
     get model(): Settlement {
-        return this._model;
+        return this.$model;
     }
 
 
     get sum(): string {
-        return this._sum;
+        return this.$sum;
     }
 
     set sum(value: string) {
-        this._sum = value;
+        this.$sum = value;
     }
 
     handle(event: KeyboardEvent) {
-        let number = Number(event.key);
-        if( Number.isNaN(number) ){
-            if( event.key === 'Backspace' ){
+        if ( event.key === 'Enter' ){
+            this.submit();
+            return;
+        }
+
+        const n = Number(event.key);
+        if ( Number.isNaN(n) ){
+            if ( event.key === 'Backspace' ){
                 this.input = Math.floor( this.input / 10 );
             }
-        } else if( !this.input || this.input <= 0 ){
+        } else if ( !this.input || this.input <= 0 ){
             this.input = Number(event.key);
         } else {
-            let nNumber = Number( String(this.input) + event.key );
+            const nNumber = Number( String(this.input) + event.key );
             this.input = nNumber;
         }
         this.inputToSum();
     }
 
     private inputToSum(){
-        let number = this.input / 100;
-        if( Number.isNaN(number) ){
-            this._sum = "0,00";
+        const n = this.input / 100;
+        if ( Number.isNaN(n) ){
+            this.$sum = '0,00';
         } else {
-            this._sum = String(number).replace(".",",");
+            this.$sum = String(n).replace('.', ',');
         }
     }
 

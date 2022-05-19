@@ -6,7 +6,7 @@ const cisHome = {
 };
 
 const keycloak = {
-    host : "http://cis-home.selfhost.eu:10582/auth/realms/CIS/account/",
+    host : "http://cis-home.selfhost.eu:10582/auth/realms/CIS/cishome/",
     realm : "CIS",
     client: "cishome",
 };

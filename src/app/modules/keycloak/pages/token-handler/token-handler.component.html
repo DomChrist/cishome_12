@@ -1,4 +1,4 @@
-<div class="p-grid" style="margin-top: 15%">
+<div *ngIf="!error" class="p-grid" style="margin-top: 15%">
 
     <div class="p-offset-4"></div>
     <div class="p-col-4">
@@ -16,5 +16,29 @@
         </p-card>
     </div>
     <div class="p-offset-4"></div>
+
+</div>
+
+<div *ngIf="error">
+    <div class="exception-body accessdenied-body">
+        <div class="exception-panel">
+            <img src="assets/layout/images/exception/icon-access.png"/>
+            <p-button label="GO TO DASHBOARD" [routerLink]="['/']"></p-button>
+        </div>
+
+        <div class="exception-band" style="height: 140px;">
+            <div class="exception-content">
+                <h3> {{error.error}} AUTHENTICATION FAILED</h3>
+                <div *ngIf="error">
+                    <p>{{error.errorText}}</p>
+                </div>
+                <div *ngIf="error">
+                    <p>{{error.text}}</p>
+                </div>
+                <img src="assets/layout/images/logo.png"/>
+            </div>
+        </div>
+    </div>
+
 
 </div>
