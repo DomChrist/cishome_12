@@ -38,6 +38,7 @@ import { ShoppingListPipe } from './app/shopping/shoppinglist/adapter/components
 import { ShoppingSettlementDialogComponent } from './app/shopping/settlement/adapter/component/shopping-settlement-dialog/shopping-settlement-dialog.component';
 import {KeyFilterModule} from 'primeng/keyfilter';
 import { CurrencyPipe } from './app/shopping/settlement/adapter/component/shopping-settlement-dialog/currency.pipe';
+import { AudioRecordComponent } from './app/shopping/components/audio-record/audio-record.component';
 
 
 
@@ -62,7 +63,8 @@ import { CurrencyPipe } from './app/shopping/settlement/adapter/component/shoppi
       AddNewStoreComponent,
       ShoppingListPipe,
       ShoppingSettlementDialogComponent,
-      CurrencyPipe
+      CurrencyPipe,
+      AudioRecordComponent
   ],
     imports: [
         CommonModule,

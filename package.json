@@ -26,6 +26,7 @@
         "@fullcalendar/daygrid": "^5.8.0",
         "@fullcalendar/interaction": "^5.8.0",
         "@fullcalendar/timegrid": "^5.8.0",
+        "@types/dom-mediacapture-record": "^1.0.11",
         "browserify": "^17.0.0",
         "buffer": "^6.0.3",
         "chart.js": "^3.3.2",
