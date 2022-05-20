@@ -38,6 +38,13 @@ import { ShoppingListPipe } from './app/shopping/shoppinglist/adapter/components
 import { ShoppingSettlementDialogComponent } from './app/shopping/settlement/adapter/component/shopping-settlement-dialog/shopping-settlement-dialog.component';
 import {KeyFilterModule} from 'primeng/keyfilter';
 import { CurrencyPipe } from './app/shopping/settlement/adapter/component/shopping-settlement-dialog/currency.pipe';
+import {ListTodoDashboardComponent} from "./app/todo/view/page/list-todo-dashboard/list-todo-dashboard.component";
+import {DividerModule} from "primeng/divider";
+import {ListboxModule} from "primeng/listbox";
+import { CreateNewTodoDialogComponent } from './app/todo/view/component/create-new-todo-dialog/create-new-todo-dialog.component';
+import { TodoWeekLineComponent } from './app/todo/view/component/todo-week-line/todo-week-line.component';
+import {DataViewModule} from "primeng/dataview";
+import {CalendarModule} from "primeng/calendar";
 
 
 
@@ -62,7 +69,10 @@ import { CurrencyPipe } from './app/shopping/settlement/adapter/component/shoppi
       AddNewStoreComponent,
       ShoppingListPipe,
       ShoppingSettlementDialogComponent,
-      CurrencyPipe
+      ListTodoDashboardComponent,
+      CurrencyPipe,
+      CreateNewTodoDialogComponent,
+      TodoWeekLineComponent
   ],
     imports: [
         CommonModule,
@@ -82,7 +92,11 @@ import { CurrencyPipe } from './app/shopping/settlement/adapter/component/shoppi
         CheckboxModule,
         SpeedDialModule,
         ScrollPanelModule,
-        KeyFilterModule
+        KeyFilterModule,
+        DividerModule,
+        ListboxModule,
+        DataViewModule,
+        CalendarModule
     ],
     providers : [
         {provide: LocationStrategy, useClass: PathLocationStrategy},

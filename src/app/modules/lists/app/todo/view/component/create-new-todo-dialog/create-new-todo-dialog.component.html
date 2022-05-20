@@ -1,0 +1,36 @@
+
+
+
+<p-dialog [(visible)]="visible"
+          [style]="{width:'100%'}"
+          position="bottom"
+          [modal]="true"
+          (close)="visibleChange.emit(false)" >
+
+    <div style="padding: 5px;">
+
+        <div>
+            <span class="p-float-label">
+                <input id="float-input" [(ngModel)]="title" type="text" style="width: 100%;" pInputText>
+                <label for="float-input">Title</label>
+            </span>
+        </div>
+
+        <div>
+
+            <p-calendar [(ngModel)]="due" appendTo="body" ></p-calendar>
+
+        </div>
+
+        <div>
+            <button
+                pButton
+                style="width: 100%;"
+                (click)="save()"
+                label="OK"></button>
+        </div>
+
+    </div>
+
+
+</p-dialog>

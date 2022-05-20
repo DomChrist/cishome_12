@@ -23,7 +23,7 @@ export class ListDashboardComponent implements OnInit {
     this.load();
     this.listTypes = [
         {name: 'SHOPPING', icon: 'pi pi-cart' , path: 'shopping'},
-        {name: 'TODO', icon: 'pi pi-cart' , path: 'shopping'},
+        {name: 'TODO', icon: 'pi pi-cart' , path: 'todo'},
         {name: 'DEFAULT', icon: 'pi pi-cart' , path: 'shopping'}
     ]
   }
@@ -55,7 +55,7 @@ export class ListDashboardComponent implements OnInit {
   }
 
   get isPending(): boolean{
-      if( this.httpState === READY_STATE.PENDING ) return true;
+      if ( this.httpState === READY_STATE.PENDING ) return true;
       return false;
   }
 

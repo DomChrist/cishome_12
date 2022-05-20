@@ -12,6 +12,7 @@ import {
 import {
     ShoppingStoreDashboardComponent
 } from "./app/shopping/shoppingstores/adapter/view/shopping-store-dashboard/shopping-store-dashboard.component";
+import {ListTodoDashboardComponent} from "./app/todo/view/page/list-todo-dashboard/list-todo-dashboard.component";
 
 /*
 const routes = [
@@ -32,6 +33,7 @@ const shopping = {
 
 const routes = [
     { path: '' , component: ListDashboardComponent },
+    {path: 'todo' , component: ListTodoDashboardComponent},
     { path: 'shopping' , component: ShoppingRootViewComponent},
     { path: 'shopping/products' , component: ProductOverviewComponent},
     { path: 'shopping/stores' , component: ShoppingStoreDashboardComponent},

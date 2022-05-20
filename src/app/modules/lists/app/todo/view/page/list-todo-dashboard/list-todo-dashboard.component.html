@@ -1,0 +1,159 @@
+
+
+<div *ngIf="!sm && response">
+
+
+    <div class="p-grid">
+
+        <div class="p-col-3">
+            <p-divider>Calendar</p-divider>
+            <div style="padding-left: 10px;">
+                <div class="calendar-filter calendar-today" (click)="todayFilter()" >
+                    <i class="pi pi-calendar"></i>
+                    <label>Today</label>
+                </div>
+                <div class="calendar-filter calendar-current-week " (click)="currentWeek()" >
+                    <i class="pi pi-calendar"></i>
+                    <label>Current Week</label>
+                </div>
+                <div class="calendar-filter calendar-next-week" (click)="nextWeek()" >
+                    <i class="pi pi-calendar"></i>
+                    <label>Next Week</label>
+                </div>
+                <div *ngIf="filterActive" class="calendar-filter calendar-next-week" (click)="clearFilter()" >
+                    <i class="pi pi-calendar"></i>
+                    <label>All</label>
+                </div>
+            </div>
+
+            <p-divider>Flags</p-divider>
+            <div style="padding-left: 10px;">
+                <div class="calendar-filter calendar-today" >
+                    <i class="pi pi-star"></i>
+                    <label>Important</label>
+                </div>
+                <div class="calendar-filter calendar-current-week " >
+                    <i class="pi pi-times-circle"></i>
+                    <label>Overdue</label>
+                </div>
+
+            </div>
+
+            <p-divider>Kategorien</p-divider>
+            <div style="padding-left: 10px;">
+                <div class="calendar-filter" *ngFor="let cat of response.categories">
+                        <p-checkbox [binary]="true"></p-checkbox>
+                        <label style="">
+                            {{cat}}
+                        </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-col-9">
+
+            <p-divider> ({{response.list.length}}) TODOS</p-divider>
+
+            <div style="margin-bottom: 15px;">
+                <app-todo-week-line></app-todo-week-line>
+            </div>
+
+            <div *ngFor="let t of list" style="margin-bottom: 10px;">
+
+                <p-card>
+                    <i icon="pi pi-point"></i>
+                    {{t.title}}
+                    <div style="text-align: right">
+                        <button pButton
+                                (click)="done(t.id)"
+                                class="p-button-success p-button-outlined"
+                                icon="pi pi-check"></button>
+                    </div>
+                </p-card>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<div *ngIf="sm && response" >
+    <div class="p-grid">
+
+        <div class="p-col-12">
+
+            <p-divider> ({{response.list.length}}) TODOS</p-divider>
+
+            <div style="margin-bottom: 15px;">
+                <app-todo-week-line></app-todo-week-line>
+            </div>
+
+            <div *ngFor="let t of response.list" style="margin-bottom: 10px;">
+
+                <p-card>
+                    <i icon="pi pi-point"></i>
+                    {{t.title}}
+                </p-card>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+    <app-create-new-todo-dialog #createDialog  [(visible)]="showDialog" ></app-create-new-todo-dialog>
+
+    <p-speedDial [style]="{ position:'fixed', bottom: '55px', left: 'calc(50% - 2em)' }" [model]="buttons" direction="up"></p-speedDial>
+
+    <p-sidebar [(visible)]="showFilter"
+               *ngIf="sm && response"
+               [style]="{width:'400px'}"
+               position="left" [modal]="true">
+        <div class="">
+            <p-divider>Calendar</p-divider>
+            <div style="padding-left: 10px;">
+                <div class="calendar-filter calendar-today" >
+                    <i class="pi pi-calendar"></i>
+                    <label>Today</label>
+                </div>
+                <div class="calendar-filter calendar-current-week " >
+                    <i class="pi pi-calendar"></i>
+                    <label>Current Week</label>
+                </div>
+                <div class="calendar-filter calendar-next-week" >
+                    <i class="pi pi-calendar"></i>
+                    <label>Next Week</label>
+                </div>
+            </div>
+
+            <p-divider>Flags</p-divider>
+            <div style="padding-left: 10px;">
+                <div class="calendar-filter calendar-today" >
+                    <i class="pi pi-star"></i>
+                    <label>Important</label>
+                </div>
+                <div class="calendar-filter calendar-current-week " >
+                    <i class="pi pi-times-circle"></i>
+                    <label>Overdue</label>
+                </div>
+
+            </div>
+
+            <p-divider>Kategorien</p-divider>
+            <div style="padding-left: 10px;">
+                <div class="calendar-filter" *ngFor="let cat of response.categories">
+                    <p-checkbox [binary]="true"></p-checkbox>
+                    <label style="">
+                        {{cat}}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </p-sidebar>

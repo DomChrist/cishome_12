@@ -1,0 +1,35 @@
+div.calendar-filter{
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+div.calendar-filter:hover{
+    text-decoration: underline;
+}
+
+div.calendar-filter > i {
+    font-size: 1.2em;
+}
+
+div.calendar-filter > label {
+    font-size: 1.2em;
+    font-weight: bold;
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+div.calendar-today{
+    color: #8A5340;
+}
+
+div.calendar-current-week{
+    color: #00a0b4;
+}
+
+div.calendar-next-week{
+    color: #5180ce;
+}
+
+.category > label {
+    font-size: 1.2em; font-weight: bold;
+}
