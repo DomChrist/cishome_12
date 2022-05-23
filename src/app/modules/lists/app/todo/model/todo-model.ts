@@ -4,7 +4,7 @@
         title: string;
         description: string;
         category: string;
-        due?: any;
+        due?: Date;
         important: boolean;
         overdue: boolean;
         daysUntil: number;
@@ -29,4 +29,17 @@
         overdue: boolean;
         currentWeek: boolean;
         nextWeek: boolean;
+    }
+
+    export class FilterCategory{
+        public active = true;
+        public name: string;
+
+        public static with( s: string ): FilterCategory {
+            const c = new FilterCategory();
+            c.name = s;
+            c.active = true;
+            return c;
+        }
+
     }

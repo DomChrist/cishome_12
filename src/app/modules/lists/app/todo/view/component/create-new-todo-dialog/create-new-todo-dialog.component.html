@@ -3,6 +3,7 @@
 
 <p-dialog [(visible)]="visible"
           [style]="{width:'100%'}"
+          header="NEW TODO"
           position="bottom"
           [modal]="true"
           (close)="visibleChange.emit(false)" >
@@ -11,18 +12,30 @@
 
         <div>
             <span class="p-float-label">
-                <input id="float-input" [(ngModel)]="title" type="text" style="width: 100%;" pInputText>
+                <input id="float-input" [(ngModel)]="request.title" type="text" style="width: 100%;" pInputText>
                 <label for="float-input">Title</label>
             </span>
         </div>
 
-        <div>
-
-            <p-calendar [(ngModel)]="due" appendTo="body" ></p-calendar>
-
+        <div class="mTop15">
+            <span class="p-float-label">
+                <p-calendar id="float-input-calendar" dateFormat="dd.mm.yy" locale="de_DE"
+                            [style]="{width:'100%'}"
+                        [(ngModel)]="request.due" appendTo="body" ></p-calendar>
+                <label for="float-input-calendar">Due Date</label>
+            </span>
         </div>
 
-        <div>
+        <div class="mTop15">
+            <span class="p-float-label">
+                <input id="float-input-category" [(ngModel)]="request.category" type="text" style="width: 100%;" pInputText>
+                <label for="float-input-category">Category</label>
+            </span>
+        </div>
+
+
+
+        <div class="mTop15">
             <button
                 pButton
                 style="width: 100%;"

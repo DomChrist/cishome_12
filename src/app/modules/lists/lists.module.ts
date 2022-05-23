@@ -45,6 +45,8 @@ import { CreateNewTodoDialogComponent } from './app/todo/view/component/create-n
 import { TodoWeekLineComponent } from './app/todo/view/component/todo-week-line/todo-week-line.component';
 import {DataViewModule} from "primeng/dataview";
 import {CalendarModule} from "primeng/calendar";
+import { TodoPipe } from './app/todo/view/page/todo.pipe';
+import { TodoComponent } from './app/todo/view/component/todo/todo.component';
 
 
 
@@ -72,7 +74,9 @@ import {CalendarModule} from "primeng/calendar";
       ListTodoDashboardComponent,
       CurrencyPipe,
       CreateNewTodoDialogComponent,
-      TodoWeekLineComponent
+      TodoWeekLineComponent,
+      TodoPipe,
+      TodoComponent
   ],
     imports: [
         CommonModule,

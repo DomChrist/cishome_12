@@ -1,15 +1,73 @@
 
-<div class="days">
-    <div *ngFor="let l of line.todoWeekLineDates"
-         class="day" [class.today]="l.isToday" >
 
+<div class="p-grid">
+
+    <div class="day p-col-4 p-sm-4 p-md-1" (click)="select(line.todoWeekLineDates[0].date)" >
         <div>
-            <div>
-                <label>{{ line.day(l.date.getDay()) }}</label>
-            </div>
-            <div>
-                <label>{{l.date | date : 'dd.MM'}}</label>
-            </div>
+            <label>{{ line.day(line.todoWeekLineDates[0].date.getDay()) }}</label>
+        </div>
+        <div>
+            <label>{{line.todoWeekLineDates[0].date | date : 'dd.MM'}}</label>
         </div>
     </div>
+
+    <div class="day p-col-4 p-sm-4 p-md-1" (click)="select(line.todoWeekLineDates[1].date)" >
+        <div>
+            <label>{{ line.day(line.todoWeekLineDates[1].date.getDay()) }}</label>
+        </div>
+        <div>
+            <label>{{line.todoWeekLineDates[1].date | date : 'dd.MM'}}</label>
+        </div>
+    </div>
+
+    <div class="day p-col-4 p-sm-4 p-md-1" (click)="select(line.todoWeekLineDates[2].date)" >
+        <div>
+            <label>{{ line.day(line.todoWeekLineDates[2].date.getDay()) }}</label>
+        </div>
+        <div>
+            <label>{{line.todoWeekLineDates[2].date | date : 'dd.MM'}}</label>
+        </div>
+    </div>
+
+    <div class="day today p-col-12 p-sm-12 p-md-6" (click)="select(line.todoWeekLineDates[3].date)" >
+        <div>
+            <label>{{ line.day(line.todoWeekLineDates[3].date.getDay()) }}</label>
+        </div>
+        <div>
+            <label>{{line.todoWeekLineDates[3].date | date : 'dd.MM'}}</label>
+        </div>
+    </div>
+
+    <div class="day p-col-4 p-sm-4 p-md-1" (click)="select(line.todoWeekLineDates[4].date)" >
+        <div>
+            <label>{{ line.day(line.todoWeekLineDates[4].date.getDay()) }}</label>
+        </div>
+        <div>
+            <label>{{line.todoWeekLineDates[4].date | date : 'dd.MM'}}</label>
+        </div>
+    </div>
+
+    <div class="day p-col-4 p-sm-4 p-md-1" (click)="select(line.todoWeekLineDates[5].date)" >
+        <div>
+            <label>{{ line.day(line.todoWeekLineDates[5].date.getDay()) }}</label>
+        </div>
+        <div>
+            <label>{{line.todoWeekLineDates[5].date | date : 'dd.MM'}}</label>
+        </div>
+    </div>
+
+    <div class="day p-col-4 p-sm-4 p-md-1" (click)="select(line.todoWeekLineDates[6].date)" >
+        <div>
+            <label>{{ line.day(line.todoWeekLineDates[6].date.getDay()) }}</label>
+        </div>
+        <div>
+            <label>{{line.todoWeekLineDates[6].date | date : 'dd.MM'}}</label>
+        </div>
+    </div>
+
+</div>
+<div>
+    <button style="float: left;" (click)="previousWeek()" pButton icon="pi pi-arrow-left" ></button>
+    <button style="float: right;" (click)="nextWeek()" pButton icon="pi pi-arrow-right" ></button>
+    <div style="clear: both"></div>
 </div>

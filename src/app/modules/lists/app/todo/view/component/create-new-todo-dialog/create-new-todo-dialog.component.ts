@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TodoListServiceService} from "../../../application/todo-list-service.service";
+import {TodoListService} from "../../../application/todo-list.service";
 import {Todo} from "../../../model/todo-model";
 import {NewTodoCommand} from "../../../model/todo-commands";
 
@@ -10,7 +10,7 @@ import {NewTodoCommand} from "../../../model/todo-commands";
 })
 export class CreateNewTodoDialogComponent implements OnInit {
 
-  constructor( private $service: TodoListServiceService) { }
+  constructor( private $service: TodoListService) { }
 
   @Input('visible')
   visible: boolean = false;
@@ -21,22 +21,27 @@ export class CreateNewTodoDialogComponent implements OnInit {
   public title: string;
   public due: Date;
 
-  ngOnInit(): void {
-  }
+  public request = new NewTodoCommand();
+
+
+    ngOnInit(): void {
+        this.request = new NewTodoCommand();
+    }
 
   public save(){
-      const requestDate = new Date(Date.UTC(this.due.getFullYear(), this.due.getMonth(), this.due.getDate()));
+      if( this.request.due ){
+          console.log( this.request.due );
+          this.request.due = new Date(Date.UTC(this.request.due.getFullYear(), this.request.due.getMonth(), this.request.due.getDate()));
+          console.log( this.request.due );
+      }
 
-      const request = new NewTodoCommand();
-      request.title = this.title;
-      request.due = requestDate;
+      console.log(this.request);
 
-      console.log(request);
-
-      this.$service.save( request , (t: Todo) => {
+      this.$service.save( this.request , (t: Todo) => {
         this.visible = false;
-        this.title = '';
+        this.request = new NewTodoCommand();
       });
   }
 
 }
+

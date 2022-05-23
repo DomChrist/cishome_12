@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {CisAuthService} from "./system/cis-connector/services/cis-auth-service";
-import {CisDashboardComponent} from "./pages/dashboard/cis-dashboard/cis-dashboard.component";
-import {DashboardService} from "./pages/dashboard/cis-dashboard/dashboard.service";
+import {CisAuthService} from './system/cis-connector/services/cis-auth-service';
+import {DashboardService} from './pages/dashboard/cis-dashboard/dashboard.service';
 
 @Component({
     selector: 'app-menu',
@@ -28,7 +27,7 @@ export class AppMenuComponent implements OnInit {
 
         this.model = [];
 
-        this.model.push( {label: 'Dashboard' , icon:'pi pi-home' , routerLink: '/'} );
+        this.model.push( {label: 'Dashboard' , icon: 'pi pi-home' , routerLink: '/'} );
 
         this.dashboard.modules
             .filter( f => f.card && f.card.link )

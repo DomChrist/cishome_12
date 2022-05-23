@@ -1,0 +1,17 @@
+<p-card>
+    <i icon="pi pi-point"></i>
+    <label style="font-size: 1.4em;" >{{t.title}}</label>
+
+    <div>
+        <div style="float: left; padding-top: 10px;">
+            <p-tag [value]="t.category"></p-tag>
+        </div>
+        <button pButton
+                (click)="done()"
+                style="float: right;"
+                class="p-button-success p-button-outlined"
+                icon="pi pi-check"></button>
+    </div>
+
+    <div style="clear: both"></div>
+</p-card>

@@ -33,3 +33,17 @@ div.calendar-next-week{
 .category > label {
     font-size: 1.2em; font-weight: bold;
 }
+
+@media( min-width: 767px ){
+    .left-filter{
+        display: block;
+    }
+}
+
+
+@media( max-width: 767px ){
+    .left-filter{
+        display: none;
+    }
+}
+

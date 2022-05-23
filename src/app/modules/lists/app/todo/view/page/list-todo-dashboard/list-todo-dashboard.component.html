@@ -1,11 +1,11 @@
 
 
-<div *ngIf="!sm && response">
+<div>
 
 
     <div class="p-grid">
 
-        <div class="p-col-3">
+        <div class=" left-filter p-col-3">
             <p-divider>Calendar</p-divider>
             <div style="padding-left: 10px;">
                 <div class="calendar-filter calendar-today" (click)="todayFilter()" >
@@ -20,7 +20,7 @@
                     <i class="pi pi-calendar"></i>
                     <label>Next Week</label>
                 </div>
-                <div *ngIf="filterActive" class="calendar-filter calendar-next-week" (click)="clearFilter()" >
+                <div *ngIf="filter.filterActive" class="calendar-filter calendar-next-week" (click)="clearFilter()" >
                     <i class="pi pi-calendar"></i>
                     <label>All</label>
                 </div>
@@ -39,38 +39,40 @@
 
             </div>
 
-            <p-divider>Kategorien</p-divider>
-            <div style="padding-left: 10px;">
-                <div class="calendar-filter" *ngFor="let cat of response.categories">
-                        <p-checkbox [binary]="true"></p-checkbox>
-                        <label style="">
-                            {{cat}}
-                        </label>
+            <div *ngIf="categories">
+                <p-divider>Kategorien</p-divider>
+                <div style="padding-left: 10px;">
+                    <div class="calendar-filter" *ngFor="let cat of categories">
+                            <p-checkbox [(ngModel)]="cat.active"
+                                        (onChange)="categoryFilter($event, cat)"
+                                        [binary]="true"></p-checkbox>
+                            <label style="">
+                                {{cat.name}}
+                            </label>
+                    </div>
                 </div>
             </div>
+
         </div>
 
-        <div class="p-col-9">
+        <div class="p-col-12 p-sm-12 p-md-9" style="margin-bottom: 150px;">
 
-            <p-divider> ({{response.list.length}}) TODOS</p-divider>
+            <p-divider> ({{response?.list?.length}}) TODOS</p-divider>
 
-            <div style="margin-bottom: 15px;">
-                <app-todo-week-line></app-todo-week-line>
+            <div style="margin-bottom: 20px;">
+                <app-todo-week-line (selected)="dateFilter($event)" ></app-todo-week-line>
             </div>
 
-            <div *ngFor="let t of list" style="margin-bottom: 10px;">
+            <div *ngIf="filterActive" #filterview style="font-size: 3em;">
+                <p-tag [style]="{size:'2em'}" severity="danger" icon="pi pi-times" value="FILTER" (click)="clearFilter()" ></p-tag>
+            </div>
 
-                <p-card>
-                    <i icon="pi pi-point"></i>
-                    {{t.title}}
-                    <div style="text-align: right">
-                        <button pButton
-                                (click)="done(t.id)"
-                                class="p-button-success p-button-outlined"
-                                icon="pi pi-check"></button>
-                    </div>
-                </p-card>
-
+            <div class="p-grid">
+                <div class="p-col-12 p-sm-12 p-md-4 p-xl-4"
+                     *ngFor="let t of filteredViewList"
+                     style="margin-bottom: 10px;">
+                    <todo-todoitem [todo]="t" (onDone)="done($event.id)"></todo-todoitem>
+                </div>
             </div>
 
         </div>
@@ -81,39 +83,15 @@
 
 </div>
 
-<div *ngIf="sm && response" >
-    <div class="p-grid">
-
-        <div class="p-col-12">
-
-            <p-divider> ({{response.list.length}}) TODOS</p-divider>
-
-            <div style="margin-bottom: 15px;">
-                <app-todo-week-line></app-todo-week-line>
-            </div>
-
-            <div *ngFor="let t of response.list" style="margin-bottom: 10px;">
-
-                <p-card>
-                    <i icon="pi pi-point"></i>
-                    {{t.title}}
-                </p-card>
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-</div>
 
     <app-create-new-todo-dialog #createDialog  [(visible)]="showDialog" ></app-create-new-todo-dialog>
 
-    <p-speedDial [style]="{ position:'fixed', bottom: '55px', left: 'calc(50% - 2em)' }" [model]="buttons" direction="up"></p-speedDial>
+    <p-speedDial
+        direction="up"
+        radius="80" type="semi-cirlce"
+        [style]="{ position:'fixed', bottom: '55px', left: 'calc(50% - 2em)' }" [model]="buttons" ></p-speedDial>
 
     <p-sidebar [(visible)]="showFilter"
-               *ngIf="sm && response"
                [style]="{width:'400px'}"
                position="left" [modal]="true">
         <div class="">
@@ -146,14 +124,17 @@
 
             </div>
 
-            <p-divider>Kategorien</p-divider>
-            <div style="padding-left: 10px;">
-                <div class="calendar-filter" *ngFor="let cat of response.categories">
-                    <p-checkbox [binary]="true"></p-checkbox>
-                    <label style="">
-                        {{cat}}
-                    </label>
+            <div *ngIf="response">
+                <p-divider>Kategorien</p-divider>
+                <div style="padding-left: 10px;">
+                    <div class="calendar-filter" *ngFor="let cat of allCategories">
+                        <p-checkbox [binary]="true"></p-checkbox>
+                        <label style="">
+                            {{cat}}
+                        </label>
+                    </div>
                 </div>
             </div>
+
         </div>
     </p-sidebar>

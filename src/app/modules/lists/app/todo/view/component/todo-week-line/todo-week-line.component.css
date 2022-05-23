@@ -1,13 +1,14 @@
 .day{
-    width: 12.1%;
-    margin-right: 10px;
-    float: left;
+    padding-left: 2px;
+    padding-right: 2px;
     text-align: center;
-    padding: 5px;
-
     background: #ffffff;
     color: silver;
     box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+}
+
+.day:hover{
+    color: #5180ce;
 }
 
 .today{
